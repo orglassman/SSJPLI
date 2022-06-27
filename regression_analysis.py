@@ -14,7 +14,7 @@ def test1():
     """
     simple run
     """
-    path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
+    path = "...nursery.csv"
     name = 'Nursery'
     num_atts = 9
     l = 3
@@ -40,7 +40,7 @@ def test2():
     """
     test for 2 different values of l
     """
-    path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
+    path = "...\\nursery.csv"
     name = 'Nursery'
     num_atts = 9
     l1 = 3          # expecting shorter init time, longer query processing time
@@ -76,7 +76,7 @@ def test3():
     """
     for given l, test various queries
     """
-    path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
+    path = "...\\nursery.csv"
     name = 'Nursery'
     num_atts = 9
     l = 3
@@ -112,7 +112,7 @@ def test4():
     test leapfrog init in relation c'tor
     (expecting leapfrog init to be faster than traditional)
     """
-    path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
+    path = "...\\nursery.csv"
     name = 'Nursery'
     num_atts = 9
     l = 3
@@ -161,7 +161,7 @@ def test_leapfrog_init_time():
     """
     test the init time for leapfrog init compared to traditional init
     """
-    path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
+    path = "...\\nursery.csv"
     name = 'Nursery'
     num_atts = 9
     l = 3
