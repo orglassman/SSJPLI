@@ -1,13 +1,6 @@
-"""
-1. given CSV, and partition parameter l, partition table into ceil(K/l) subtables (c'tor)
-2. given X \subseteq \Omega, locate relevant tables (get_freqneucy)
-3. perform leapfrog join on TID tables by iterating TID entries for every possible x \in X (get_frequency)
-"""
 from math import ceil
 
-import time
 import more_itertools as mit
-import numpy as np
 import pandas as pd
 
 from common import convert_to_numeric, swap, intersection
@@ -195,7 +188,6 @@ class relation:
         singles = powerset[:K_l]
         rest = powerset[K_l:]
 
-
         single_cnts, single_tids = self.gen_freq_tables(singles, subtable_name)
         rest_cnts, rest_tids = self.gen_freq_tables_rest(rest, single_tids)
 
@@ -205,6 +197,10 @@ class relation:
 
 
     def gen_freq_tables_rest(self, rest, single_tids):
+        """
+        currently: leapfrog over single attributes
+        future: leapfog over previously built tables (min-set cover problem)
+        """
         all_attributes = self._attributes
 
         cnts = {}
@@ -212,7 +208,7 @@ class relation:
 
         for x in rest:
             # intersect x with single attributes
-            curr_intersection = list(tuple(sorted(intersection(x, all_attributes))))
+            curr_intersection = sorted(intersection(x, all_attributes))
             col_name = ','.join(curr_intersection)
 
             # fetch required TID tables
