@@ -9,7 +9,6 @@ def rename_columns(df):
     """
     set '0', '1', '2', ...
     as dataframe header
-    first row is lost (caused some bugs, and is meaningless for large N)
     """
     # create column name array
     num_atts = len(df.columns)
@@ -24,10 +23,6 @@ def rename_columns(df):
     # rename
     df = df.set_axis(new_columns, axis=1, inplace=False)
 
-    # append row (causes bugs with letter dataset)
-    # to_append = pd.Series(first_row, index=df.columns)
-    # df = df.append(to_append, ignore_index=True)
-
     return df
 
 def colToExcel(col):
@@ -36,8 +31,6 @@ def colToExcel(col):
     1 -> A
     2 -> B
     27 -> AA
-    :param col:
-    :return:
     """
     excelCol = str()
     div = col + 1
@@ -90,16 +83,6 @@ def cartesian_product_multi(*dfs):
     return pd.DataFrame(
         np.column_stack([df.values[idx[:,i]] for i,df in enumerate(dfs)]))
 
-def convert_attribute_num_str(str):
-    """
-    convert '_1' to 0
-    '_2' to 1
-    etc.
-    """
-    x = list(str)
-    x.pop(0)
-    return int(''.join(x)) - 1
-
 def binary_search(arr, x):
     low = 0
     high = len(arr) - 1
@@ -112,41 +95,15 @@ def binary_search(arr, x):
     while low <= high:
         mid = (high + low) // 2
 
-        # if x is greater, ignore left half
         if arr[mid] < x:
             low = mid + 1
-
-        # if x is smaller, ignore right half
         elif arr[mid] > x:
             high = mid - 1
-
-        # this means x is present at mid
         else:
             return mid
 
-    # if reached here, return closeset element > x
+    # reached here, return closeset element > x
     return low
-
-# merge sort for iterators
-def merge(left_dict, right_dict):
-    if not len(left_dict) or not len(right_dict):
-        return left_dict or right_dict
-
-    result = []
-    i, j = 0, 0
-    while (len(result) < len(left_dict) + len(right_dict)):
-        if left_dict[i] < right_dict[j]:
-            result.append(left_dict[i])
-            i += 1
-        else:
-            result.append(right_dict[j])
-            j += 1
-
-        if i == len(left_dict) or j == len(right_dict):
-            result.extend(left_dict[i:] or right_dict[j:])
-            break
-
-    return result
 
 def mergesort(it_dict):
     """perform merge sort on iterators (based on key)"""

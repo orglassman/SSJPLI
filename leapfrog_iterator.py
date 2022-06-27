@@ -17,7 +17,11 @@ class leapfrog_iterator():
         # make everything hashable
         keys = table.iloc[:,0].to_list()
         values = table.iloc[:, 1].to_list()
-        self._dict = dict(zip(keys, values))
+        key_dict = dict(zip(keys, values))
+
+        # remove empty lists
+        clean_dict = {i:j for i,j in key_dict.items() if j != []}
+        self._dict = clean_dict
         self._instance_iterator = iter(self._dict)
 
         # iterate over instances

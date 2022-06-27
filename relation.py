@@ -16,17 +16,20 @@ from leapfrog_join import leapfrog_join
 
 
 class relation:
-    def __init__(self, path, name, num_atts, l=2):
+    def __init__(self, path, name, num_atts, l=2, leapfrog_init=False):
         """
         path  - input CSV
         name  - arbitrary
         l     - partition parameter. partition K attributes into ceil(K/l) groups
+        leapfrog_init - if True, construct frequency tables for single attributes first and perform leapfrog
+            to obtain the rest. otherwise each subtable generated individually
         """
         self._path = path
         self._name = name
         self._l = l
         self._num_atts = num_atts
         self._num_subtables = ceil(self._num_atts / self._l)
+        self._leapfrog_init = leapfrog_init
 
         self.check_num_atts()  # check that l < K. otherwise set l=1
         self.load_data()  # load df
@@ -137,13 +140,19 @@ class relation:
 
             # generate powerset (lexicographically sorted elements)
             powerset = [sorted(x) for x in list(mit.powerset(attributes))]
-            # remove the empty set & set itself
+            # remove empty set & set itself
             powerset.pop(0)
 
             # prevent popping off the top for single attributes
             if K_l > 1:
                 powerset.pop(-1)
-            cnt_tables, tid_tables = self.gen_freq_tables(powerset, subtable_name)
+
+            # June 26: construct tables for single attributes first.
+            # perform leapfrog join on single attribute tables to obtain the rest
+            if self._leapfrog_init:
+                cnt_tables, tid_tables = self.gen_freq_tables_leapfrog(powerset, subtable_name, K_l)
+            else:
+                cnt_tables, tid_tables = self.gen_freq_tables(powerset, subtable_name)
 
             # save
             cnt_structure[subtable_name] = cnt_tables
@@ -177,6 +186,52 @@ class relation:
             TIDs[key] = TID
 
         return CNTs, TIDs
+
+    def gen_freq_tables_leapfrog(self, powerset, subtable_name, K_l):
+        """
+        a. generate CNT TID tables for single attributes
+        b. perform leapfrog on single CNT TID tables to obtain rest
+        """
+        singles = powerset[:K_l]
+        rest = powerset[K_l:]
+
+
+        single_cnts, single_tids = self.gen_freq_tables(singles, subtable_name)
+        rest_cnts, rest_tids = self.gen_freq_tables_rest(rest, single_tids)
+
+        all_cnts = {**single_cnts, **rest_cnts}
+        all_tids = {**single_tids, **rest_tids}
+        return all_cnts, all_tids
+
+
+    def gen_freq_tables_rest(self, rest, single_tids):
+        all_attributes = self._attributes
+
+        cnts = {}
+        tids = {}
+
+        for x in rest:
+            # intersect x with single attributes
+            curr_intersection = list(tuple(sorted(intersection(x, all_attributes))))
+            col_name = ','.join(curr_intersection)
+
+            # fetch required TID tables
+            required_tids = [single_tids[(curr_intersection[i],)] for i in range(len(curr_intersection))]
+
+            # perform leapfrog on single attributes
+            iterators = [leapfrog_iterator(table) for table in required_tids]
+            LFJ = leapfrog_join(iterators)
+            x_res = LFJ.join(merge_attributes=True, return_keys=True)
+
+            # get COUNT and TID
+            x_cnt = x_res.loc[:,[col_name, 'COUNT']]
+            x_tid = x_res.loc[:,[col_name, 'TID']]
+
+            # update
+            cnts[tuple(curr_intersection)] = x_cnt
+            tids[tuple(curr_intersection)] = x_tid
+
+        return cnts, tids
 
     def gen_cnt_table(self, df, attributes, name):
         """
@@ -240,10 +295,11 @@ class relation:
     def get_attributes(self):
         return list(self._attributes)
 
-    def get_frequency(self, X):
+    def get_frequency(self, X, remove_singletons=False):
         """
         for given set of attributes X (list), calculate frequency of every tuple
 
+        remove_singletones - if True, remove all entries where CNT is 0 or 1
         returns pd.DataFrame
         """
 
@@ -259,13 +315,11 @@ class relation:
         LFJ = leapfrog_join(iterators)
 
         output = LFJ.join()
-        return output
 
-    def get_subset(self, indices):
-        """
-        return subset of relation - only given indices
-        """
-        pass
+        if remove_singletons:
+            output = output.loc[output['COUNT'] > 1]
+
+        return output
 
     def intersect_X(self, X):
         """
@@ -301,37 +355,31 @@ class relation:
 def frequency_debug():
     """
     create single relation and get frequency for every tuple
-    X - subset of Omega
+    X - subset of \Omega
 
     determine all possible values for x \in X
-    and calculate frequency for every value
+    calculate frequency for every value
     """
-    nursery_path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
-    nursery_name = 'Nursery'
-    nursery_num_atts = 9
-    nursery_l = 3
+    # nursery
+    # nursery_path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
+    # nursery_name = 'Nursery'
+    # nursery_num_atts = 9
+    # nursery_l = 3
+    # R = relation(path=nursery_path, name=nursery_name, num_atts=nursery_num_atts, l=nursery_l, leapfrog_init=True)
+    # X = ['A', 'B', 'D']
+    # freq_X = R.get_frequency(X)
 
+    # credit
     credit_path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Credit\\credit.csv"
     credit_name = 'Credit'
     credit_num_atts = 16
-    credit_l = 8
+    credit_l = 4
 
-    # nursery
-    R = relation(path=nursery_path, name=nursery_name, num_atts=nursery_num_atts, l=nursery_l)
-    X = ['A', 'B', 'D']
-    Y = ['A', 'C']
-    Z = ['C', 'E', 'H']  # corresponds to [A,B,D]
-    freq_ABD = R.get_frequency(X)
-    freq_AC = R.get_frequency(Y)
-    freq_CEH = R.get_frequency(Z)
-
-    # credit
-    S = relation(path=credit_path, name=credit_name, num_atts=credit_num_atts, l=credit_l)
+    S = relation(path=credit_path, name=credit_name, num_atts=credit_num_atts, l=credit_l, leapfrog_init=True)
     X = ['A0', 'A3', 'A5', 'A10', 'A12']
-    freq_0351012 = S.get_frequency(X)
+    freq_0351012 = S.get_frequency(X, remove_singletons=True)
 
     print('-I- Finished')
-
 
 def RST_debug():
     csv1 = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\LeapfrogPYJoin\\test\\R.csv"  # A,B
@@ -349,7 +397,6 @@ def RST_debug():
     joined2 = R.join(S).join(T)
 
     print("hello world!")
-
 
 if __name__ == '__main__':
     frequency_debug()

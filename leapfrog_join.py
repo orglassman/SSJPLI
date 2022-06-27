@@ -1,9 +1,7 @@
 import itertools
-
 import pandas as pd
-import heapq as heap
-from common import cartesian_product_multi, convert_attribute_num_str, mergesort
-from minheap import minheap
+
+from common import mergesort
 
 
 class leapfrog_join():
@@ -17,15 +15,28 @@ class leapfrog_join():
         self._iterators = dict(zip(attributes, iterators))
         self._attributes = attributes
 
-    def join(self):
+    def join(self, merge_attributes=False, return_keys=False):
         """
         perform leapfrog join:
         1. multiply iterators (get all possible instances)
         2. do leapfrog for every possible instance (in separate method)
+
+        merge_attributes - if True, squeeze attributes into single column. e.g. ['A', 'B'] -> ['A,B']
+        return_keys - if True, append list of keys as well as frequency for every instance
+        i.e.
+        return not only CNT but also TID for joined table
         """
         # init empty result df
         attributes = self._attributes
-        columns = attributes + ['frequency']
+        if merge_attributes:
+            merged = ','.join(attributes)
+            columns = [merged, 'COUNT']
+        else:
+            columns = attributes + ['COUNT']
+
+        if return_keys:
+            columns.append('TID')
+
         res_entries = []
 
         # get all possible instances for given attributes (possible bottleneck)
@@ -42,22 +53,31 @@ class leapfrog_join():
                 self.sort_iterators(current_instance)
 
                 # main work horse - perform leapfrog for every instance
-                freq = self.join_single_instance(current_instance)
+                res = self.join_single_instance(return_keys=return_keys)
 
-                entry = list(current_instance) + [freq]
+                if merge_attributes:
+                    frequency = res[0]
+                    tids = res[1]
+                    entry = [','.join(list(current_instance)), frequency, tids]
+                else:
+                    frequency = res
+                    entry = list(current_instance) + [frequency]
                 res_entries.append(entry)
 
         except StopIteration:
             print(f'-I- Finished iterating over all instances for attributes {attributes}')
 
+
         res = pd.DataFrame(res_entries, columns=columns)
         return res
 
-    def join_single_instance(self, instance):
+    def join_single_instance(self, return_keys):
         """
         row: dictionary where
         keys are ['Index', '_1', '_2',...]
         items are [index, instance for attribute 0, instance for attribute 1,...]
+
+        return_keys - if True, return not only CNT but also TID for instance
         """
 
         # simply count how many times current vector appears in joined relation
@@ -66,6 +86,9 @@ class leapfrog_join():
         keys = set.intersection(*sets)
 
         freq = len(keys)
+        if return_keys:
+            return [freq, list(keys)]
+
         return freq
 
         ###
