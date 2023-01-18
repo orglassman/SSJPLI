@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="push to dragon" />
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="remove old dir">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baseline_utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/baseline_utilities.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +38,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/entropy.py" />
@@ -284,7 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674043281865</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="remove old dir">
+      <created>1674044078755</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1674044078755</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -307,7 +318,8 @@
     <MESSAGE value="leapfrog init added" />
     <MESSAGE value="need to solve min-set cover for leapfrog init" />
     <MESSAGE value="push to dragon" />
-    <option name="LAST_COMMIT_MESSAGE" value="push to dragon" />
+    <MESSAGE value="remove old dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove old dir" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -382,11 +394,6 @@
           <url>file://$PROJECT_DIR$/baseline_utilities.py</url>
           <line>69</line>
           <option name="timeStamp" value="534" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/relation.py</url>
-          <line>944</line>
-          <option name="timeStamp" value="535" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

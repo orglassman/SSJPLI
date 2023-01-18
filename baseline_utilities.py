@@ -22,7 +22,7 @@ def read_cfg(args):
 
 def create_dir(name, args):
     out_dir = args.out_dir
-    dataset_dir = f'{out_dir}\\{name}'
+    dataset_dir = f'{out_dir}{os.sep}{name}'
     if os.path.exists(dataset_dir):
         shutil.rmtree(dataset_dir)
     os.mkdir(dataset_dir)
@@ -30,7 +30,7 @@ def create_dir(name, args):
     baselines = ['PLI', 'Kenig', 'project', 'SSJ', 'PSSJ', 'MSSJ']
     dirs = {}
     for baseline in baselines:
-        baseline_dir = f'{dataset_dir}\\{baseline}'
+        baseline_dir = f'{dataset_dir}{os.sep}{baseline}'
         os.mkdir(baseline_dir)
         dirs[baseline] = baseline_dir
 
@@ -78,9 +78,9 @@ def run_relation(R, path, queries, out_dir):
 
     df = pd.DataFrame(data)
     df.sort_values(by=['query', 'joins', 'time'])
-    df.to_csv(f'{out_dir}\\out.csv', index=False)
+    df.to_csv(f'{out_dir}{os.sep}out.csv', index=False)
 
-    out_file = f'{out_dir}\\out.pkl'
+    out_file = f'{out_dir}{os.sep}out.pkl'
     with open(out_file, 'wb') as F:
         pickle.dump(data, F)
 
