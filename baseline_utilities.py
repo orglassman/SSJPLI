@@ -2,7 +2,7 @@ import os
 import pickle
 import shutil
 import time
-from configparser import ConfigParser
+from configparser import SafeConfigParser
 
 import pandas as pd
 
@@ -13,7 +13,7 @@ from relation import Relation
 def read_cfg(args):
     cfg_path = args.cfg
 
-    config_parser = ConfigParser()
+    config_parser = SafeConfigParser(os.environ)
     config_parser.read(cfg_path)
 
     as_dict = config_parser.__dict__
