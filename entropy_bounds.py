@@ -57,7 +57,6 @@ class EntropyFrame():
         axes[1].set_title('Sample Size vs. Coverage')
         plt.show()
 
-
     def plot_main(self):
         plt.figure()
         plt.xlabel('coverage %')
@@ -99,13 +98,16 @@ def plot_main(coverages, Hs, HSs, U1s, U2s, NSs, name, Qstr):
 
 
 def estimate_entropy_main():
+
+
     # population_sizes = range(1, 241)
     # queries = randomize_queries(R.get_attributes(), N=500)
     # coverages = [x/100 for x in range(1,100)]
     # HF = EntropyFrame(path=csv1, coverages=[1])
 
     # build database
-    R = Relation(path=config.letter['path'], l=3, pace=100000)
+    path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\School_Results\\school_results.csv"
+    R = Relation(path=path, coverage=coverage)
     X = config.letter['X']
     data, stats = R.entropy_framework(X, coverage=1)
 

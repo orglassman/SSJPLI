@@ -9,7 +9,6 @@ import pandas as pd
 from common import randomize_queries, calculate_entropy
 from relation import Relation
 
-
 def read_cfg(args):
     cfg_path = args.cfg
 
@@ -42,6 +41,12 @@ def gen_queries(path):
 
     attributes = header.split(',')
     return randomize_queries(attributes)
+
+def init_all_data(queries, coverages):
+    res = {}
+    for q in queries:
+        res[','.join(q)] = {c:{} for c in coverages}
+    return res
 
 def run_relation(R, path, queries, out_dir):
     qs = []
@@ -84,13 +89,12 @@ def run_relation(R, path, queries, out_dir):
     with open(out_file, 'wb') as F:
         pickle.dump(data, F)
 
-# BASELINES MAIN
-# def run_PLI(name, path, cfg, queries, out_dir):
 def run_PLI(out_dir, **kwargs):
     path = kwargs['path']
     name = kwargs['name']
     queries = kwargs['queries']
     R = Relation(path=path, name=name, mode='pli')
+    print(f'-I- Running PLI for {name}')
     run_relation(R, path, queries, out_dir)
     del R
 
@@ -101,6 +105,7 @@ def run_Kenig(out_dir, **kwargs):
     cfg = kwargs['cfg']
     l = cfg['PARAMS']['l']
     R = Relation(path=path, name=name, l=l)
+    print(f'-I- Running Kenig for {name}')
     run_relation(R, path, queries, out_dir)
     del R
 
@@ -109,6 +114,7 @@ def run_project(out_dir, **kwargs):
     name = kwargs['name']
     queries = kwargs['queries']
     R = Relation(path=path, name=name, mode='project')
+    print(f'-I- Running projection for {name}')
     run_relation(R, path, queries, out_dir)
     del R
 
@@ -116,21 +122,23 @@ def run_SSJ(out_dir, **kwargs):
     path = kwargs['path']
     name = kwargs['name']
     queries = kwargs['queries']
-    cfg = kwargs['cfg']
-    l = cfg['PARAMS']['l']
-    R = Relation(path=path, name=name, l=l, mode='ssj')
-    run_relation(R, path, queries, out_dir)
-    del R
 
-def run_PSSJ(out_dir, **kwargs):
-    path = kwargs['path']
-    name = kwargs['name']
-    queries = kwargs['queries']
-    cfg = kwargs['cfg']
-    l = cfg['PARAMS']['l']
-    coverage = cfg['PARAMS']['coverage']
-    R = Relation(path=path, name=name, l=l, mode='pssj', coverage=coverage)
-    run_relation(R, path, queries, out_dir)
+    coverages = [x/10 for x in range(5,11)]
+    all_data = init_all_data(queries, coverages)
+    R = Relation(path=path, name=name, mode='ssj')
+    print(f'-I- Running SSJ for {name}')
+
+    for X in queries:
+        name = ','.join(X)
+        for c in coverages:
+            # generate data
+            res_data = R.entropy_framework(X, c)
+            all_data[name][c] = res_data
+
+    out_file = f'{out_dir}{os.sep}out.pkl'
+    with open(out_file, 'wb') as F:
+        pickle.dump(all_data, F)
+
     del R
 
 def run_MSSJ(out_dir, **kwargs):
@@ -141,6 +149,7 @@ def run_MSSJ(out_dir, **kwargs):
     l = cfg['PARAMS']['l']
     coverage = cfg['PARAMS']['coverage']
     R = Relation(path=path, name=name, l=l, mode='mssj', coverage=coverage)
+    print(f'-I- Running MSSJ for {name}')
     run_relation(R, path, queries, out_dir)
     del R
 
@@ -152,9 +161,9 @@ def run_CSSJ(out_dir, **kwargs):
     l = cfg['PARAMS']['l']
     coverage = cfg['PARAMS']['coverage']
     R = Relation(path=path, name=name, l=l, mode='cssj', coverage=coverage)
+    print(f'-I- Running CSSJ for {name}')
     run_relation(R, path, queries, out_dir)
     del R
-
 
 # MAIN FLOW
 def run_baselines_dataset(name, path, cfg, args):
@@ -166,9 +175,8 @@ def run_baselines_dataset(name, path, cfg, args):
         run_Kenig,
         run_project,
         run_SSJ,
-        run_PSSJ,
-        run_MSSJ,
-        run_CSSJ
+        # run_MSSJ,
+        # run_CSSJ
     ]
 
     kwargs = {

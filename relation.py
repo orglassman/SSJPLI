@@ -384,7 +384,7 @@ class Relation:
 
         res = {}
         sampled = {}
-        sampled_empty = {}
+        sampled_empty = []
         samples = 0
 
         while (total_sampled < target_N):
@@ -422,7 +422,7 @@ class Relation:
                 L = len(intersection_indices)
 
                 if L < 2:
-                    sampled_empty[x] = 1
+                    sampled_empty.append(x)
                 else:
                     res[x] = intersection_indices
 
@@ -440,6 +440,7 @@ class Relation:
         res_data = {
             'frequencies': res,
             'num_samples': samples,
+            'empty_samples': sampled_empty
         }
         return res_data
 
@@ -515,23 +516,30 @@ class Relation:
         key1 = list(target_tids.keys())[0]
         first = target_tids.pop(key1)
 
+        res_data = {
+            'num_samples': 0,
+            'empty_samples': []
+        }
+
         res_name = key1
-        res = first
+        temp_tid = first
         while len(target_tids):
             # pop next element in target tids
             nkey = list(target_tids.keys())[0]
             next = target_tids.pop(nkey)
 
             next_targets = {
-                res_name: res,
+                res_name: temp_tid,
                 nkey: next
             }
             res_name += ',' + nkey
-            res = self.sequential_sampling(next_targets)['frequencies']
+            temp_res = self.sequential_sampling(next_targets)
+            temp_tid = temp_res['frequencies']
 
-        res_data = {
-            'frequencies': res
-        }
+            res_data['num_samples'] += temp_res['num_samples']
+            res_data['empty_samples'] += temp_res['empty_samples']
+            res_data['frequencies'] = temp_res['frequencies']
+
         return res_data
 
     # ------------------------------------------------------------------
@@ -565,14 +573,13 @@ class Relation:
             if xset==set(k.split(',')):
                 return k
 
-    def get_product_set_size(self, target_tids):
-        domain_sizes = []
-        for x,tids in target_tids.items():
-            domain_sizes.append(len(tids))
-
+    def get_product_set_size(self, X):
+        p = sorted(X)
         res = 1
-        for d in domain_sizes:
-            res *= d
+        df = pd.read_csv(self._path, usecols=p)
+        for col in p:
+            card = len(df[col].value_counts())
+            res *= card
 
         return res
 
@@ -611,120 +618,6 @@ class Relation:
             'joins': None
         }
         return res_data
-
-    # def stratified_entropy(self, X, num_strata=10):
-    #     """
-    #     X - query
-    #     pop_size - size of pupulation per stratum
-    #     """
-        # if len(X)==self._M:
-        #     return np.log2(self.N)
-
-        # p = sorted(X)
-        # target_tids = self.intersect(p)
-
-        # generate product set
-        # product_set = self.cartesian_product(target_tids)
-        # product_size = self.cp_size(target_tids)
-        # stratify product set
-        # num_populations = int(ps_size * population_ratio)
-        # strata, num_strata = self.stratify(product_set, product_size, num_strata)
-
-        # for every stratum, estimate entropy
-        # Ls = []
-        # accum = 0
-        # for s in strata.keys():
-        #     sampled_L = self.stratum_entropy(strata[s], target_tids, p) # sample single instance in stratum
-        #     mus.append(mu)
-        #     vars.append(variance)
-        #     Ls.append(sampled_L)
-
-            # take average length * set size
-            # accum += sampled_L * len(strata[s]) * np.log2(sampled_L * len(strata[s]))
-        #
-        # return np.log2(self.N)-accum/(self.N * num_strata)
-
-    # ------------------------------------------------------------------
-    # STRATIFIED ENTROPY -----------------------------------------------
-    # ------------------------------------------------------------------
-    # def cp_size(self, target_tids):
-    #     """
-    #     calculate size of product set
-    #     """
-    #     lens = [len(target_tids[k]) for k in target_tids.keys()]
-    #     size = 1
-    #     for l in lens:
-    #         size *= l
-    #
-    #     return size
-
-    # def stratify(self, product_set, N, num_strata):
-    #     """
-    #     partition product set (of size N) to num_pops groups
-    #     randomize to avoid bias
-    #     """
-
-        # strata = {k: [] for k in range(num_strata)}
-        #
-        # temp = []
-        # fill in first sample size elements
-        # try:
-        #     for _ in range(N):
-        #         temp.append(next(product_set))
-        # except StopIteration:
-        #     raise ValueError("-E- Sample larger than population")
-        #
-        # random.shuffle(temp)
-        #
-        # for i in range(N):
-        #     strat_num = random.randint(0, num_strata-1)
-        #     strata[strat_num].append(temp[i])  # at a decreasing rate, replace random items
-        #
-        # assert sum([len(strata[k]) for k in strata.keys()]) == N
-
-        # remove empty populations
-        # for k in list(strata.keys()):
-        #     if not strata[k]:
-        #         del strata[k]
-        #
-        # new_num_pops = len(strata)
-        # return strata, new_num_pops
-
-    # def stratum_entropy(self, stratum, target_tids, p):
-    #     """
-    #     stratum - population of instances
-    #     """
-    #     Ls = []
-    #     mus = []
-    #     vars = []
-
-        # randomly select instance
-        # instance = random.choice(stratum)
-
-        # OBSOLETE: sample single instance to represent stratum rather than traversing it
-        # for x in stratum:
-        # lists = []
-        # try:
-        #     lists = [target_tids[attribute][value] for attribute, value in zip(target_tids.keys(), instance)]
-        # except:
-            # print(f'-E- {p}: failed to access TID for instance {x}')
-            # pass
-        #
-        #     execute join
-        # sets = map(set, lists)
-        # intersection_indices = sorted(list(set.intersection(*sets)))
-            #
-        # if len(intersection_indices) > 1:
-        #     return len(intersection_indices)
-        #
-        # S = sum(Ls)
-        # normalized = [l/S for l in Ls]
-        # stratum_H = entropy(normalized, base=2)
-        #
-        # mu = np.average(Ls)
-        # variance = np.var(Ls)
-        #
-        # return mu, variance, stratum_H
 
     # ------------------------------------------------------------------
     #   CANDIDATES   ---------------------------------------------------
@@ -811,7 +704,7 @@ class Relation:
     def set_ps_params(self, coverage):
         self._coverage = coverage
         self._hybrid = False
-        self._candidates = 'ps'
+        self.mode = 'ssj'
 
     # ------------------------------------------------------------------
     #   PARALLEL    ----------------------------------------------------
@@ -841,6 +734,8 @@ class Relation:
         elif len(target_tids) == 1:
             key = list(target_tids.keys())[0]
             res_data['frequencies'] = target_tids[key]
+            res_data['num_samples'] = 0
+            res_data['empty_samples'] = []
             return res_data
 
         if self.mode == 'pli':
@@ -860,60 +755,62 @@ class Relation:
             print(f'-W- Join {p}: empty output; {p} is primary key')
             return None
 
-    # def entropy_framework(self, X, coverage):
-    #     # prior to sampling
-    #     self.set_ps_params(coverage)
-    #
-    #     # sample
-    #     frequencies, name, join_time, num_samples, empty_samples, product_set_size = self.get_frequency(X)
-    #
-    #
-    #
-    #
-    #
-    #     # analyze sample output
-    #     lens = [len(l) for l in frequencies.values()]     # number of entries per sampled instance
-    #     effective_N = sum(lens)                           # effective N covered
-    #     effective_coverage = effective_N / self.N         # rho
-    #     rho_bar = 1 - effective_coverage                  # rho bar
-    #
-    #     # Q_AB - distribution over non-sampled instances
-    #     active_domain = self.load_active_domain(X)                 # D_AB
-    #     sampled_domain = frequencies.keys()                        # S_AB
-    #     shared, not_shared = self.compare_domains(active_domain, sampled_domain) # not_shared = Q_AB
-    #     Q = self.get_Q_dist(not_shared, X)
-    #     H_Q = entropy(Q, base=2)
-    #
-    #     # S_AB - set of sampled instances (S_AB \subseteq D_AB)
-    #     S_dist = [l/effective_N for l in lens]
-    #     H_S = self.partial_entropy(lens)
-    #     H_S_normalized = entropy(S_dist, base=2)
-    #
-    #     # error terms
-    #     E_exact =  rho_bar * (H_Q-np.log2(rho_bar))            # this should add up to H along with H_S
-    #     E1 = rho_bar * (np.log2(len(not_shared)-np.log2(rho_bar)))
-    #     E2 = rho_bar * np.log2(self.N)
-    #     E3 = rho_bar * (product_set_size-len(sampled_domain)-len(empty_samples)-np.log2(rho_bar))
-    #
-    #     data = {
-    #         'partial_H_sampled':H_S,
-    #         'H_sampled_normalized':H_S_normalized,
-    #         'E_exact':E_exact,
-    #         'E1':E1,
-    #         'E2':E2,
-    #         'E3':E3
-    #     }
-    #     stats = {
-    #         'times':join_time,
-    #         'num_samples':num_samples,
-    #     }
-    #     return data, stats
+    def entropy_framework(self, X, coverage):
+        # prior to sampling
+        self.set_ps_params(coverage)
+
+        # sample
+        t1 = time.perf_counter()
+        res_data = self.get_frequency(X)
+        t2 = time.perf_counter()
+
+        frequencies = res_data['frequencies']
+        empty_samples = res_data['empty_samples']
+        num_samples = res_data['num_samples']
+
+        # analyze sample output
+        lens = [len(l) for l in frequencies.values()]     # number of entries per sampled instance
+        effective_N = sum(lens)                           # effective N covered
+        effective_coverage = effective_N / self.N         # rho >= sigma = coverage
+        rho_bar = 1 - effective_coverage                  # rho bar
+
+        # Q_AB - distribution over non-sampled instances
+        product_set_size = self.get_product_set_size(X)
+        active_domain = self.load_active_domain(X)                 # D_AB
+        sampled_domain = frequencies.keys()                        # S_AB
+        shared, not_shared = self.compare_domains(active_domain, sampled_domain) # not_shared = Q_AB
+        Q = self.get_Q_dist(not_shared, X)
+        H_Q = entropy(Q, base=2)
+
+        # S_AB - set of sampled instances (S_AB \subseteq D_AB)
+        S_dist = [l/effective_N for l in lens]
+        H_S = self.partial_entropy(lens)
+        H_S_normalized = entropy(S_dist, base=2)
+
+        # error terms
+        E_exact =  rho_bar * (H_Q-np.log2(rho_bar or 1))            # this should add up to H along with H_S
+        E1 = rho_bar * (np.log2((len(not_shared)-np.log2(rho_bar or 1)) or 1))
+        E2 = rho_bar * np.log2(self.N)
+        E3 = rho_bar * (product_set_size-len(sampled_domain)-len(empty_samples)-np.log2(rho_bar or 1))
+
+        # all lists because queries may repeat
+        res_data = {
+            'partial_H_sampled' : [H_S],
+            'H_sampled_normalized' : [H_S_normalized],
+            'E_exact' : [E_exact],
+            'E1' : [E1],
+            'E2' : [E2],
+            'E3' : [E3],
+            'times' : [t2-t1],
+            'num_samples' : [num_samples]
+        }
+        return res_data
 
     def get_attributes(self):
         return self._omega.copy()
 
     def entropy(self, X):
-        # access disk
+        # disk access
         if self.mode == 'project':
             return self.entropy_project(X)
 
@@ -945,7 +842,8 @@ def R_debug():
     csv1 = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\School_Results\\school_results.csv"
     name1 = 'school_results'
 
-    R = Relation(path=csv1, name=name1, mode='cssj')
+
+    R = Relation(path=csv1, name=name1, mode='ssj', coverage=0.7)
     R.entropy(['SCHOOL', 'MALEX'])
 
 if __name__ == '__main__':
