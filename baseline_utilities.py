@@ -103,7 +103,7 @@ def run_Kenig(out_dir, **kwargs):
     name = kwargs['name']
     queries = kwargs['queries']
     cfg = kwargs['cfg']
-    l = cfg['PARAMS']['l']
+    l = 3
     R = Relation(path=path, name=name, l=l)
     print(f'-I- Running Kenig for {name}')
     run_relation(R, path, queries, out_dir)
@@ -187,11 +187,25 @@ def run_baselines_dataset(name, path, cfg, args):
     }
 
     for func, dir in zip(baseline_funcs, dirs.values()):
-        func(dir, **kwargs)
+        try:
+            func(dir, **kwargs)
+        except Exception as e:
+            name = kwargs['name']
+            print(f'-E- Error for dataset {name}')
+            print(e)
+
 
 def run_baselines(args):
-    cfg = read_cfg(args)
-    datasets = cfg['DATASETS']
+    cfg = args.cfg
+    datasets = {
+            "abalone": "/data/home/orglassman/datasets/Abalone/abalone.csv",
+            "chess": "/data/home/orglassman/datasets/Chess/chess.csv",
+            "credit": "/data/home/orglassman/datasets/Credit/credit.csv",
+            "letter": "/data/home/orglassman/datasets/Letter/letter.csv",
+            "mushroom": "/data/home/orglassman/datasets/Mushroom/mushroom.csv",
+            "nursery": "/data/home/orglassman/datasets/Nursery/nursery.csv",
+            "school_results": "/data/home/orglassman/datasets/School_Results/school_results.csv"
+            }
 
     for name, path in datasets.items():
         run_baselines_dataset(name, path, cfg, args)

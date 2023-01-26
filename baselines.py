@@ -1,6 +1,6 @@
 import logging
 from argparse import ArgumentParser
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 import baseline_utilities as bu
 
 
