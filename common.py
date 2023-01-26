@@ -40,20 +40,42 @@ def colToExcel(col):
 
     return excelCol
 
-def convert_to_numeric(df):
-    """
-    convert all entries to numeric
-    essentially - we're interested in distribution of data not data itself
+def freedman_diaconis_binning(x):
+    q1 = x.quantile(0.25)
+    q3 = x.quantile(0.75)
+    n = len(x)
 
-    CONVERTING TO STRINGS RATHER THAN NUMBERS
+    width = 2 * (q3-q1) / np.cbrt(n)
+    if width:
+        num_bins = int(np.ceil((np.max(x)-np.min(x))/width))
+    else:
+        num_bins = 1
+    binned = pd.cut(x, bins=num_bins, labels=False)
+    return binned
+
+def preprocess(df):
     """
+    1. remove na
+    2. bin floats
+    3. encode labels
+
+    CONVERT TO STRINGS NOT INTEGERS
+    """
+    df = df.dropna()
+
     for column in df.columns:
         # get unique values
+        if df.dtypes[column] == 'float64':
+            x = freedman_diaconis_binning(df[column])
+            df[column] = x
+
         u = df[column].unique()
-        # gen a mapping series
+        # gen mapping series
         m = pd.Series([str(x) for x in range(len(u))], u)
         # encode
-        df[column] = df[column].map(m)
+        mapped = df[column].map(m)
+
+        df = df.assign(**{column: mapped})
     return df
 
 def swap(list, pos1, pos2):
@@ -221,7 +243,7 @@ def load_pickle(path):
 
 def calculate_entropy(path, q):
     p = sorted(q)
-    df = convert_to_numeric(pd.read_csv(path, usecols=p))
+    df = preprocess(pd.read_csv(path, usecols=p))
     dist = df.value_counts(normalize=True).values
     H = entropy(dist, base=2)
     return H

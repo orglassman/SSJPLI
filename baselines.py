@@ -37,7 +37,7 @@ logger = logging.getLogger()
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument('-cfg', help='path to cfg file')
+    parser.add_argument('-datasets', help='path to file containing all dataset paths')
     parser.add_argument('-out_dir', help='path to output directory')
 
     args = parser.parse_args()

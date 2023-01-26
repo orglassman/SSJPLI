@@ -9,15 +9,17 @@ import pandas as pd
 from common import randomize_queries, calculate_entropy
 from relation import Relation
 
-def read_cfg(args):
-    cfg_path = args.cfg
+def read_paths(paths):
+    datasets = {}
+    with open(paths, 'r') as F:
+        lines = F.read().splitlines()
 
-    config_parser = SafeConfigParser(os.environ)
-    config_parser.read(cfg_path)
+    pairs = [l.split(' ') for l in lines]
 
-    as_dict = config_parser.__dict__
-    data = as_dict['_sections']
-    return data
+    for pair in pairs:
+        datasets[pair[0]] = pair[1]
+
+    return datasets
 
 def create_dir(name, args):
     out_dir = args.out_dir
@@ -102,7 +104,6 @@ def run_Kenig(out_dir, **kwargs):
     path = kwargs['path']
     name = kwargs['name']
     queries = kwargs['queries']
-    cfg = kwargs['cfg']
     l = 3
     R = Relation(path=path, name=name, l=l)
     print(f'-I- Running Kenig for {name}')
@@ -145,10 +146,7 @@ def run_MSSJ(out_dir, **kwargs):
     path = kwargs['path']
     name = kwargs['name']
     queries = kwargs['queries']
-    cfg = kwargs['cfg']
-    l = cfg['PARAMS']['l']
-    coverage = cfg['PARAMS']['coverage']
-    R = Relation(path=path, name=name, l=l, mode='mssj', coverage=coverage)
+    R = Relation(path=path, name=name, mode='mssj')
     print(f'-I- Running MSSJ for {name}')
     run_relation(R, path, queries, out_dir)
     del R
@@ -157,16 +155,13 @@ def run_CSSJ(out_dir, **kwargs):
     path = kwargs['path']
     name = kwargs['name']
     queries = kwargs['queries']
-    cfg = kwargs['cfg']
-    l = cfg['PARAMS']['l']
-    coverage = cfg['PARAMS']['coverage']
-    R = Relation(path=path, name=name, l=l, mode='cssj', coverage=coverage)
+    R = Relation(path=path, name=name, mode='cssj')
     print(f'-I- Running CSSJ for {name}')
     run_relation(R, path, queries, out_dir)
     del R
 
 # MAIN FLOW
-def run_baselines_dataset(name, path, cfg, args):
+def run_baselines_dataset(name, path, args):
     dirs = create_dir(name, args)
     queries = gen_queries(path)
 
@@ -182,7 +177,6 @@ def run_baselines_dataset(name, path, cfg, args):
     kwargs = {
         'name': name,
         'path': path,
-        'cfg': cfg,
         'queries': queries,
     }
 
@@ -196,16 +190,8 @@ def run_baselines_dataset(name, path, cfg, args):
 
 
 def run_baselines(args):
-    cfg = args.cfg
-    datasets = {
-            "abalone": "/data/home/orglassman/datasets/Abalone/abalone.csv",
-            "chess": "/data/home/orglassman/datasets/Chess/chess.csv",
-            "credit": "/data/home/orglassman/datasets/Credit/credit.csv",
-            "letter": "/data/home/orglassman/datasets/Letter/letter.csv",
-            "mushroom": "/data/home/orglassman/datasets/Mushroom/mushroom.csv",
-            "nursery": "/data/home/orglassman/datasets/Nursery/nursery.csv",
-            "school_results": "/data/home/orglassman/datasets/School_Results/school_results.csv"
-            }
+    paths = args.datasets
+    datasets = read_paths(paths)
 
     for name, path in datasets.items():
-        run_baselines_dataset(name, path, cfg, args)
+        run_baselines_dataset(name, path, args)

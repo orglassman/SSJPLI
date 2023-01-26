@@ -1,17 +1,16 @@
 import itertools
 import random
-import sys
 import time
 from math import ceil
-from typing import Union, Any
 
 import more_itertools as mit
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
+from matplotlib import pyplot as plt
 from scipy.stats import entropy
 
-from common import convert_to_numeric, min_set_cover, flatten
+from common import min_set_cover, flatten, preprocess
 
 
 class Relation:
@@ -98,7 +97,7 @@ class Relation:
         """
         load data. convert to numeric
         """
-        df = convert_to_numeric(pd.read_csv(self._path, index_col=False))
+        df = preprocess(pd.read_csv(self._path, index_col=False))
         self._df = df
         self._omega = list(df.columns)
         self.N = df.shape[0]
@@ -328,7 +327,10 @@ class Relation:
                 continue
 
             if (len(intersection_indices)>1) or (singletons==True):
-                res[','.join(flatten(x))] = intersection_indices
+                try:
+                    res[','.join(flatten(x))] = intersection_indices
+                except:
+                    print('h')
 
         res_data = {
             'frequencies': res,
@@ -547,7 +549,7 @@ class Relation:
     # ------------------------------------------------------------------
     def load_active_domain(self, X):
         p = sorted(X)
-        df = convert_to_numeric(pd.read_csv(self._path, usecols=p))
+        df = preprocess(pd.read_csv(self._path, usecols=p))
         domain = df.value_counts().index.to_flat_index()
         flattened = [','.join(x) for x in domain]
         return flattened
@@ -595,7 +597,7 @@ class Relation:
 
     def entropy_project(self, X):
         p = sorted(X)
-        df = convert_to_numeric(pd.read_csv(self._path, usecols=p))
+        df = preprocess(pd.read_csv(self._path, usecols=p))
         instances = {}
         for t in range(self.N):
 
@@ -689,7 +691,7 @@ class Relation:
     def get_Q_dist(self, instances, X):
         # load data & flatten index
         p = sorted(X)
-        df = convert_to_numeric(pd.read_csv(self._path, usecols=X))
+        df = preprocess(pd.read_csv(self._path, usecols=X))
         counts = df.value_counts()
         gesheft = [','.join(x) for x in counts.index.to_flat_index()]
         counts.index = gesheft
@@ -839,12 +841,10 @@ class Relation:
         return res_data
 
 def R_debug():
-    csv1 = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\School_Results\\school_results.csv"
-    name1 = 'school_results'
-
-
-    R = Relation(path=csv1, name=name1, mode='ssj', coverage=0.7)
-    R.entropy(['SCHOOL', 'MALEX'])
+    csv1 = "a"
+    X = ['A']
+    R = Relation(path=csv1, mode='pli')
+    H = R.entropy(X)['H']
 
 if __name__ == '__main__':
     R_debug()
