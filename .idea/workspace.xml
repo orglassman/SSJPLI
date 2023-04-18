@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="baseline utilities update">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="binning and preprocessing">
+      <change afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cubic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mi_experiment.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pairwise.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plot_main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseline_utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/baseline_utilities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baselines.py" beforeDir="false" afterPath="$PROJECT_DIR$/baselines.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/common.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/relation.py" beforeDir="false" afterPath="$PROJECT_DIR$/relation.py" afterDir="false" />
     </list>
@@ -44,37 +49,16 @@
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/entropy.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/container.py" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.relation">
-    <configuration name="LFIT" type="PythonConfigurationType" factoryName="Python">
-      <module name="LeapfrogPYJoin" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old\leapfrog_iterator.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.container">
     <configuration name="baselines" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -96,7 +80,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="btree" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="container" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -108,8 +92,8 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old\B_tree.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/container.py" />
+      <option name="PARAMETERS" value="-alpha 5 -beta 6 -L 10 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -117,19 +101,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="draft" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="dataset" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/draft.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -159,7 +143,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="regression_analysis" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="mi_exp" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -171,8 +155,29 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old\regression_analysis.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mi_experiment.py" />
+      <option name="PARAMETERS" value="-card 100" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pairwise" type="PythonConfigurationType" factoryName="Python">
+      <module name="LeapfrogPYJoin" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pairwise.py" />
+      <option name="PARAMETERS" value="-card_a 8 -card_b 50 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\mutual_information_pairs&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -201,20 +206,37 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="sampler" type="PythonConfigurationType" factoryName="Python">
+      <module name="LeapfrogPYJoin" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sampler.py" />
+      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Letter\letter.csv&quot; -X A,B" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.LFIT" />
       <item itemvalue="Python.baselines" />
-      <item itemvalue="Python.btree" />
       <item itemvalue="Python.entropy" />
-      <item itemvalue="Python.regression_analysis" />
       <item itemvalue="Python.relation" />
-      <item itemvalue="Python.draft" />
+      <item itemvalue="Python.pairwise" />
+      <item itemvalue="Python.sampler" />
+      <item itemvalue="Python.container" />
+      <item itemvalue="Python.dataset" />
+      <item itemvalue="Python.mi_exp" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.draft" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -312,7 +334,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674672970047</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="binning and preprocessing">
+      <created>1674741450405</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1674741450405</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -338,7 +367,8 @@
     <MESSAGE value="remove old dir" />
     <MESSAGE value="os separator" />
     <MESSAGE value="baseline utilities update" />
-    <option name="LAST_COMMIT_MESSAGE" value="baseline utilities update" />
+    <MESSAGE value="binning and preprocessing" />
+    <option name="LAST_COMMIT_MESSAGE" value="binning and preprocessing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -416,8 +446,39 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/relation.py</url>
-          <line>332</line>
+          <line>330</line>
           <option name="timeStamp" value="487" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mi_experiment.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="537" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <line>335</line>
+          <option name="timeStamp" value="562" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <line>290</line>
+          <option name="timeStamp" value="567" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <condition expression="alpha==20" language="Python" />
+          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <line>315</line>
+          <option name="timeStamp" value="568" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <line>317</line>
+          <option name="timeStamp" value="569" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sampler.py</url>
+          <line>193</line>
+          <option name="timeStamp" value="638" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

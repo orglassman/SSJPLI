@@ -14,7 +14,8 @@ from common import min_set_cover, flatten, preprocess
 
 
 class Relation:
-    def __init__(self, path, name='unnamed', l=1, efficient_partition=True, parallel=False, mode='product', coverage=1, hybrid=True, growth=0.1, pace=20):
+    def __init__(self, path, name='unnamed', l=1, efficient_partition=True, parallel=False, mode='product', coverage=1,
+                 hybrid=True, growth=0.1, pace=20):
         """
         path                    - path to input CSV
         l                       - partition M attributes into K = ceil(M/l) subsets
@@ -50,10 +51,10 @@ class Relation:
         self.mode = mode
 
         # PS
-        self._coverage = float(coverage)    # percentage of output to cover thru sampling
-        self._hybrid = hybrid               # revert to product if sampling too slow
-        self._growth = growth               # track sampling - if too slow revert to product
-        self._pace = pace                   # track sampling - if too slow revert to product
+        self._coverage = float(coverage)  # percentage of output to cover thru sampling
+        self._hybrid = hybrid  # revert to product if sampling too slow
+        self._growth = growth  # track sampling - if too slow revert to product
+        self._pace = pace  # track sampling - if too slow revert to product
 
         # shared init methods
         self.load_data()
@@ -68,7 +69,7 @@ class Relation:
                 self.gen_multi_tids()
 
         t2 = time.perf_counter()
-        print(f'-I- Relation {name}: init time {t2-t1}')
+        print(f'-I- Relation {name}: init time {t2 - t1}')
 
     # ------------------------------------------------------------------
     #   INIT    --------------------------------------------------------
@@ -91,7 +92,6 @@ class Relation:
 
         if self.mode == 'pli':
             self.l = 1
-
 
     def load_data(self):
         """
@@ -210,14 +210,12 @@ class Relation:
                 if not cover:
                     continue
 
-
-                #TODO: fix swap issues
+                # TODO: fix swap issues
                 swap = False
                 res_name = ','.join(sorted(cover))
                 res_sorted_name = ','.join(p)
                 if res_sorted_name != res_name:
                     swap = True
-
 
                 res_data = self.PLI_join(target_tids)
                 frequencies = res_data['frequencies']
@@ -315,7 +313,7 @@ class Relation:
         for x in instances:
             lists = []
             try:
-                lists = [target_tids[attribute][value] for attribute,value in zip(target_tids.keys(), x)]
+                lists = [target_tids[attribute][value] for attribute, value in zip(target_tids.keys(), x)]
             except:
                 print(f'-E- {p}: failed to access TID for instance {x}')
 
@@ -326,7 +324,7 @@ class Relation:
             if not intersection_indices:
                 continue
 
-            if (len(intersection_indices)>1) or (singletons==True):
+            if (len(intersection_indices) > 1) or (singletons == True):
                 try:
                     res[','.join(flatten(x))] = intersection_indices
                 except:
@@ -401,13 +399,12 @@ class Relation:
             #     else:
             #         if self._hybrid:
             #             revert to product
-                        # print(f'-W- Join {p}: growth too low for pace {pace} ({growth_tracker}/{target_growth} tuples); revert to product')
-                        # return self.product_LFJ(p, target_tids)
-                    # else:
-                    #     return incomplete set of instances
-                    #     # time2 = time.perf_counter()
-                        # return res, p, time2-time1, samples
-
+            # print(f'-W- Join {p}: growth too low for pace {pace} ({growth_tracker}/{target_growth} tuples); revert to product')
+            # return self.product_LFJ(p, target_tids)
+            # else:
+            #     return incomplete set of instances
+            #     # time2 = time.perf_counter()
+            # return res, p, time2-time1, samples
 
             # generate sample
             instance = self.sample_instance(distributions)
@@ -502,7 +499,7 @@ class Relation:
                         else:
                             res[x] = intersection_indices
             total_sampled += tot_a
-              # update distributions. if some dist is empty break
+            # update distributions. if some dist is empty break
             distA = self.update_distribution(distA, instance_a, tot_a)
             if not distA:
                 break
@@ -572,7 +569,7 @@ class Relation:
 
     def tids_set_comparison(self, xset, tids):
         for k in tids.keys():
-            if xset==set(k.split(',')):
+            if xset == set(k.split(',')):
                 return k
 
     def get_product_set_size(self, X):
@@ -591,7 +588,7 @@ class Relation:
         """
         sum = 0
         for x in data:
-            sum -= x/self.N * np.log2(x/self.N)
+            sum -= x / self.N * np.log2(x / self.N)
 
         return sum
 
@@ -614,7 +611,7 @@ class Relation:
             else:
                 instances[instance] = 1
 
-        dist = [x/self.N for x in instances.values()]
+        dist = [x / self.N for x in instances.values()]
         res_data = {
             'H': entropy(dist, base=2),
             'joins': None
@@ -649,12 +646,12 @@ class Relation:
                 res[attribute] = max(distributions[attribute], key=distributions[attribute].get)
         else:
             for attribute in distributions.keys():
-                res[attribute] = random.choices(list(distributions[attribute].keys()), weights=distributions[attribute].values())[0]
+                res[attribute] = \
+                random.choices(list(distributions[attribute].keys()), weights=distributions[attribute].values())[0]
 
         # sort output by keys to match p=sorted(X)
         res = dict(sorted(res.items(), key=lambda item: item[0]))
         return res
-
 
     def sample_instance2(self, distribution):
         return random.choices(list(distribution.keys()), weights=distribution.values())[0]
@@ -700,7 +697,7 @@ class Relation:
             Q.append(counts[instance])
 
         QN = sum(Q)
-        normalized = [x/QN for x in Q]
+        normalized = [x / QN for x in Q]
         return normalized
 
     def set_ps_params(self, coverage):
@@ -741,15 +738,15 @@ class Relation:
             return res_data
 
         if self.mode == 'pli':
-             res_data.update(self.PLI_join(target_tids)) # pairwise O(K*N^2)
+            res_data.update(self.PLI_join(target_tids))  # pairwise O(K*N^2)
         elif self.mode == 'product':
-            res_data.update(self.product_LFJ(p, target_tids)) # not pairwise O(N^K)
+            res_data.update(self.product_LFJ(p, target_tids))  # not pairwise O(N^K)
         elif self.mode in ['ssj', 'mssj']:
             res_data.update(self.pairwise_sequential_sampling(target_tids))
         elif self.mode == 'cssj':
             res_data.update(self.sequential_sampling2(target_tids))
         else:
-            raise('Code should not execute this')
+            raise ('Code should not execute this')
 
         if res_data:
             return res_data
@@ -771,40 +768,40 @@ class Relation:
         num_samples = res_data['num_samples']
 
         # analyze sample output
-        lens = [len(l) for l in frequencies.values()]     # number of entries per sampled instance
-        effective_N = sum(lens)                           # effective N covered
-        effective_coverage = effective_N / self.N         # rho >= sigma = coverage
-        rho_bar = 1 - effective_coverage                  # rho bar
+        lens = [len(l) for l in frequencies.values()]  # number of entries per sampled instance
+        effective_N = sum(lens)  # effective N covered
+        effective_coverage = effective_N / self.N  # rho >= sigma = coverage
+        rho_bar = 1 - effective_coverage  # rho bar
 
         # Q_AB - distribution over non-sampled instances
         product_set_size = self.get_product_set_size(X)
-        active_domain = self.load_active_domain(X)                 # D_AB
-        sampled_domain = frequencies.keys()                        # S_AB
-        shared, not_shared = self.compare_domains(active_domain, sampled_domain) # not_shared = Q_AB
+        active_domain = self.load_active_domain(X)  # D_AB
+        sampled_domain = frequencies.keys()  # S_AB
+        shared, not_shared = self.compare_domains(active_domain, sampled_domain)  # not_shared = Q_AB
         Q = self.get_Q_dist(not_shared, X)
         H_Q = entropy(Q, base=2)
 
         # S_AB - set of sampled instances (S_AB \subseteq D_AB)
-        S_dist = [l/effective_N for l in lens]
+        S_dist = [l / effective_N for l in lens]
         H_S = self.partial_entropy(lens)
         H_S_normalized = entropy(S_dist, base=2)
 
         # error terms
-        E_exact =  rho_bar * (H_Q-np.log2(rho_bar or 1))            # this should add up to H along with H_S
-        E1 = rho_bar * (np.log2((len(not_shared)-np.log2(rho_bar or 1)) or 1))
+        E_exact = rho_bar * (H_Q - np.log2(rho_bar or 1))  # this should add up to H along with H_S
+        E1 = rho_bar * (np.log2((len(not_shared) - np.log2(rho_bar or 1)) or 1))
         E2 = rho_bar * np.log2(self.N)
-        E3 = rho_bar * (product_set_size-len(sampled_domain)-len(empty_samples)-np.log2(rho_bar or 1))
+        E3 = rho_bar * (product_set_size - len(sampled_domain) - len(empty_samples) - np.log2(rho_bar or 1))
 
         # all lists because queries may repeat
         res_data = {
-            'partial_H_sampled' : [H_S],
-            'H_sampled_normalized' : [H_S_normalized],
-            'E_exact' : [E_exact],
-            'E1' : [E1],
-            'E2' : [E2],
-            'E3' : [E3],
-            'times' : [t2-t1],
-            'num_samples' : [num_samples]
+            'partial_H_sampled': [H_S],
+            'H_sampled_normalized': [H_S_normalized],
+            'E_exact': [E_exact],
+            'E1': [E1],
+            'E2': [E2],
+            'E3': [E3],
+            'times': [t2 - t1],
+            'num_samples': [num_samples]
         }
         return res_data
 
@@ -832,7 +829,7 @@ class Relation:
 
         # generate distribution; evaluate H
         lens = [len(l) for l in frequencies.values()]
-        effective_N = sum(lens) # dropping singletons causes effective_N < N
+        effective_N = sum(lens)  # dropping singletons causes effective_N < N
         dist = [l / effective_N for l in lens]
         H_S = entropy(dist, base=2)
         res_data['dist'] = dist
@@ -840,11 +837,13 @@ class Relation:
         res_data['H'] = H_S
         return res_data
 
+
 def R_debug():
     csv1 = "a"
     X = ['A']
     R = Relation(path=csv1, mode='pli')
     H = R.entropy(X)['H']
+
 
 if __name__ == '__main__':
     R_debug()

@@ -25,6 +25,7 @@ def rename_columns(df):
 
     return df
 
+
 def colToExcel(col):
     """
     convert df columns to excel-like values:
@@ -35,23 +36,25 @@ def colToExcel(col):
     excelCol = str()
     div = col + 1
     while div:
-        (div, mod) = divmod(div-1, 26) # will return (x, 0 .. 25)
+        (div, mod) = divmod(div - 1, 26)  # will return (x, 0 .. 25)
         excelCol = chr(mod + 65) + excelCol
 
     return excelCol
+
 
 def freedman_diaconis_binning(x):
     q1 = x.quantile(0.25)
     q3 = x.quantile(0.75)
     n = len(x)
 
-    width = 2 * (q3-q1) / np.cbrt(n)
+    width = 2 * (q3 - q1) / np.cbrt(n)
     if width:
-        num_bins = int(np.ceil((np.max(x)-np.min(x))/width))
+        num_bins = int(np.ceil((np.max(x) - np.min(x)) / width))
     else:
         num_bins = 1
     binned = pd.cut(x, bins=num_bins, labels=False)
     return binned
+
 
 def preprocess(df):
     """
@@ -78,25 +81,30 @@ def preprocess(df):
         df = df.assign(**{column: mapped})
     return df
 
+
 def swap(list, pos1, pos2):
     x = list[pos2]
     list[pos2] = list[pos1]
     list[pos1] = x
     return list
 
+
 def intersection(list1, list2):
     return sorted(list(set(list1) & set(list2)))
 
+
 def union(list1, list2):
     return sorted(list(set(list1) | set(list2)))
+
 
 def cartesian_product(*arrays):
     la = len(arrays)
     dtype = np.result_type(*arrays)
     arr = np.empty([len(a) for a in arrays] + [la], dtype=dtype)
     for i, a in enumerate(np.ix_(*arrays)):
-        arr[...,i] = a
+        arr[..., i] = a
     return arr.reshape(-1, la)
+
 
 def cartesian_product_multi(*dfs):
     """
@@ -105,7 +113,8 @@ def cartesian_product_multi(*dfs):
     """
     idx = cartesian_product(*[np.ogrid[:len(df)] for df in dfs])
     return pd.DataFrame(
-        np.column_stack([df.values[idx[:,i]] for i,df in enumerate(dfs)]))
+        np.column_stack([df.values[idx[:, i]] for i, df in enumerate(dfs)]))
+
 
 def binary_search(arr, x):
     low = 0
@@ -129,6 +138,7 @@ def binary_search(arr, x):
     # reached here, return closeset element > x
     return low
 
+
 def mergesort(it_dict):
     """perform merge sort on iterators (based on key)"""
 
@@ -143,12 +153,13 @@ def mergesort(it_dict):
 
     return res
 
+
 def min_set_cover(x, subsets):
     """
     x - list of elements to be covered by subsets
     subsets - list of subsets
     """
-    covered_elements = {element:False for element in x}
+    covered_elements = {element: False for element in x}
 
     res = []
     for element in x:
@@ -185,6 +196,7 @@ def min_set_cover(x, subsets):
 
     return res
 
+
 def flatten(l, ltypes=(list, tuple)):
     ltype = type(l)
     l = list(l)
@@ -200,6 +212,7 @@ def flatten(l, ltypes=(list, tuple)):
         i += 1
     return ltype(l)
 
+
 def deflatten(t, levels):
     if not sum(levels) == len(t):
         raise ValueError
@@ -210,10 +223,11 @@ def deflatten(t, levels):
         if level == 1:
             reshaped.append(t[prev])
         else:
-            reshaped.append(t[prev : prev + level])
+            reshaped.append(t[prev: prev + level])
         prev = prev + level
 
     return tuple(reshaped)
+
 
 def randomize_queries(attributes, N=100):
     uniq = {}
@@ -232,14 +246,17 @@ def randomize_queries(attributes, N=100):
 
     return [x.split(',') for x in uniq.keys()]
 
+
 def dump_pickle(path, data):
     with open(path, 'wb') as handle:
         pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 
 def load_pickle(path):
     with open(path, 'rb') as handle:
         b = pickle.load(handle)
         return b
+
 
 def calculate_entropy(path, q):
     p = sorted(q)
@@ -247,3 +264,11 @@ def calculate_entropy(path, q):
     dist = df.value_counts(normalize=True).values
     H = entropy(dist, base=2)
     return H
+
+
+def binary_entropy(q):
+    if q != 0 and q != 1:
+        q_bar = 1 - q
+        return -q * np.log2(q) - q_bar * np.log2(q_bar)
+
+    return 0
