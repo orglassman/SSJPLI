@@ -15,10 +15,15 @@ class DataSet:
 
         self.df.columns = ['A', 'B']
         self.dropped = False
-        self.I = self.get_I()
 
     def get_N(self):
         return self.df.shape[0]
+
+    def effective_alpha(self):
+        return len(self.df['A'].value_counts())
+
+    def effective_beta(self):
+        return len(self.df['B'].value_counts())
 
     def drop(self, k):
         """randomly discard k entries"""
@@ -32,6 +37,9 @@ class DataSet:
         new_df = self.df.drop(indices, axis=0).reset_index(drop=True)
         self.df = new_df
         self.dropped = True     # can only drop once
+
+        # compute I(A;B)
+        self.I = self.get_I()
 
     def reset(self):
         self.__init__(self.alpha, self.beta)
@@ -67,6 +75,7 @@ class DataSet:
         new = DataSet(self.alpha, self.beta)
         new.df = self.df.copy(deep=True)
         new.dropped = self.dropped
+        new.I = self.I
         return new
 
     def __eq__(self, other):

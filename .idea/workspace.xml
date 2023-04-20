@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="binning and preprocessing">
-      <change afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cubic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mi_experiment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pairwise.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="sequential sampler, dataset and dataset container classes. new sampling framework for X=(A,B) only">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/relation.py" beforeDir="false" afterPath="$PROJECT_DIR$/relation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +88,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/container.py" />
-      <option name="PARAMETERS" value="-alpha 5 -beta 6 -L 10 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis&quot;" />
+      <option name="PARAMETERS" value="-alpha 10 -beta 6 -L 10 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -341,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674741450405</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="sequential sampler, dataset and dataset container classes. new sampling framework for X=(A,B) only">
+      <created>1681803079334</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1681803079334</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -368,7 +370,8 @@
     <MESSAGE value="os separator" />
     <MESSAGE value="baseline utilities update" />
     <MESSAGE value="binning and preprocessing" />
-    <option name="LAST_COMMIT_MESSAGE" value="binning and preprocessing" />
+    <MESSAGE value="sequential sampler, dataset and dataset container classes. new sampling framework for X=(A,B) only" />
+    <option name="LAST_COMMIT_MESSAGE" value="sequential sampler, dataset and dataset container classes. new sampling framework for X=(A,B) only" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -477,8 +480,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>193</line>
+          <line>199</line>
           <option name="timeStamp" value="638" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/container.py</url>
+          <line>279</line>
+          <option name="timeStamp" value="695" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/container.py</url>
+          <line>266</line>
+          <option name="timeStamp" value="698" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

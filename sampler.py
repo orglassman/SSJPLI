@@ -1,5 +1,6 @@
 import itertools
 from argparse import ArgumentParser
+import time
 from random import choices
 
 import numpy as np
@@ -72,19 +73,25 @@ class SyntheticSequentialSampler:
 
     def entropy_ssj(self, coverage=None):
         """approximate H(X) using SSJ"""
-        # target_tids = self.intersect(X)
+        start_time = time.perf_counter()
         res_data = self.ssj(coverage=coverage)
+        end_time = time.perf_counter()
+
+        # add time
+        res_data['time'] = end_time - start_time
+
+        # get output frequencies
         TX = res_data['frequencies']
 
-        H_unnormalized = 0
+        HUN = 0
         for x in TX.values():
             q2 = len(x) / self.N
-            H_unnormalized -= q2 * np.log2(q2)
+            HUN -= q2 * np.log2(q2)
 
         TX_dist = self.get_X_dist(TX)
-        H_normalized = H_dict(TX_dist)
-        res_data['H_normalized'] = H_normalized  # entropy since defined over probability distribution
-        res_data['H_unnormalized'] = H_unnormalized  # not entropy
+        HN = H_dict(TX_dist)
+        res_data['HN'] = HN     # entropy since defined over probability distribution
+        res_data['HUN'] = HUN   # technically not entropy
 
         return res_data
 
@@ -113,10 +120,9 @@ class SyntheticSequentialSampler:
         """
         distributions = self.generate_distributions()
 
-        if coverage is not None:
-            target_N = int(self.N * coverage)
-        else:
-            target_N = int(self.N * self.coverage)
+        if not coverage:
+            coverage = self.coverage
+        target_N = int(self.N * coverage)
         total_sampled = 0
 
         # target_growth = self.N * self._growth
@@ -223,10 +229,10 @@ class SyntheticSequentialSampler:
         Ns = []
         for c in coverages:
             res_data = self.entropy_ssj(coverage=c)
-            U1, U2, U3, U4 = self.get_bounds(X, res_data)
+            U1, U2, U3, U4, U5, U6 = self.get_bounds(res_data)
 
-            Hs_ssj_normalized.append(res_data['H_normalized'])
-            Hs_ssj_not_normalized.append(res_data['H_not_normalized'])
+            Hs_ssj_normalized.append(res_data['HN'])
+            Hs_ssj_not_normalized.append(res_data['HUN'])
             Ns.append(res_data['num_samples'])
             U1s.append(U1)
             U2s.append(U2)
@@ -262,7 +268,7 @@ class SyntheticSequentialSampler:
             q = x / self.N
             HQ_UN -= q * np.log2(q)
 
-        Ps = [res_data['H_normalized'], res_data['H_unnormalized']]
+        Ps = [res_data['HN'], res_data['HUN']]
         Qs = [HQ, HQ_UN]
         U1 = Ps[0] + Qs[0]  # HN + HQN (both normalized)
         U2 = Ps[0] + Qs[1]  # HN + HQUN

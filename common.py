@@ -272,3 +272,11 @@ def binary_entropy(q):
         return -q * np.log2(q) - q_bar * np.log2(q_bar)
 
     return 0
+
+
+def sort_by_key(x):
+    return {k: v for k, v in sorted(x.items(), key=lambda item: item[0])}
+
+
+def sort_by_value(x):
+    return {k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
