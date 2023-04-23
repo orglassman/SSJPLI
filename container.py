@@ -232,6 +232,7 @@ class DatasetContainer:
                 't': times,
                 'rho': rhos
             }
+
             data_df = pd.DataFrame(data)
             # plot
             if dump:

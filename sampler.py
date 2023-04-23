@@ -36,7 +36,7 @@ def H_dict(d, base=2):
 class SyntheticSequentialSampler:
     """sequential sampler taking synthetic two-column data"""
 
-    def __init__(self, dataset, coverage=0.9, growth_threshold=100):
+    def __init__(self, dataset, coverage=0.9, growth_threshold=None):
         self.dataset = dataset
         self.coverage = coverage
         self.growth_threshold = growth_threshold
@@ -125,10 +125,6 @@ class SyntheticSequentialSampler:
         target_N = int(self.N * coverage)
         total_sampled = 0
 
-        # target_growth = self.N * self._growth
-        # target_growth = target_N * self._growth
-        # pace = self._pace
-        # growth_tracker = 0
         growth_counter = 0
 
         frequencies = {}  # result TX
@@ -165,9 +161,10 @@ class SyntheticSequentialSampler:
             total_sampled += L
 
             # track growth
-            if growth_counter == self.growth_threshold:
-                print(f'-W- Growth too slow. Sampling terminated')
-                break
+            if self.growth_threshold:
+                if growth_counter == self.growth_threshold:
+                    print(f'-W- Growth too slow. Sampling terminated')
+                    break
 
         frequencies = dict(sorted(frequencies.items(), key=lambda item: item[0]))
         rho = total_sampled / self.N   # effective coverage
