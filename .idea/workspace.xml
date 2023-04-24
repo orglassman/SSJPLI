@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="pickling output stratum where |stratum|&gt;30. run samples vs. I(A;B) for varying coverage values">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="no growth management for sampling procedure">
+      <change afterPath="$PROJECT_DIR$/unpickle.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
@@ -42,7 +43,7 @@
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/container.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/unpickle.py" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -220,6 +221,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="unPickle" type="PythonConfigurationType" factoryName="Python">
+      <module name="LeapfrogPYJoin" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/unpickle.py" />
+      <option name="PARAMETERS" value="-in_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis\alpha_10_beta_20_ssj_no_growth&quot;" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.baselines" />
       <item itemvalue="Python.entropy" />
@@ -227,6 +249,7 @@
       <item itemvalue="Python.pairwise" />
       <item itemvalue="Python.sampler" />
       <item itemvalue="Python.container" />
+      <item itemvalue="Python.unPickle" />
       <item itemvalue="Python.dataset" />
       <item itemvalue="Python.mi_exp" />
     </list>
@@ -348,7 +371,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681999741741</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="no growth management for sampling procedure">
+      <created>1682265987250</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682265987250</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,7 +407,8 @@
     <MESSAGE value="binning and preprocessing" />
     <MESSAGE value="sequential sampler, dataset and dataset container classes. new sampling framework for X=(A,B) only" />
     <MESSAGE value="pickling output stratum where |stratum|&gt;30. run samples vs. I(A;B) for varying coverage values" />
-    <option name="LAST_COMMIT_MESSAGE" value="pickling output stratum where |stratum|&gt;30. run samples vs. I(A;B) for varying coverage values" />
+    <MESSAGE value="no growth management for sampling procedure" />
+    <option name="LAST_COMMIT_MESSAGE" value="no growth management for sampling procedure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -486,18 +517,48 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>196</line>
+          <line>206</line>
           <option name="timeStamp" value="638" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/container.py</url>
-          <line>280</line>
+          <line>284</line>
           <option name="timeStamp" value="695" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/container.py</url>
-          <line>267</line>
+          <line>271</line>
           <option name="timeStamp" value="698" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/unpickle.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="704" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/unpickle.py</url>
+          <line>91</line>
+          <option name="timeStamp" value="711" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/unpickle.py</url>
+          <line>82</line>
+          <option name="timeStamp" value="716" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/container.py</url>
+          <line>201</line>
+          <option name="timeStamp" value="717" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/container.py</url>
+          <line>222</line>
+          <option name="timeStamp" value="718" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/container.py</url>
+          <line>217</line>
+          <option name="timeStamp" value="719" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -33,13 +33,14 @@ def H_dict(d, base=2):
     return res
 
 
-class SyntheticSequentialSampler:
+class SyntheticSampler:
     """sequential sampler taking synthetic two-column data"""
 
-    def __init__(self, dataset, coverage=0.9, growth_threshold=None):
+    def __init__(self, dataset, coverage=0.9, growth_threshold=None, mode='ssj'):
         self.dataset = dataset
         self.coverage = coverage
         self.growth_threshold = growth_threshold
+        self.mode = mode
 
         self.N = dataset.get_N()
         self.M = 2
@@ -71,6 +72,12 @@ class SyntheticSequentialSampler:
         # self._tids = res_tids
         self._tids = tuple2tid
 
+    def entropy(self, coverage=None):
+        if self.mode == 'ssj':
+            return self.entropy_ssj(coverage)
+        else:
+            return self.entropy_is(coverage)
+
     def entropy_ssj(self, coverage=None):
         """approximate H(X) using SSJ"""
         start_time = time.perf_counter()
@@ -94,6 +101,9 @@ class SyntheticSequentialSampler:
         res_data['HUN'] = HUN   # technically not entropy
 
         return res_data
+
+    def entropy_is(self, coverage):
+        pass
 
     def get_X_dist(self, frequencies):
         lens = []

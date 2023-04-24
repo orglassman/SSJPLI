@@ -11,7 +11,7 @@ from scipy.stats import iqr
 
 from common import sort_by_key
 from dataset import DataSet
-from sampler import SyntheticSequentialSampler
+from sampler import SyntheticSampler
 
 
 def parse_args():
@@ -138,7 +138,7 @@ class DatasetContainer:
         U5s = []  # new bound
         U6s = []  # new bound
         for dataset in datasets:
-            sampler = SyntheticSequentialSampler(dataset)
+            sampler = SyntheticSampler(dataset)
             res_data = sampler.entropy_ssj()
 
             HNs.append(res_data['HN'])
@@ -197,14 +197,16 @@ class DatasetContainer:
             rhos = []
             times = []
             Is = []
+            records = []
             for i, dataset in enumerate(datasets):
-                sampler = SyntheticSequentialSampler(dataset)
+                sampler = SyntheticSampler(dataset)
 
                 H_aggregate = 0
                 I_aggregate = 0
                 Ns_aggregate = 0
                 time_aggregate = 0
                 rho_aggregate = 0
+
                 for i in range(self.R):
                     res_data = sampler.entropy_ssj(coverage=coverage)
                     H_aggregate += res_data['HN']
@@ -218,23 +220,25 @@ class DatasetContainer:
                 Ns_average = Ns_aggregate / self.R
                 time_average = time_aggregate / self.R
                 rho_average = rho_aggregate / self.R
+                records_num_dataset = dataset.get_N()
 
                 Hs.append(H_average)
                 Is.append(I_average)
                 NSs.append(Ns_average)
                 times.append(time_average)
                 rhos.append(rho_average)
+                records.append(records_num_dataset)
 
             data = {
                 'H': Hs,
                 'I': Is,
                 'N': NSs,
                 't': times,
-                'rho': rhos
+                'rho': rhos,
+                'records': records
             }
 
             data_df = pd.DataFrame(data)
-            # plot
             if dump:
                 self.dump_df(data_df, **{'n_samples_vs_I': '', 'bin_num':stratum, 'HAB_avg': E_HAB, 'coverage': coverage})
 
