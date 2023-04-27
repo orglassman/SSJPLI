@@ -20,14 +20,14 @@ def parse_args():
     parser.add_argument('-alpha', help='Cardinality of A', default=5)
     parser.add_argument('-beta', help='Cardinality of B', default=10)
     parser.add_argument('-L', help='Number of repetitions per value of k', default=10)
-    parser.add_argument('-R', help='Number of repetitions per experiment (analysis section for lowering variance)',
-                        default=1000)
+    parser.add_argument('-R', help='Number of repetitions per experiment (analysis section for lowering variance)', default=1000),
+    parser.add_argument('-mode', help='SSJ/IS', default='SSJ')
     args = parser.parse_args()
     return args
 
 
 class DatasetContainer:
-    def __init__(self, out_dir, alpha=5, beta=5, L=20, R=1000):
+    def __init__(self, out_dir, alpha=5, beta=5, L=20, R=1000, mode='SSJ'):
         """
         alpha - cardinality A
         beta - cardinality B
@@ -45,8 +45,9 @@ class DatasetContainer:
         self.R = R
         self.datasets = {}
         self.num_datasets = 0
+        self.mode = mode
 
-        print(f'-I- New container initialized with (alpha,beta)=({alpha},{beta}) and L={L}')
+        print(f'-I- New container initialized with (alpha,beta)=({alpha},{beta}) and L={L}. Sampling method {mode}')
 
     def generate(self):
         dataset = DataSet(alpha=self.alpha, beta=self.beta)
@@ -92,18 +93,10 @@ class DatasetContainer:
 
     def sort(self):
         """sort by I(A;B) within each bin"""
-        for bin in self.strata.keys():
-            self.strata[bin] = sorted(self.strata[bin])
+        for bin_num in self.strata.keys():
+            self.strata[bin_num] = sorted(self.strata[bin_num])
 
         print('-I- Strata sorted successfully')
-
-    def cardinality_reduced(self, dataset):
-        if dataset.effective_alpha() < dataset.alpha:
-            return True
-        if dataset.effective_beta() < dataset.beta:
-            return True
-
-        return False
 
     def dump_df(self, df, **kwargs):
         out_file = f'{self.out_dir}{os.sep}'
@@ -193,29 +186,60 @@ class DatasetContainer:
         coverages = [0.25, 0.5, 0.75, 0.9, 0.99]
         for coverage in coverages:
             Hs = []
+            H_baselines = []
+
+            U1s = []
+            U2s = []
+            U3s = []
+            U4s = []
+            U5s = []
+            U6s = []
+
+
             NSs = []
             rhos = []
             times = []
             Is = []
             records = []
             for i, dataset in enumerate(datasets):
-                sampler = SyntheticSampler(dataset)
+                sampler = SyntheticSampler(dataset, mode=self.mode)
 
                 H_aggregate = 0
+                U1_aggregate = 0
+                U2_aggregate = 0
+                U3_aggregate = 0
+                U4_aggregate = 0
+                U5_aggregate = 0
+                U6_aggregate = 0
                 I_aggregate = 0
                 Ns_aggregate = 0
                 time_aggregate = 0
                 rho_aggregate = 0
 
+                # average over R repetitions
                 for i in range(self.R):
-                    res_data = sampler.entropy_ssj(coverage=coverage)
-                    H_aggregate += res_data['HN']
+                    res_data = sampler.entropy(coverage=coverage)
+                    bounds = sampler.get_bounds(res_data)
+
+                    H_aggregate += res_data['H']
+                    U1_aggregate += bounds['U1']
+                    U2_aggregate += bounds['U2']
+                    U3_aggregate += bounds['U3']
+                    U4_aggregate += bounds['U4']
+                    U5_aggregate += bounds['U5']
+                    U6_aggregate += bounds['U6']
                     I_aggregate += dataset.I
                     Ns_aggregate += res_data['num_samples']
                     time_aggregate += res_data['time']
                     rho_aggregate += res_data['rho']
 
                 H_average = H_aggregate / self.R
+                U1_average = U1_aggregate / self.R
+                U2_average = U2_aggregate / self.R
+                U3_average = U3_aggregate / self.R
+                U4_average = U4_aggregate / self.R
+                U5_average = U5_aggregate / self.R
+                U6_average = U6_aggregate / self.R
                 I_average = I_aggregate / self.R
                 Ns_average = Ns_aggregate / self.R
                 time_average = time_aggregate / self.R
@@ -223,20 +247,21 @@ class DatasetContainer:
                 records_num_dataset = dataset.get_N()
 
                 Hs.append(H_average)
+                U1s.append(U1_average)
+                U2s.append(U2_average)
+                U3s.append(U3_average)
+                U4s.append(U4_average)
+                U5s.append(U5_average)
+                U6s.append(U6_average)
+                H_baselines.append(dataset.HAB())
                 Is.append(I_average)
                 NSs.append(Ns_average)
                 times.append(time_average)
                 rhos.append(rho_average)
                 records.append(records_num_dataset)
 
-            data = {
-                'H': Hs,
-                'I': Is,
-                'N': NSs,
-                't': times,
-                'rho': rhos,
-                'records': records
-            }
+            data = dict(H=Hs, H_true=H_baselines, U1=U1s, U2=U2s, U3=U3s, U4=U4s, U5=U5s, U6=U6s, I=Is, N=NSs, t=times,
+                        rho=rhos, records=records)
 
             data_df = pd.DataFrame(data)
             if dump:
@@ -274,9 +299,10 @@ def container_main():
     beta = int(args.beta)
     L = int(args.L)
     R = int(args.R)
+    mode = args.mode
     out_dir = args.out_dir
 
-    container = DatasetContainer(alpha=alpha, beta=beta, L=L, R=R, out_dir=out_dir)
+    container = DatasetContainer(alpha=alpha, beta=beta, L=L, R=R, out_dir=out_dir, mode=mode)
     container.generate()
     container.bin()
     container.sort()

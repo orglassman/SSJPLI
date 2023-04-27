@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-from common import binary_entropy
+from common import binary_entropy, sort_by_key
 
 
 def parse_args():
@@ -36,7 +36,7 @@ def H_dict(d, base=2):
 class SyntheticSampler:
     """sequential sampler taking synthetic two-column data"""
 
-    def __init__(self, dataset, coverage=0.9, growth_threshold=None, mode='ssj'):
+    def __init__(self, dataset, coverage=0.9, growth_threshold=None, mode='SSJ'):
         self.dataset = dataset
         self.coverage = coverage
         self.growth_threshold = growth_threshold
@@ -73,7 +73,7 @@ class SyntheticSampler:
         self._tids = tuple2tid
 
     def entropy(self, coverage=None):
-        if self.mode == 'ssj':
+        if self.mode == 'SSJ':
             return self.entropy_ssj(coverage)
         else:
             return self.entropy_is(coverage)
@@ -97,13 +97,65 @@ class SyntheticSampler:
 
         TX_dist = self.get_X_dist(TX)
         HN = H_dict(TX_dist)
-        res_data['HN'] = HN     # entropy since defined over probability distribution
-        res_data['HUN'] = HUN   # technically not entropy
+        res_data['H'] = HN  # entropy since defined over probability distribution
+        res_data['HUN'] = HUN  # technically not entropy
+
+        # add here: upper bounds for H
+
 
         return res_data
 
     def entropy_is(self, coverage):
-        pass
+        distributions = self.generate_distributions()
+        # IS - accumulate H with each sample
+        if not coverage:
+            coverage = self.coverage
+
+        H_baseline = self.entropy_baseline()
+        target_H = H_baseline * coverage
+
+        H_is = 0
+        sampled = {}
+        frequencies = {}
+        num_samples = 0
+
+        start_time = time.perf_counter()
+        while H_is < target_H:
+            num_samples += 1
+
+            instance = self.sample_instance(distributions)
+            x = tuple(instance.values())
+
+            if x in sampled.keys():
+                continue
+
+            sampled[x] = 1
+
+            lists = [self._tids[attribute][value] for attribute, value in instance.items()]
+            sets = map(set, lists)
+            intersection_indices = sorted(list(set.intersection(*sets)))
+            L = len(intersection_indices)
+            if L == 0:
+                continue
+
+            frequencies[x] = intersection_indices
+
+            # compute weight function and add to total
+            H_is += self.aggregate_IS(distributions, x, L)
+        finish_time = time.perf_counter()
+
+        frequencies = sort_by_key(frequencies)
+        rho = H_is / H_baseline
+        res_data = {
+            'H': H_is,
+            'frequencies': frequencies,
+            'num_samples': num_samples,
+            'sigma': coverage,
+            'rho': rho,
+            'time': finish_time - start_time
+        }
+
+        return res_data
 
     def get_X_dist(self, frequencies):
         lens = []
@@ -112,6 +164,21 @@ class SyntheticSampler:
 
         res = {k: v for k, v in zip(frequencies.keys(), lens)}
         return res
+
+    def aggregate_IS(self, distributions, x, L):
+        """
+        W(X) = P(X)/Q(X)
+        """
+        P = L / self.N
+        # a = x[0]
+        # b = x[1]
+        # Qa = distributions['A'][a] / self.N
+        # Qb = distributions['B'][b] / self.N
+
+        # W = P / (Qa * Qb)
+        # return W * np.log2(1 / P)
+        return P * np.log2(1 / P)
+
 
     def entropy_baseline(self):
         """compute H(X) by accessing data directly"""
@@ -127,6 +194,13 @@ class SyntheticSampler:
         2. init global N
         3. sample
         4. update distributions
+
+        return:
+        frequencies - output TID
+        num_samples - number of samples to hit rho N entries
+        sigma - target coverage
+        rho - effective coverage > sigma
+        nulls - (a,b) with empty frequency
         """
         distributions = self.generate_distributions()
 
@@ -177,7 +251,7 @@ class SyntheticSampler:
                     break
 
         frequencies = dict(sorted(frequencies.items(), key=lambda item: item[0]))
-        rho = total_sampled / self.N   # effective coverage
+        rho = total_sampled / self.N  # effective coverage
         res_data = {
             'frequencies': frequencies,
             'num_samples': num_samples,
@@ -275,7 +349,7 @@ class SyntheticSampler:
             q = x / self.N
             HQ_UN -= q * np.log2(q)
 
-        Ps = [res_data['HN'], res_data['HUN']]
+        Ps = [res_data['H'], res_data['HUN']]
         Qs = [HQ, HQ_UN]
         U1 = Ps[0] + Qs[0]  # HN + HQN (both normalized)
         U2 = Ps[0] + Qs[1]  # HN + HQUN
@@ -287,7 +361,16 @@ class SyntheticSampler:
         rho_bar = 1 - rho
         U5 = rho * Ps[0] + rho_bar * Qs[0] - binary_entropy(rho)
         U6 = rho * Ps[0] + rho_bar * np.log2(len(occur_in_R)) - binary_entropy(rho)
-        return U1, U2, U3, U4, U5, U6
+
+        bounds = {
+            'U1': U1,
+            'U2': U2,
+            'U3': U3,
+            'U4': U4,
+            'U5': U5,
+            'U6': U6
+        }
+        return bounds
 
     def reduce_sampled(self, frequencies):
         """pairs in product set not sampled by SSJ"""

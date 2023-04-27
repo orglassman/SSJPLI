@@ -1,29 +1,7 @@
 import pickle
-from itertools import chain
 from scipy.stats import entropy
 import numpy as np
 import pandas as pd
-
-
-def rename_columns(df):
-    """
-    set '0', '1', '2', ...
-    as dataframe header
-    """
-    # create column name array
-    num_atts = len(df.columns)
-    new_columns = []
-    for i in range(0, num_atts):
-        # new_columns.append(str(i))
-        new_columns.append(colToExcel(i))
-
-    # first row will be removed upon setting column names, so we save it and later append it
-    first_row = list(df.columns)
-
-    # rename
-    df = df.set_axis(new_columns, axis=1, inplace=False)
-
-    return df
 
 
 def colToExcel(col):
