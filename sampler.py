@@ -371,7 +371,7 @@ class SyntheticSampler:
         # return bounds
         res = {
             'HQ': HQ,
-            'HQ_UN': HQ_UN,
+            'HQUN': HQ_UN,
             'MISS': len(occur_in_R.keys()),
             'EMPTY': len(not_occur_in_R.keys())
         }
