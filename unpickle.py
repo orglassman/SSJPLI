@@ -78,6 +78,10 @@ def unpickle_main():
 
     return 0
 
+# def isolate_single_dataset_bin(bin_num, dataset_num):
+#     for c, df in dfs.items():
+#         U6s[c] = df['U6'].iloc[0]
+#     U6s = sort_by_key(U6s)
 
 if __name__ == '__main__':
     unpickle_main()

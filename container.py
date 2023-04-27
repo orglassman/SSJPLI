@@ -116,75 +116,6 @@ class DatasetContainer:
             pickle.dump(df, handle, protocol=pickle.HIGHEST_PROTOCOL)
         print(f'-I- Check {out_file}')
 
-    def stratum_overview(self, stratum):
-        """analyze sampling within bin"""
-        datasets = self.strata[stratum]
-
-        if not bool(datasets):
-            return
-
-        Is = [d.I for d in datasets]
-        Hs = [d.HAB() for d in datasets]
-
-        HNs = []  # normalized
-        HUNs = []  # unnormalized
-        NSs = []
-        Sigmas = []
-        Rhos = []
-        times = []
-        U1s = []  # HN + HQN (both normalized)
-        U2s = []  # HN + HQUN
-        U3s = []  # HUN + HQN
-        U4s = []  # HUN + HQUN (should equal H(X))
-        U5s = []  # new bound
-        U6s = []  # new bound
-        for dataset in datasets:
-            sampler = SyntheticSampler(dataset)
-            res_data = sampler.entropy_ssj()
-
-            HNs.append(res_data['HN'])
-            HUNs.append(res_data['HUN'])
-            NSs.append(res_data['num_samples'])
-            Sigmas.append(res_data['sigma'])
-            Rhos.append(res_data['rho'])
-            times.append(res_data['time'])
-            U1, U2, U3, U4, U5, U6 = sampler.get_bounds(res_data)
-            U1s.append(U1)
-            U2s.append(U2)
-            U3s.append(U3)
-            U4s.append(U4)
-            U5s.append(U5)
-            U6s.append(U6)
-
-        data_dict = {
-            'HAB': Hs,
-            'IAB': Is,
-            'N_samples': NSs,
-            'time': times,
-            'sigma': Sigmas,
-            'rho': Rhos,
-            'HAB_N': HNs,
-            'HAB_UN': HUNs,
-            'HN + HQN': U1s,
-            'HN + HQUN': U2s,
-            'HUN + HQN': U3s,
-            'HUN + HQUN': U4s,
-            'U5': U5s,
-            'U6': U6s
-        }
-        df = pd.DataFrame(data_dict)
-        df.sort_values(by='IAB')
-        return df
-
-    # refactor this
-    def strata_overview(self):
-        dfs = {}
-        for stratum in self.strata.keys():
-            dfs[stratum] = self.stratum_overview(stratum)
-
-        print('-I- Strata overview completed successfully')
-        return dfs
-
     def stratum_varying_coverage(self, stratum, dump=False):
         """analyze varying coverage in every sub population"""
         datasets = self.strata[stratum]
@@ -197,14 +128,10 @@ class DatasetContainer:
             Hs = []
             H_baselines = []
 
-            U1s = []
-            U2s = []
-            U3s = []
-            U4s = []
-            U5s = []
-            U6s = []
-
-
+            HQs = []
+            HQUNs = []
+            MISSs = []
+            EMPTYs = []
             NSs = []
             rhos = []
             times = []
@@ -214,12 +141,10 @@ class DatasetContainer:
                 sampler = SyntheticSampler(dataset, mode=self.mode)
 
                 H_aggregate = 0
-                U1_aggregate = 0
-                U2_aggregate = 0
-                U3_aggregate = 0
-                U4_aggregate = 0
-                U5_aggregate = 0
-                U6_aggregate = 0
+                HQ_aggregate = []
+                HQUN_aggregate = []
+                MISS_aggregate = []
+                EMPTY_aggregate = []
                 I_aggregate = 0
                 Ns_aggregate = 0
                 time_aggregate = 0
@@ -231,24 +156,20 @@ class DatasetContainer:
                     bounds = sampler.get_bounds(res_data)
 
                     H_aggregate += res_data['H']
-                    U1_aggregate += bounds['U1']
-                    U2_aggregate += bounds['U2']
-                    U3_aggregate += bounds['U3']
-                    U4_aggregate += bounds['U4']
-                    U5_aggregate += bounds['U5']
-                    U6_aggregate += bounds['U6']
+                    HQ_aggregate += bounds['HQ']
+                    HQUN_aggregate += bounds['HQUN']
+                    MISS_aggregate += bounds['MISS']
+                    EMPTY_aggregate += bounds['EMPTY']
                     I_aggregate += dataset.I
                     Ns_aggregate += res_data['num_samples']
                     time_aggregate += res_data['time']
                     rho_aggregate += res_data['rho']
 
                 H_average = H_aggregate / self.R
-                U1_average = U1_aggregate / self.R
-                U2_average = U2_aggregate / self.R
-                U3_average = U3_aggregate / self.R
-                U4_average = U4_aggregate / self.R
-                U5_average = U5_aggregate / self.R
-                U6_average = U6_aggregate / self.R
+                HQ_average = HQ_aggregate / self.R
+                HQUN_average = HQUN_aggregate / self.R
+                MISS_average = MISS_aggregate / self.R
+                EMPTY_average = EMPTY_aggregate / self.R
                 I_average = I_aggregate / self.R
                 Ns_average = Ns_aggregate / self.R
                 time_average = time_aggregate / self.R
@@ -256,12 +177,10 @@ class DatasetContainer:
                 records_num_dataset = dataset.get_N()
 
                 Hs.append(H_average)
-                U1s.append(U1_average)
-                U2s.append(U2_average)
-                U3s.append(U3_average)
-                U4s.append(U4_average)
-                U5s.append(U5_average)
-                U6s.append(U6_average)
+                HQs.append(HQ_average)
+                HQUNs.append(HQUN_average)
+                MISSs.append(MISS_average)
+                EMPTYs.append(EMPTY_average)
                 H_baselines.append(dataset.HAB())
                 Is.append(I_average)
                 NSs.append(Ns_average)
@@ -269,7 +188,7 @@ class DatasetContainer:
                 rhos.append(rho_average)
                 records.append(records_num_dataset)
 
-            data = dict(H=Hs, H_true=H_baselines, U1=U1s, U2=U2s, U3=U3s, U4=U4s, U5=U5s, U6=U6s, I=Is, N=NSs, t=times,
+            data = dict(H=Hs, H_true=H_baselines, HQ=HQs, HQUN=HQUNs, MISS=MISSs, EMPTY=EMPTYs, I=Is, N=NSs, t=times,
                         rho=rhos, records=records)
 
             data_df = pd.DataFrame(data)
@@ -291,20 +210,6 @@ class DatasetContainer:
                 self.stratum_varying_coverage(stratum, dump=True)
 
         print(f'-I- Strata coverage analysis completed successfully. Check {self.out_dir}')
-
-    def plot_varying_coverage(self, coverage, data):
-        return
-        # df = pd.DataFrame(data)
-        #
-        # sturge = int(np.ceil(np.log2(len(df)) + 1))
-        # bins = np.linspace(0, max(df['I']), sturge)
-        # bin_ids = np.digitize(df['I'], bins=bins)
-        #
-        # df['bin'] = bin_ids
-        # groups = df.groupby(by='bin')
-        #
-        # print('hello')
-
 
 def container_main():
     args = parse_args()

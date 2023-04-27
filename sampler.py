@@ -102,7 +102,6 @@ class SyntheticSampler:
 
         # add here: upper bounds for H
 
-
         return res_data
 
     def entropy_is(self, coverage):
@@ -178,7 +177,6 @@ class SyntheticSampler:
         # W = P / (Qa * Qb)
         # return W * np.log2(1 / P)
         return P * np.log2(1 / P)
-
 
     def entropy_baseline(self):
         """compute H(X) by accessing data directly"""
@@ -349,28 +347,35 @@ class SyntheticSampler:
             q = x / self.N
             HQ_UN -= q * np.log2(q)
 
-        Ps = [res_data['H'], res_data['HUN']]
-        Qs = [HQ, HQ_UN]
-        U1 = Ps[0] + Qs[0]  # HN + HQN (both normalized)
-        U2 = Ps[0] + Qs[1]  # HN + HQUN
-        U3 = Ps[1] + Qs[0]  # HUN + HQN
-        U4 = Ps[1] + Qs[1]  # HUN + HQUN (should equal H(X))
-
-        # compute new bound
-        rho = res_data['rho']
-        rho_bar = 1 - rho
-        U5 = rho * Ps[0] + rho_bar * Qs[0] - binary_entropy(rho)
-        U6 = rho * Ps[0] + rho_bar * np.log2(len(occur_in_R)) - binary_entropy(rho)
-
-        bounds = {
-            'U1': U1,
-            'U2': U2,
-            'U3': U3,
-            'U4': U4,
-            'U5': U5,
-            'U6': U6
+        # Ps = [res_data['H'], res_data['HUN']]
+        # Qs = [HQ, HQ_UN]
+        # U1 = Ps[0] + Qs[0]  # HN + HQN (both normalized)
+        # U2 = Ps[0] + Qs[1]  # HN + HQUN
+        # U3 = Ps[1] + Qs[0]  # HUN + HQN # makes no sense
+        # U4 = Ps[1] + Qs[1]  # HUN + HQUN (should equal H(X))
+        #
+        # # compute new bound
+        # rho = res_data['rho']
+        # rho_bar = 1 - rho
+        # U5 = rho * Ps[0] + rho_bar * Qs[0] - binary_entropy(rho)
+        # U6 = rho * Ps[0] + rho_bar * np.log2(len(occur_in_R)) - binary_entropy(rho)
+        #
+        # bounds = {
+        #     'U1': U1,
+        #     'U2': U2,
+        #     'U3': U3,
+        #     'U4': U4,
+        #     'U5': U5,
+        #     'U6': U6
+        # }
+        # return bounds
+        res = {
+            'HQ': HQ,
+            'HQ_UN': HQ_UN,
+            'MISS': len(occur_in_R.keys()),
+            'EMPTY': len(not_occur_in_R.keys())
         }
-        return bounds
+        return res
 
     def reduce_sampled(self, frequencies):
         """pairs in product set not sampled by SSJ"""
