@@ -22,12 +22,19 @@ def parse_args():
     parser.add_argument('-L', help='Number of repetitions per value of k', default=10)
     parser.add_argument('-R', help='Number of repetitions per experiment (analysis section for lowering variance)', default=1000),
     parser.add_argument('-mode', help='SSJ/IS', default='SSJ')
+    parser.add_argument('-bins', help='Analyze specific bins. Separate with commas e.g.: 7,16,19,23', default=None)
     args = parser.parse_args()
     return args
 
 
+def parse_bins(bin_str):
+    if bin_str:
+        return [int(x) for x in bin_str.split(',')]
+
+    return None
+
 class DatasetContainer:
-    def __init__(self, out_dir, alpha=5, beta=5, L=20, R=1000, mode='SSJ'):
+    def __init__(self, out_dir, alpha=5, beta=5, L=20, R=1000, mode='SSJ', target_bins=None):
         """
         alpha - cardinality A
         beta - cardinality B
@@ -46,6 +53,7 @@ class DatasetContainer:
         self.datasets = {}
         self.num_datasets = 0
         self.mode = mode
+        self.target_bins = target_bins
 
         print(f'-I- New container initialized with (alpha,beta)=({alpha},{beta}) and L={L}. Sampling method {mode}')
 
@@ -168,6 +176,7 @@ class DatasetContainer:
         df.sort_values(by='IAB')
         return df
 
+    # refactor this
     def strata_overview(self):
         dfs = {}
         for stratum in self.strata.keys():
@@ -270,12 +279,16 @@ class DatasetContainer:
         print(f'-I- Check {self.out_dir}')
 
     def strata_varying_coverage(self):
-        for stratum in self.strata.keys():
-            num_datasets = len(self.strata[stratum])
-            if num_datasets < 30:
-                continue
+        if self.target_bins:
+            for target_bin in self.target_bins:
+                self.stratum_varying_coverage(target_bin, dump=True)
+        else:
+            for stratum in self.strata.keys():
+                num_datasets = len(self.strata[stratum])
+                if num_datasets < 30:
+                    continue
 
-            self.stratum_varying_coverage(stratum, dump=True)
+                self.stratum_varying_coverage(stratum, dump=True)
 
         print(f'-I- Strata coverage analysis completed successfully. Check {self.out_dir}')
 
@@ -299,10 +312,11 @@ def container_main():
     beta = int(args.beta)
     L = int(args.L)
     R = int(args.R)
+    target_bins = parse_bins(args.bins)
     mode = args.mode
     out_dir = args.out_dir
 
-    container = DatasetContainer(alpha=alpha, beta=beta, L=L, R=R, out_dir=out_dir, mode=mode)
+    container = DatasetContainer(alpha=alpha, beta=beta, L=L, R=R, out_dir=out_dir, mode=mode, target_bins=target_bins)
     container.generate()
     container.bin()
     container.sort()

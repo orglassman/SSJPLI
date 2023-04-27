@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="add number of records per dataset to dataframe">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="add bounds on entropy to dump. compute H_true to compare with H_evaluated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/common.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/unpickle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +85,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/container.py" />
-      <option name="PARAMETERS" value="-R 100 -alpha 5 -beta 6 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis\importance_sampling&quot;" />
+      <option name="PARAMETERS" value="-bins 7,16,19,23 -R 100 -alpha 5 -beta 6 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis\importance_sampling&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -386,7 +383,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682329185350</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="add bounds on entropy to dump. compute H_true to compare with H_evaluated">
+      <created>1682578751243</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1682578751243</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -417,7 +421,8 @@
     <MESSAGE value="pickling output stratum where |stratum|&gt;30. run samples vs. I(A;B) for varying coverage values" />
     <MESSAGE value="no growth management for sampling procedure" />
     <MESSAGE value="add number of records per dataset to dataframe" />
-    <option name="LAST_COMMIT_MESSAGE" value="add number of records per dataset to dataframe" />
+    <MESSAGE value="add bounds on entropy to dump. compute H_true to compare with H_evaluated" />
+    <option name="LAST_COMMIT_MESSAGE" value="add bounds on entropy to dump. compute H_true to compare with H_evaluated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -531,18 +536,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/container.py</url>
-          <line>310</line>
+          <line>324</line>
           <option name="timeStamp" value="695" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/container.py</url>
-          <line>296</line>
+          <line>309</line>
           <option name="timeStamp" value="698" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/container.py</url>
-          <line>266</line>
-          <option name="timeStamp" value="731" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
