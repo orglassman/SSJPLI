@@ -141,10 +141,10 @@ class DatasetContainer:
                 sampler = SyntheticSampler(dataset, mode=self.mode)
 
                 H_aggregate = 0
-                HQ_aggregate = []
-                HQUN_aggregate = []
-                MISS_aggregate = []
-                EMPTY_aggregate = []
+                HQ_aggregate = 0
+                HQUN_aggregate = 0
+                MISS_aggregate = 0
+                EMPTY_aggregate = 0
                 I_aggregate = 0
                 Ns_aggregate = 0
                 time_aggregate = 0
