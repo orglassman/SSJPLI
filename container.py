@@ -168,6 +168,7 @@ class DatasetContainer:
                     Ns_aggregate += res_data['num_samples']
                     time_aggregate += res_data['time']
                     rho_aggregate += res_data['rho']
+                    t_explicit_aggregate += t_explicit
 
                 H_average = H_aggregate / self.R
                 HQ_average = HQ_aggregate / self.R
@@ -192,7 +193,7 @@ class DatasetContainer:
                 times.append(time_average)
                 rhos.append(rho_average)
                 records.append(records_num_dataset)
-                t_explicits.append(t_explicit)
+                t_explicits.append(t_explicit_average)
 
             data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, HQ=HQs, HQUN=HQUNs, MISS=MISSs, EMPTY=EMPTYs,
                         I=Is, N=NSs, t=times,
