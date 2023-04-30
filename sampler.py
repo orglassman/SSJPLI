@@ -156,6 +156,26 @@ class SyntheticSampler:
 
         return res_data
 
+    def explicit_entropy(self):
+        start = time.perf_counter()
+        df = self.dataset.df
+        dist = {}
+        n_counter = 0
+        for index, row in df.iterrows():
+            n_counter += 1
+            symbol = tuple(row.values)
+            if symbol in dist.keys():
+                dist[symbol] += 1
+            else:
+                dist[symbol] = 1
+
+        H = 0
+        for freq in dist.values():
+            H += freq/n_counter
+
+        finish = time.perf_counter()
+        return finish - start
+
     def get_X_dist(self, frequencies):
         lens = []
         for v in frequencies.values():
@@ -347,28 +367,6 @@ class SyntheticSampler:
             q = x / self.N
             HQ_UN -= q * np.log2(q)
 
-        # Ps = [res_data['H'], res_data['HUN']]
-        # Qs = [HQ, HQ_UN]
-        # U1 = Ps[0] + Qs[0]  # HN + HQN (both normalized)
-        # U2 = Ps[0] + Qs[1]  # HN + HQUN
-        # U3 = Ps[1] + Qs[0]  # HUN + HQN # makes no sense
-        # U4 = Ps[1] + Qs[1]  # HUN + HQUN (should equal H(X))
-        #
-        # # compute new bound
-        # rho = res_data['rho']
-        # rho_bar = 1 - rho
-        # U5 = rho * Ps[0] + rho_bar * Qs[0] - binary_entropy(rho)
-        # U6 = rho * Ps[0] + rho_bar * np.log2(len(occur_in_R)) - binary_entropy(rho)
-        #
-        # bounds = {
-        #     'U1': U1,
-        #     'U2': U2,
-        #     'U3': U3,
-        #     'U4': U4,
-        #     'U5': U5,
-        #     'U6': U6
-        # }
-        # return bounds
         res = {
             'HQ': HQ,
             'HQUN': HQ_UN,

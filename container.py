@@ -20,7 +20,8 @@ def parse_args():
     parser.add_argument('-alpha', help='Cardinality of A', default=5)
     parser.add_argument('-beta', help='Cardinality of B', default=10)
     parser.add_argument('-L', help='Number of repetitions per value of k', default=10)
-    parser.add_argument('-R', help='Number of repetitions per experiment (analysis section for lowering variance)', default=1000),
+    parser.add_argument('-R', help='Number of repetitions per experiment (analysis section for lowering variance)',
+                        default=1000),
     parser.add_argument('-mode', help='SSJ/IS', default='SSJ')
     parser.add_argument('-bins', help='Analyze specific bins. Separate with commas e.g.: 7,16,19,23', default=None)
     args = parser.parse_args()
@@ -32,6 +33,7 @@ def parse_bins(bin_str):
         return [int(x) for x in bin_str.split(',')]
 
     return None
+
 
 class DatasetContainer:
     def __init__(self, out_dir, alpha=5, beta=5, L=20, R=1000, mode='SSJ', target_bins=None):
@@ -137,6 +139,7 @@ class DatasetContainer:
             times = []
             Is = []
             records = []
+            t_explicits = []
             for i, dataset in enumerate(datasets):
                 sampler = SyntheticSampler(dataset, mode=self.mode)
 
@@ -149,11 +152,12 @@ class DatasetContainer:
                 Ns_aggregate = 0
                 time_aggregate = 0
                 rho_aggregate = 0
-
+                t_explicit_aggregate = 0
                 # average over R repetitions
                 for i in range(self.R):
                     res_data = sampler.entropy(coverage=coverage)
                     bounds = sampler.get_bounds(res_data)
+                    t_explicit = sampler.explicit_entropy()
 
                     H_aggregate += res_data['H']
                     HQ_aggregate += bounds['HQ']
@@ -175,6 +179,7 @@ class DatasetContainer:
                 time_average = time_aggregate / self.R
                 rho_average = rho_aggregate / self.R
                 records_num_dataset = dataset.get_N()
+                t_explicit_average = t_explicit_aggregate / self.R
 
                 Hs.append(H_average)
                 HQs.append(HQ_average)
@@ -187,13 +192,16 @@ class DatasetContainer:
                 times.append(time_average)
                 rhos.append(rho_average)
                 records.append(records_num_dataset)
+                t_explicits.append(t_explicit)
 
-            data = dict(H=Hs, H_true=H_baselines, HQ=HQs, HQUN=HQUNs, MISS=MISSs, EMPTY=EMPTYs, I=Is, N=NSs, t=times,
+            data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, HQ=HQs, HQUN=HQUNs, MISS=MISSs, EMPTY=EMPTYs,
+                        I=Is, N=NSs, t=times,
                         rho=rhos, records=records)
 
             data_df = pd.DataFrame(data)
             if dump:
-                self.dump_df(data_df, **{'n_samples_vs_I': '', 'bin_num':stratum, 'HAB_avg': E_HAB, 'coverage': coverage})
+                self.dump_df(data_df,
+                             **{'n_samples_vs_I': '', 'bin_num': stratum, 'HAB_avg': E_HAB, 'coverage': coverage})
 
         print(f'-I- Check {self.out_dir}')
 
@@ -210,6 +218,7 @@ class DatasetContainer:
                 self.stratum_varying_coverage(stratum, dump=True)
 
         print(f'-I- Strata coverage analysis completed successfully. Check {self.out_dir}')
+
 
 def container_main():
     args = parse_args()
