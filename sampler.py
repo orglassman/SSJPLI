@@ -176,6 +176,18 @@ class SyntheticSampler:
         finish = time.perf_counter()
         return finish - start
 
+    def traverse_entropy(self):
+        """take cartesian product of A, B"""
+        res = 0
+        start = time.perf_counter()
+        for a, ta in self._tids['A'].items():
+            for b, tb in self._tids['B'].items():
+                I = list(set(ta).intersection(set(tb)))
+                Pab = len(I)/self.N
+                res -= Pab * np.log2(Pab)
+        finish = time.perf_counter()
+        return finish - start
+
     def get_X_dist(self, frequencies):
         lens = []
         for v in frequencies.values():

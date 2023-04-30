@@ -28,21 +28,22 @@ def analyze_single_dataset_single_bin(target_bin, target_dataset):
         "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.25.pkl",
         "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.75.pkl",
         "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.99.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.1467310096163565_coverage_0.5.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.1467310096163565_coverage_0.9.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.1467310096163565_coverage_0.25.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.1467310096163565_coverage_0.75.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.1467310096163565_coverage_0.99.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.146298065791048_coverage_0.5.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.146298065791048_coverage_0.9.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.146298065791048_coverage_0.25.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.146298065791048_coverage_0.75.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.146298065791048_coverage_0.99.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.5.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.9.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.25.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.75.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.99.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.5.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.9.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.25.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.75.pkl",
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.99.pkl",
         "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.5.pkl",
         "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.9.pkl",
         "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.25.pkl",
         "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.75.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.99.pkl"]
+        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.99.pkl"
+    ]
     bins = [7, 16, 19, 23]
     coverages = [.25, .5, .75, .9, .99]
     pattern = r'bin_num_(\d+)_HAB_avg_(\d+\.\d+)_coverage_(\d+\.\d+)'
@@ -57,7 +58,7 @@ def analyze_single_dataset_single_bin(target_bin, target_dataset):
         coverage = float(res.groups(0)[2])
         dfs[bin_num][coverage] = load_pickle(path)
 
-    features = ['H', 'H_true', 'HQ', 'HQUN', 'MISS', 'EMPTY', 'I', 'N', 't', 'rho', 'records']
+    features = ['H', 'H_true', 'HQ', 'HQUN', 'MISS', 'EMPTY', 'I', 'N', 't', 't_explicit', 'rho', 'records']
     H_points = []
     H_true_points = []
     HQ_points = []
@@ -67,6 +68,7 @@ def analyze_single_dataset_single_bin(target_bin, target_dataset):
     I_points = []
     N_points = []
     t_points = []
+    t_explicit_points = []
     rho_points = []
     for c in coverages:
         H_points.append(dfs[target_bin][c]['H'].iloc[target_dataset])
@@ -78,9 +80,10 @@ def analyze_single_dataset_single_bin(target_bin, target_dataset):
         I_points.append(dfs[target_bin][c]['I'].iloc[target_dataset])
         N_points.append(dfs[target_bin][c]['N'].iloc[target_dataset])
         t_points.append(dfs[target_bin][c]['t'].iloc[target_dataset])
+        t_explicit_points.append(dfs[target_bin][c]['t_explicit'].iloc[target_dataset])
         rho_points.append(dfs[target_bin][c]['rho'].iloc[target_dataset])
 
-    Us = [x + np.log2(y) for x, y in zip(H_points, miss_points)]
+    print('hello')
 
 def parse_files(dir):
     bins = [7, 16, 19, 23]

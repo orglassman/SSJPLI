@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="measure explicit time for calculation of entropy" />
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="measure explicit time for calculation of entropy (minor bug fix)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/unpickle.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -429,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682850149275</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="measure explicit time for calculation of entropy (minor bug fix)">
+      <created>1682850174760</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1682850174760</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -466,7 +478,8 @@
     <MESSAGE value="minor bug fix" />
     <MESSAGE value="minor bug fix2" />
     <MESSAGE value="measure explicit time for calculation of entropy" />
-    <option name="LAST_COMMIT_MESSAGE" value="measure explicit time for calculation of entropy" />
+    <MESSAGE value="measure explicit time for calculation of entropy (minor bug fix)" />
+    <option name="LAST_COMMIT_MESSAGE" value="measure explicit time for calculation of entropy (minor bug fix)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -575,23 +588,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/container.py</url>
-          <line>239</line>
+          <line>245</line>
           <option name="timeStamp" value="695" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/container.py</url>
-          <line>224</line>
+          <line>230</line>
           <option name="timeStamp" value="698" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/unpickle.py</url>
-          <line>82</line>
-          <option name="timeStamp" value="699" />
+          <line>150</line>
+          <option name="timeStamp" value="700" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/unpickle.py</url>
-          <line>147</line>
-          <option name="timeStamp" value="700" />
+          <line>85</line>
+          <option name="timeStamp" value="707" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -140,6 +140,7 @@ class DatasetContainer:
             Is = []
             records = []
             t_explicits = []
+            t_traverses = []
             for i, dataset in enumerate(datasets):
                 sampler = SyntheticSampler(dataset, mode=self.mode)
 
@@ -153,11 +154,13 @@ class DatasetContainer:
                 time_aggregate = 0
                 rho_aggregate = 0
                 t_explicit_aggregate = 0
+                t_traverse_aggregate = 0
                 # average over R repetitions
                 for i in range(self.R):
                     res_data = sampler.entropy(coverage=coverage)
                     bounds = sampler.get_bounds(res_data)
                     t_explicit = sampler.explicit_entropy()
+                    t_traverse = sampler.traverse_entropy()
 
                     H_aggregate += res_data['H']
                     HQ_aggregate += bounds['HQ']
@@ -169,6 +172,7 @@ class DatasetContainer:
                     time_aggregate += res_data['time']
                     rho_aggregate += res_data['rho']
                     t_explicit_aggregate += t_explicit
+                    t_traverse_aggregate += t_traverse
 
                 H_average = H_aggregate / self.R
                 HQ_average = HQ_aggregate / self.R
@@ -181,6 +185,7 @@ class DatasetContainer:
                 rho_average = rho_aggregate / self.R
                 records_num_dataset = dataset.get_N()
                 t_explicit_average = t_explicit_aggregate / self.R
+                t_traverse_average = t_traverse_aggregate / self.R
 
                 Hs.append(H_average)
                 HQs.append(HQ_average)
@@ -194,8 +199,9 @@ class DatasetContainer:
                 rhos.append(rho_average)
                 records.append(records_num_dataset)
                 t_explicits.append(t_explicit_average)
+                t_traverses.append(t_traverse_average)
 
-            data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, HQ=HQs, HQUN=HQUNs, MISS=MISSs, EMPTY=EMPTYs,
+            data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, t_traverse=t_traverses, HQ=HQs, HQUN=HQUNs, MISS=MISSs, EMPTY=EMPTYs,
                         I=Is, N=NSs, t=times,
                         rho=rhos, records=records)
 
