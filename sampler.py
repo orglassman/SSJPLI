@@ -184,7 +184,8 @@ class SyntheticSampler:
             for b, tb in self._tids['B'].items():
                 I = list(set(ta).intersection(set(tb)))
                 Pab = len(I)/self.N
-                res -= Pab * np.log2(Pab)
+                if bool(Pab):
+                    res -= Pab * np.log2(Pab)
         finish = time.perf_counter()
         return finish - start
 

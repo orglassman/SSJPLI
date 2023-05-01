@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="measure explicit time for calculation of entropy (minor bug fix)">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="add time for traversal of TA, TB (cartesian product)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
@@ -87,7 +87,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/container.py" />
-      <option name="PARAMETERS" value="-bins 7,16,19,23 -R 100 -alpha 5 -beta 6 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis\importance_sampling&quot;" />
+      <option name="PARAMETERS" value="-R 100 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis\varying_alpha_beta&quot; -bins 16" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -441,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682850174760</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="add time for traversal of TA, TB (cartesian product)">
+      <created>1682873158434</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1682873158434</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -479,7 +486,8 @@
     <MESSAGE value="minor bug fix2" />
     <MESSAGE value="measure explicit time for calculation of entropy" />
     <MESSAGE value="measure explicit time for calculation of entropy (minor bug fix)" />
-    <option name="LAST_COMMIT_MESSAGE" value="measure explicit time for calculation of entropy (minor bug fix)" />
+    <MESSAGE value="add time for traversal of TA, TB (cartesian product)" />
+    <option name="LAST_COMMIT_MESSAGE" value="add time for traversal of TA, TB (cartesian product)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -587,24 +595,24 @@
           <option name="timeStamp" value="569" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/container.py</url>
-          <line>245</line>
-          <option name="timeStamp" value="695" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/container.py</url>
-          <line>230</line>
-          <option name="timeStamp" value="698" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/unpickle.py</url>
-          <line>150</line>
+          <line>155</line>
           <option name="timeStamp" value="700" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/unpickle.py</url>
-          <line>85</line>
+          <line>90</line>
           <option name="timeStamp" value="707" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/container.py</url>
+          <line>250</line>
+          <option name="timeStamp" value="713" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/container.py</url>
+          <line>209</line>
+          <option name="timeStamp" value="714" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

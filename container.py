@@ -121,7 +121,7 @@ class DatasetContainer:
     def stratum_varying_coverage(self, stratum, dump=False):
         """analyze varying coverage in every sub population"""
         datasets = self.strata[stratum]
-        E_HAB = np.average([x.HAB() for x in datasets])
+        E_HAB = np.round(np.average([x.HAB() for x in datasets]), decimals=3)
         if not bool(datasets):
             return
 
@@ -201,7 +201,8 @@ class DatasetContainer:
                 t_explicits.append(t_explicit_average)
                 t_traverses.append(t_traverse_average)
 
-            data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, t_traverse=t_traverses, HQ=HQs, HQUN=HQUNs, MISS=MISSs, EMPTY=EMPTYs,
+            data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, t_traverse=t_traverses, HQ=HQs, HQUN=HQUNs,
+                        MISS=MISSs, EMPTY=EMPTYs,
                         I=Is, N=NSs, t=times,
                         rho=rhos, records=records)
 
@@ -246,5 +247,28 @@ def container_main():
     print('hello')
 
 
+def vary_cardinality_measure_time():
+    args = parse_args()
+    max_alpha = int(args.alpha)
+    max_beta = int(args.beta)
+    L = int(args.L)
+    R = int(args.R)
+    target_bins = parse_bins(args.bins)
+    mode = args.mode
+    out_dir = args.out_dir
+
+    for alpha in range(10, max_alpha):
+        for beta in range(10, max_beta):
+            container = DatasetContainer(alpha=alpha, beta=beta, L=L, R=R, out_dir=out_dir, mode=mode,
+                                         target_bins=target_bins)
+            container.generate()
+            container.bin()
+            container.sort()
+            container.strata_varying_coverage()
+
+    print('hello')
+
+
 if __name__ == '__main__':
-    container_main()
+    # container_main()
+    vary_cardinality_measure_time()

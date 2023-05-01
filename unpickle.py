@@ -69,6 +69,7 @@ def analyze_single_dataset_single_bin(target_bin, target_dataset):
     N_points = []
     t_points = []
     t_explicit_points = []
+    t_traverse_points = []
     rho_points = []
     for c in coverages:
         H_points.append(dfs[target_bin][c]['H'].iloc[target_dataset])
@@ -81,8 +82,12 @@ def analyze_single_dataset_single_bin(target_bin, target_dataset):
         N_points.append(dfs[target_bin][c]['N'].iloc[target_dataset])
         t_points.append(dfs[target_bin][c]['t'].iloc[target_dataset])
         t_explicit_points.append(dfs[target_bin][c]['t_explicit'].iloc[target_dataset])
+        t_traverse_points.append(dfs[target_bin][c]['t_traverse'].iloc[target_dataset])
         rho_points.append(dfs[target_bin][c]['rho'].iloc[target_dataset])
 
+    interest = [t_points, t_explicit_points, t_traverse_points]
+    for i in interest:
+        plt.plot(coverages, i, linestyle="-", marker="o")
     print('hello')
 
 def parse_files(dir):
@@ -148,5 +153,5 @@ def unpickle_main():
 
 if __name__ == '__main__':
     # unpickle_main()
-    analyze_single_dataset_single_bin(target_bin=23, target_dataset=31)
+    analyze_single_dataset_single_bin(target_bin=19, target_dataset=31)
     print('hello')
