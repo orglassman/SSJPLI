@@ -258,8 +258,10 @@ def vary_cardinality_measure_time():
     mode = args.mode
     out_dir = args.out_dir
 
-    for alpha in range(10, max_alpha):
-        for beta in range(10, max_beta):
+    alphas = np.arange(10, max_alpha, 10)
+    betas = np.arange(10, max_alpha, 5)
+    for alpha in alphas:
+        for beta in betas:
             container = DatasetContainer(alpha=alpha, beta=beta, L=L, R=R, out_dir=out_dir, mode=mode,
                                          target_bins=target_bins)
             container.generate()

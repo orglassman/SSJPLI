@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="varying alpha beta cardinality analysis">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="minor bug fix varying cardinality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
     </list>
@@ -453,7 +453,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682932850309</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="minor bug fix varying cardinality">
+      <created>1682933890055</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1682933890055</updated>
+    </task>
+    <task id="LOCAL-00029" summary="minor bug fix varying cardinality">
+      <created>1682933904558</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1682933904558</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -493,7 +507,8 @@
     <MESSAGE value="measure explicit time for calculation of entropy (minor bug fix)" />
     <MESSAGE value="add time for traversal of TA, TB (cartesian product)" />
     <MESSAGE value="varying alpha beta cardinality analysis" />
-    <option name="LAST_COMMIT_MESSAGE" value="varying alpha beta cardinality analysis" />
+    <MESSAGE value="minor bug fix varying cardinality" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor bug fix varying cardinality" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -612,7 +627,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/container.py</url>
-          <line>250</line>
+          <line>251</line>
           <option name="timeStamp" value="713" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
