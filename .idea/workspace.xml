@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="add time for traversal of TA, TB (cartesian product)">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="varying alpha beta cardinality analysis">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/unpickle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -448,7 +446,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682873158434</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="varying alpha beta cardinality analysis">
+      <created>1682932850309</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1682932850309</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -487,7 +492,8 @@
     <MESSAGE value="measure explicit time for calculation of entropy" />
     <MESSAGE value="measure explicit time for calculation of entropy (minor bug fix)" />
     <MESSAGE value="add time for traversal of TA, TB (cartesian product)" />
-    <option name="LAST_COMMIT_MESSAGE" value="add time for traversal of TA, TB (cartesian product)" />
+    <MESSAGE value="varying alpha beta cardinality analysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="varying alpha beta cardinality analysis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
