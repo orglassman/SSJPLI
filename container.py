@@ -209,7 +209,8 @@ class DatasetContainer:
             data_df = pd.DataFrame(data)
             if dump:
                 self.dump_df(data_df,
-                             **{'alpha': self.alpha, 'beta':self.beta, 'varying_cardinality': '', 'bin_num': stratum, 'HAB_avg': E_HAB, 'coverage': coverage})
+                             **{'alpha': self.alpha, 'beta': self.beta, 'varying_cardinality': '', 'bin_num': stratum,
+                                'HAB_avg': E_HAB, 'coverage': coverage})
 
         print(f'-I- Check {self.out_dir}')
 
