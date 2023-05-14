@@ -7,151 +7,178 @@ import numpy as np
 
 from common import load_pickle
 
+alphas = np.arange(10, 50, 10)
+betas = np.arange(10, 50, 5)
+coverages = [.25, .5, .75, .9, .99]
+bins = [7, 16, 19, 23]
+
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument('-in_dir', help='path to directory containing pickle files')
+    parser.add_argument('-in_dir', help='path to directory containing .pkl files')
     args = parser.parse_args()
     return args
 
 
-def plot_single_bin_N_coverage(dfs, label):
-    coverages = [.25, .5, .75, .9, .99]
-    print(f'For {label}: {len(dfs[.25])} dataset instances')
-    averages = [np.average(dfs[c]['N']) for c in coverages]
-    plt.plot(coverages, averages, linestyle="-", marker="o", label=label)
+def get_ax():
+    plt.figure()
+    ax = plt.axes()
+    plt.xticks(fontsize=25)
+    plt.yticks(fontsize=25)
+    plt.grid()
+    return ax
 
-def analyze_single_dataset_single_bin(target_bin, target_dataset):
-    paths = [
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.5.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.9.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.25.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.75.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_7_HAB_avg_2.160964047443681_coverage_0.99.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.5.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.9.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.25.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.75.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_16_HAB_avg_5.146731009616357_coverage_0.99.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.5.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.9.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.25.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.75.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_19_HAB_avg_6.14629806579105_coverage_0.99.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.5.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.9.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.25.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.75.pkl",
-        "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\strata analysis\\alpha_10_beta_20_ssj_no_growth\\n_samples_vs_I__bin_num_23_HAB_avg_7.476752128611231_coverage_0.99.pkl"
-    ]
-    bins = [7, 16, 19, 23]
-    coverages = [.25, .5, .75, .9, .99]
-    pattern = r'bin_num_(\d+)_HAB_avg_(\d+\.\d+)_coverage_(\d+\.\d+)'
-    dfs = {b: {} for b in bins}
-    for path in paths:
-        res = re.search(pattern, path)
-        if not res:
-            print(f'-W- Check {path}')
-            continue
-        bin_num = int(res.groups(0)[0])
-        HAB_avg = round(float(res.groups(0)[1]), 3)
-        coverage = float(res.groups(0)[2])
-        dfs[bin_num][coverage] = load_pickle(path)
 
-    features = ['H', 'H_true', 'HQ', 'HQUN', 'MISS', 'EMPTY', 'I', 'N', 't', 't_explicit', 'rho', 'records']
-    H_points = []
-    H_true_points = []
-    HQ_points = []
-    HQUN_points = []
-    miss_points = []
-    empty_points = []
-    I_points = []
-    N_points = []
-    t_points = []
-    t_explicit_points = []
-    t_traverse_points = []
-    rho_points = []
-    for c in coverages:
-        H_points.append(dfs[target_bin][c]['H'].iloc[target_dataset])
-        H_true_points.append(dfs[target_bin][c]['H_true'].iloc[target_dataset])
-        HQ_points.append(dfs[target_bin][c]['HQ'].iloc[target_dataset])
-        HQUN_points.append(dfs[target_bin][c]['HQUN'].iloc[target_dataset])
-        miss_points.append(dfs[target_bin][c]['MISS'].iloc[target_dataset])
-        empty_points.append(dfs[target_bin][c]['EMPTY'].iloc[target_dataset])
-        I_points.append(dfs[target_bin][c]['I'].iloc[target_dataset])
-        N_points.append(dfs[target_bin][c]['N'].iloc[target_dataset])
-        t_points.append(dfs[target_bin][c]['t'].iloc[target_dataset])
-        t_explicit_points.append(dfs[target_bin][c]['t_explicit'].iloc[target_dataset])
-        t_traverse_points.append(dfs[target_bin][c]['t_traverse'].iloc[target_dataset])
-        rho_points.append(dfs[target_bin][c]['rho'].iloc[target_dataset])
-
-    interest = [t_points, t_explicit_points, t_traverse_points]
-    for i in interest:
-        plt.plot(coverages, i, linestyle="-", marker="o")
-    print('hello')
-
-def parse_files(dir):
-    bins = [7, 16, 19, 23]
-    coverages = [.25, .5, .75, .9, .99]
+def load_dfs(dir):
     files = os.listdir(dir)
-
-    dfs = {b: {c: None for c in coverages} for b in bins}
-
-    pattern = r'bin_num_(\d+)_HAB_avg_(\d+\.\d+)_coverage_(\d+\.\d+)'
-
+    pattern = r'alpha_(\d+).+beta_(\d+).+bin_num_(\d+).+coverage_(\d+\.\d+)'
+    dfs = {alpha:{beta:{b:{} for b in bins} for beta in betas} for alpha in alphas}
     for file in files:
         res = re.search(pattern, file)
         if not res:
             print(f'-W- Check {file}')
             continue
-
-        bin_num = int(res.groups(0)[0])
-        HAB_avg = round(float(res.groups(0)[1]), 3)
-        coverage = float(res.groups(0)[2])
-        fullpath = dir + os.sep + file
-        dfs[bin_num][coverage] = load_pickle(fullpath)
+        alpha = int(res.groups(0)[0])
+        beta = int(res.groups(0)[1])
+        bin_num = int(res.groups(0)[2])
+        coverage = float(res.groups(0)[3])
+        dfs[alpha][beta][bin_num][coverage] = load_pickle(dir + os.sep + file)
 
     return dfs
 
 
-def plot_N_coverage_per_bin(bin_files, H_values):
-    # generate labels for legend
-    labels = {}
-    for b, h in H_values.items():
-        label = r'$H(AB)=${0}, bin={1}'.format(h, b)
-        labels[b] = label
+def plot_graph_1(dfs):
+    ax = get_ax()
 
-    plt.figure()
-    # for bin_num, files in bin_files.items():
-    #     plot_single_bin_N_coverage(files, labels[bin_num])
+    records_7 = [np.average(dfs[c][7]['N']) for c in coverages]
+    records_16 = [np.average(dfs[c][16]['N']) for c in coverages]
+    records_19 = [np.average(dfs[c][19]['N']) for c in coverages]
+    records_23 = [np.average(dfs[c][23]['N']) for c in coverages]
+    records_7_std = [np.std(dfs[c][7]['N']) for c in coverages]
+    records_16_std = [np.std(dfs[c][16]['N']) for c in coverages]
+    records_19_std = [np.std(dfs[c][19]['N']) for c in coverages]
+    records_23_std = [np.std(dfs[c][23]['N']) for c in coverages]
+    records_7_y0 = [x - y for x, y in zip(records_7, records_7_std)]
+    records_7_y1 = [x + y for x, y in zip(records_7, records_7_std)]
+    records_16_y0 = [x - y for x, y in zip(records_16, records_16_std)]
+    records_16_y1 = [x + y for x, y in zip(records_16, records_16_std)]
+    records_19_y0 = [x - y for x, y in zip(records_19, records_19_std)]
+    records_19_y1 = [x + y for x, y in zip(records_19, records_19_std)]
+    records_23_y0 = [x - y for x, y in zip(records_23, records_23_std)]
+    records_23_y1 = [x + y for x, y in zip(records_23, records_23_std)]
 
-    bins_of_interest = [7, 16, 19, 23]
-    for bin_num in bins_of_interest:
-        plot_single_bin_N_coverage(bin_files[bin_num], labels[bin_num])
+    ax.plot(coverages, records_7, linewidth=3, marker='o')
+    ax.plot(coverages, records_7, linewidth=3, marker='o', color='C0', label=r'H=2.16')
+    ax.plot(coverages, records_16, linewidth=3, marker='o', color='C1', label=r'H=5.146')
+    ax.plot(coverages, records_19, linewidth=3, marker='o', color='C2', label=r'H=6.146')
+    ax.plot(coverages, records_23, linewidth=3, marker='o', color='C3', label=r'H=7.476')
+    plt.legend(fontsize=35)
 
-    plt.xlabel('coverage', fontsize=15)
-    plt.ylabel('samples', fontsize=15)
-    plt.title('Number of Samples vs. Coverage', fontsize=20)
-    plt.legend(fontsize=15)
-    plt.show()
-    print('hello')
+    ax.fill_between(coverages, records_7_y0, records_7_y1, color='lightsteelblue')
+    ax.fill_between(coverages, records_16_y0, records_16_y1, color='antiquewhite')
+    ax.fill_between(coverages, records_19_y0, records_19_y1, color='gainsboro')
+    ax.fill_between(coverages, records_23_y0, records_23_y1, color='thistle')
+    plt.legend(fontsize=35)
 
 
-def unpickle_main():
+def plot_graph_2(dfs):
+    ax = get_ax()
+    h_abs = [2.16, 5.146, 6.146, 7.476]
+    records_hs = [np.average(dfs[.25][b]['records']) for b in bins]
+    records_hs_stds = [np.std(dfs[.25][b]['records']) for b in bins]
+    records_hs_y0 = [x - y for x, y in zip(records_hs, records_hs_stds)]
+    records_hs_y1 = [x + y for x, y in zip(records_hs, records_hs_stds)]
+
+    ax.plot(h_abs, records_hs, marker='o', linewidth=3, color='C0')
+    ax.fill_between(h_abs, records_hs_y0, records_hs_y1, color='thistle')
+
+    plt.xlabel(r'$H(AB)\;[bit/symbol]$', fontsize=40)
+    plt.ylabel('records', fontsize=40)
+
+
+def plot_graph_3(dfs):
+    ax = get_ax()
+    t_ssjs = [dfs[c][16]['t'].iloc[31] for c in coverages]
+    t_explicits = [dfs[c][16]['t_explicit'].iloc[31] for c in coverages]
+    t_traverses = [dfs[c][16]['t_traverse'].iloc[31] for c in coverages]
+    ax.plot(coverages, t_ssjs, linewidth=3, marker='o', color='C0', label='SSJ')
+    ax.plot(coverages, t_explicits, linewidth=3, marker='o', color='C1', label='explicit')
+    ax.plot(coverages, t_traverses, linewidth=3, marker='o', color='C2', label='traverse')
+    plt.xlabel('coverage', fontsize=40)
+    plt.ylabel('time [sec]', fontsize=40)
+    plt.legend(fontsize=35)
+
+
+def plot_graph_3_stds(dfs):
+    ax = get_ax()
+    t_ssjs = np.array([np.average(dfs[c][16]['t']) for c in coverages])
+    t_ssjs_std = np.array([np.std(dfs[c][16]['t']) for c in coverages])
+    t_explicits = np.array([np.average(dfs[c][16]['t_explicit']) for c in coverages])
+    t_explicits_std = np.array([np.std(dfs[c][16]['t_explicit']) for c in coverages])
+    t_traverses = np.array([np.average(dfs[c][16]['t_traverse']) for c in coverages])
+    t_traverses_std = np.array([np.std(dfs[c][16]['t_traverse']) for c in coverages])
+
+    t_ssjs_y0 = t_ssjs - t_ssjs_std
+    t_ssjs_y1 = t_ssjs + t_ssjs_std
+    t_explicits_y0 = t_explicits - t_explicits_std
+    t_explicits_y1 = t_explicits + t_explicits_std
+    t_traverses_y0 = t_traverses - t_traverses_std
+    t_traverses_y1 = t_traverses + t_traverses_std
+    ax.fill_between(coverages, t_ssjs_y0, t_ssjs_y1, color='lightsteelblue')
+    ax.fill_between(coverages, t_explicits_y0, t_explicits_y1, color='antiquewhite')
+    ax.fill_between(coverages, t_traverses_y0, t_traverses_y1, color='gainsboro')
+    ax.plot(coverages, t_ssjs, marker='o', linewidth=3, color='C0', label='SSJ')
+    ax.plot(coverages, t_explicits, marker='o', linewidth=3, color='C1', label='explicit')
+    ax.plot(coverages, t_traverses, marker='o', linewidth=3, color='C2', label='traverse')
+    plt.legend(fontsize=35)
+    plt.ylabel('time [sec]', fontsize=40)
+    plt.xlabel('coverage', fontsize=40)
+
+
+def plot_graph_4(dfs):
+    ax = get_ax()
+    h_ssjs = [np.average(dfs[c][16]['H']) for c in coverages]
+    h_trues = [np.average(dfs[c][16]['H_true']) for c in coverages]
+    h_qs = [np.average(dfs[c][16]['HQ']) for c in coverages]
+    h_ssjs_std = [np.std(dfs[c][16]['H']) for c in coverages]
+    h_trues_std = [np.std(dfs[c][16]['H_true']) for c in coverages]
+    h_qs_std = [np.std(dfs[c][16]['HQ']) for c in coverages]
+    h_ssjs_y0 = [x - y for x, y in zip(h_ssjs, h_ssjs_std)]
+    h_ssjs_y1 = [x + y for x, y in zip(h_ssjs, h_ssjs_std)]
+    h_trues_y0 = [x - y for x, y in zip(h_trues, h_trues_std)]
+    h_trues_y1 = [x + y for x, y in zip(h_trues, h_trues_std)]
+    h_qs_y0 = [x - y for x, y in zip(h_qs, h_qs_std)]
+    h_qs_y1 = [x + y for x, y in zip(h_qs, h_qs_std)]
+
+    ax.plot(coverages, h_ssjs, marker='o', linewidth=3, color='C0', zorder=10, label='sampled')
+    ax.plot(coverages, h_trues, marker='o', linewidth=3, color='C1', label='true')
+    ax.plot(coverages, h_ssjs, marker='o', linewidth=3, color='C2', label='missampled')
+    plt.legend(fontsize=35)
+
+    ax.fill_between(coverages, h_ssjs_y0, h_ssjs_y1, zorder=10, color='lightsteelblue')
+    ax.fill_between(coverages, h_trues_y0, h_trues_y1, color='antiquewhite')
+    ax.fill_between(coverages, h_qs_y0, h_qs_y1, color='gainsboro')
+
+    plt.xlabel('coverage', fontsize=40)
+    plt.ylabel(r'$H\;[bit/symbol]$', fontsize=40)
+
+
+def plot_graph_5(dfs):
+    alphas = [10, 20, 30, 40]
+    betas = [10, 15, 20, 25, 30, 35, 40, 45]
+    dfs = {al: {be: {b: {} for b in bins} for be in betas} for al in alphas}
+    pattern = 'alpha_(\d+)_beta_(\d+).+bin_num_(\d+)_HAB_avg_(\d+\.\d+)_coverage_(\d+\.\d+)'
+
+
+
+
+
+    pass
+
+def main():
     args = parse_args()
     in_dir = args.in_dir
-
-    bin_files, H_avg = parse_files(in_dir)
-    plot_N_coverage_per_bin(bin_files, H_avg)
-
-    return 0
-
-# def isolate_single_dataset_bin(bin_num, dataset_num):
-#     for c, df in dfs.items():
-#         U6s[c] = df['U6'].iloc[0]
-#     U6s = sort_by_key(U6s)
-
+    dfs = load_dfs(in_dir)
+    print('hello world')
 if __name__ == '__main__':
-    # unpickle_main()
-    analyze_single_dataset_single_bin(target_bin=19, target_dataset=31)
-    print('hello')
+    main()

@@ -273,5 +273,5 @@ def vary_cardinality_measure_time():
 
 
 if __name__ == '__main__':
-    # container_main()
-    vary_cardinality_measure_time()
+    container_main()
+    # vary_cardinality_measure_time()

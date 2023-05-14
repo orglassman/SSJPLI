@@ -237,7 +237,7 @@ class SyntheticSampler:
 
         if not coverage:
             coverage = self.coverage
-        target_N = int(self.N * coverage)
+        target_N = int(self.N * coverage) + 1
         total_sampled = 0
 
         growth_counter = 0
@@ -269,7 +269,7 @@ class SyntheticSampler:
                     frequencies[x] = intersection_indices
                     growth_counter = 0  # reset for successful samples
 
-            # update distributions. if some dist is empty break
+            # update distributions. break if dist empty
             distributions = self.update_distributions(distributions, instance, L)
             if not distributions:
                 break

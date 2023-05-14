@@ -839,9 +839,9 @@ class Relation:
 
 
 def R_debug():
-    csv1 = "a"
-    X = ['A']
-    R = Relation(path=csv1, mode='pli')
+    csv1 = 'C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Adult\\adult2.csv'
+    X = ['X1', 'X2']
+    R = Relation(path=csv1, mode='ssj', coverage=.5)
     H = R.entropy(X)['H']
 
 

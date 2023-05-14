@@ -60,11 +60,11 @@ def preprocess(df):
     return df
 
 
-def swap(list, pos1, pos2):
-    x = list[pos2]
-    list[pos2] = list[pos1]
-    list[pos1] = x
-    return list
+def swap(l, pos1, pos2):
+    x = l[pos2]
+    l[pos2] = l[pos1]
+    l[pos1] = x
+    return l
 
 
 def intersection(list1, list2):
@@ -97,7 +97,6 @@ def cartesian_product_multi(*dfs):
 def binary_search(arr, x):
     low = 0
     high = len(arr) - 1
-    mid = 0
 
     # check if exceeds list itself
     if x > arr[high] or x < arr[low]:
