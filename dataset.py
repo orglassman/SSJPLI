@@ -2,6 +2,7 @@ import itertools
 
 import numpy as np
 import pandas as pd
+from scipy.stats import norm
 
 
 class DataSet:
@@ -32,8 +33,11 @@ class DataSet:
             raise Exception(f'The number of entries to remove must be a positive integer between [1, {self.get_N()}]')
         if self.dropped:
             raise Exception(f'Current data set already reduced. Cannot drop entries')
-
-        indices = np.random.choice(self.df.index, k, replace=False)
+        p = self.gen_random_weights()
+        try:
+            indices = np.random.choice(self.df.index, k, replace=False, p=p)
+        except:
+            print('hello')
         new_df = self.df.drop(indices, axis=0).reset_index(drop=True)
         self.df = new_df
         self.dropped = True     # can only drop once
@@ -43,6 +47,14 @@ class DataSet:
 
     def reset(self):
         self.__init__(self.alpha, self.beta)
+
+    def gen_random_weights(self):
+        support = self.df.index
+        mean = int(len(support) / 2)
+        pdfs = [norm.pdf(x, loc=mean) for x in support]
+        Z = sum(pdfs)
+        prob = [x/Z for x in pdfs]
+        return prob
 
     def HAB(self):
         PAB = self.df.value_counts(normalize=True).to_dict()

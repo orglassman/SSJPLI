@@ -29,10 +29,42 @@ def get_ax():
     return ax
 
 
+def get_run_params(files):
+    pattern = r'alpha_(\d+).+beta_(\d+).+bin_num_(\d+).+coverage_(\d+\.\d+)'
+    alphas = {}
+    betas = {}
+    bins = {}
+    coverages = {}
+    for file in files:
+        res = re.search(pattern, file)
+        if not res:
+            print(f'-W- Check {file}')
+            continue
+        alpha = int(res.groups(0)[0])
+        beta = int(res.groups(0)[1])
+        bin_num = int(res.groups(0)[2])
+        coverage = float(res.groups(0)[3])
+        alphas[alpha] = 1
+        betas[beta] = 1
+        bins[bin_num] = 1
+        coverages[coverage] = 1
+
+    res = [
+        list(alphas.keys()),
+        list(betas.keys()),
+        list(bins.keys()),
+        list(coverages.keys())
+    ]
+
+    return res
+
+
 def load_dfs(dir):
     files = os.listdir(dir)
+    alphas, betas, bins, coverages = get_run_params(files)
+
     pattern = r'alpha_(\d+).+beta_(\d+).+bin_num_(\d+).+coverage_(\d+\.\d+)'
-    dfs = {alpha:{beta:{b:{} for b in bins} for beta in betas} for alpha in alphas}
+    dfs = {alpha: {beta: {b: {} for b in bins} for beta in betas} for alpha in alphas}
     for file in files:
         res = re.search(pattern, file)
         if not res:
@@ -169,16 +201,15 @@ def plot_graph_5(dfs):
     dfs = {al: {be: {b: {} for b in bins} for be in betas} for al in alphas}
     pattern = 'alpha_(\d+)_beta_(\d+).+bin_num_(\d+)_HAB_avg_(\d+\.\d+)_coverage_(\d+\.\d+)'
 
-
-
-
-
     pass
+
 
 def main():
     args = parse_args()
     in_dir = args.in_dir
     dfs = load_dfs(in_dir)
     print('hello world')
+
+
 if __name__ == '__main__':
     main()

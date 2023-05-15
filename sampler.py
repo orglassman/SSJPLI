@@ -1,13 +1,11 @@
 import itertools
-from argparse import ArgumentParser
 import time
+from argparse import ArgumentParser
 from random import choices
 
 import numpy as np
-import pandas as pd
-from matplotlib import pyplot as plt
 
-from common import binary_entropy, sort_by_key
+from common import sort_by_key
 
 
 def parse_args():
@@ -36,7 +34,7 @@ def H_dict(d, base=2):
 class SyntheticSampler:
     """sequential sampler taking synthetic two-column data"""
 
-    def __init__(self, dataset, coverage=0.9, growth_threshold=None, mode='SSJ'):
+    def __init__(self, dataset, coverage=0.9, growth_threshold=None, mode='ssj'):
         self.dataset = dataset
         self.coverage = coverage
         self.growth_threshold = growth_threshold
@@ -72,11 +70,39 @@ class SyntheticSampler:
         # self._tids = res_tids
         self._tids = tuple2tid
 
-    def entropy(self, coverage=None):
-        if self.mode == 'SSJ':
+    def entropy(self, coverage=None, mode='ssj'):
+        if mode == 'ssj':
             return self.entropy_ssj(coverage)
+        elif mode == 'pss':
+            return self.entropy_pss(coverage)
         else:
             return self.entropy_is(coverage)
+
+    def entropy_pss(self, coverage):
+        """approximate H(X) using PSS"""
+        start_time = time.perf_counter()
+        res_data = self.pss(coverage=coverage)
+        end_time = time.perf_counter()
+
+        # add time
+        res_data['time'] = end_time - start_time
+
+        # get output frequencies
+        TX = res_data['frequencies']
+
+        HUN = 0
+        for x in TX.values():
+            q2 = len(x) / self.N
+            HUN -= q2 * np.log2(q2)
+
+        TX_dist = self.get_X_dist(TX)
+        HN = H_dict(TX_dist)
+        res_data['H'] = HN  # entropy since defined over probability distribution
+        res_data['HUN'] = HUN  # technically not entropy
+
+        # add here: upper bounds for H
+
+        return res_data
 
     def entropy_ssj(self, coverage=None):
         """approximate H(X) using SSJ"""
@@ -105,7 +131,7 @@ class SyntheticSampler:
         return res_data
 
     def entropy_is(self, coverage):
-        distributions = self.generate_distributions()
+        distributions = self.generate_distributions_ssj()
         # IS - accumulate H with each sample
         if not coverage:
             coverage = self.coverage
@@ -122,7 +148,7 @@ class SyntheticSampler:
         while H_is < target_H:
             num_samples += 1
 
-            instance = self.sample_instance(distributions)
+            instance = self.sample_instance_ssj(distributions)
             x = tuple(instance.values())
 
             if x in sampled.keys():
@@ -171,7 +197,7 @@ class SyntheticSampler:
 
         H = 0
         for freq in dist.values():
-            H += freq/n_counter
+            H += freq / n_counter
 
         finish = time.perf_counter()
         return finish - start
@@ -183,7 +209,7 @@ class SyntheticSampler:
         for a, ta in self._tids['A'].items():
             for b, tb in self._tids['B'].items():
                 I = list(set(ta).intersection(set(tb)))
-                Pab = len(I)/self.N
+                Pab = len(I) / self.N
                 if bool(Pab):
                     res -= Pab * np.log2(Pab)
         finish = time.perf_counter()
@@ -233,7 +259,7 @@ class SyntheticSampler:
         rho - effective coverage > sigma
         nulls - (a,b) with empty frequency
         """
-        distributions = self.generate_distributions()
+        distributions = self.generate_distributions_ssj()
 
         if not coverage:
             coverage = self.coverage
@@ -248,7 +274,7 @@ class SyntheticSampler:
         num_samples = 0
         while total_sampled < target_N:
             num_samples += 1
-            instance = self.sample_instance(distributions)
+            instance = self.sample_instance_ssj(distributions)
             x = tuple(instance.values())
 
             if x in sampled.keys():
@@ -270,7 +296,7 @@ class SyntheticSampler:
                     growth_counter = 0  # reset for successful samples
 
             # update distributions. break if dist empty
-            distributions = self.update_distributions(distributions, instance, L)
+            distributions = self.update_distributions_ssj(distributions, instance, L)
             if not distributions:
                 break
             total_sampled += L
@@ -292,7 +318,7 @@ class SyntheticSampler:
         }
         return res_data
 
-    def generate_distributions(self):
+    def generate_distributions_ssj(self):
         distributions = {}
         for attribute, instances in self._tids.items():
             d = {x: len(self._tids[attribute][x]) for x in self._tids[attribute].keys()}
@@ -301,7 +327,7 @@ class SyntheticSampler:
 
         return distributions
 
-    def sample_instance(self, distributions):
+    def sample_instance_ssj(self, distributions):
         res = {}
         for attribute in distributions.keys():
             domain = list(distributions[attribute].keys())
@@ -313,7 +339,7 @@ class SyntheticSampler:
 
         return res
 
-    def update_distributions(self, distributions, instance, L):
+    def update_distributions_ssj(self, distributions, instance, L):
         for attribute, value in instance.items():
             distributions[attribute][value] -= L
             if distributions[attribute][value] == 0:
@@ -325,49 +351,85 @@ class SyntheticSampler:
 
         return distributions
 
-    def framework(self, X):
-        """
-        test sampling algorithm for varying coverage. compute lower and upper bounds on H(X)
-        """
-        coverages = [x / 100 for x in np.arange(55, 105, 5)]
-        H_baseline = [self.entropy_baseline(None, X)] * len(coverages)
+    def pss(self, coverage=None):
+        distributions = self.generate_distributions_pss()
 
-        Hs_ssj_normalized = []
-        Hs_ssj_not_normalized = []
-        U1s = []
-        U2s = []
-        U3s = []
-        U4s = []
-        Ns = []
-        for c in coverages:
-            res_data = self.entropy_ssj(coverage=c)
-            U1, U2, U3, U4, U5, U6 = self.get_bounds(res_data)
+        if not coverage:
+            coverage = self.coverage
+        target_N = int(self.N * coverage) + 1
+        total_sampled = 0
 
-            Hs_ssj_normalized.append(res_data['HN'])
-            Hs_ssj_not_normalized.append(res_data['HUN'])
-            Ns.append(res_data['num_samples'])
-            U1s.append(U1)
-            U2s.append(U2)
-            U3s.append(U3)
-            U4s.append(U4)
+        frequencies = {}  # result TX
+        sampled = {}  # for resamples
+        nulls = []  # for x s.t. I(x)=\emptyset
+        num_samples = 0
+        while total_sampled < target_N:
+            num_samples += 1
+            instance = self.sample_instance_pss(distributions)
+            x = tuple(instance.values())
 
-        plt.plot(coverages, H_baseline)
-        plt.plot(coverages, Hs_ssj_normalized)
-        plt.plot(coverages, Hs_ssj_not_normalized)
-        plt.plot(coverages, U1s)
-        plt.plot(coverages, U2s)
-        plt.plot(coverages, U3s)
-        plt.plot(coverages, U4s)
-        plt.legend([
-            r'$H$',
-            r'$H^{sampled,normalized}$',
-            r'$H^{sampled,unnormalized}$',
-            r'$H_{Q}^{normalized}+H^{sampled,normalized}$',
-            r'$H_{Q}^{normalized}+H^{sampled,unnormalized}$',
-            r'$H_{Q}^{unnormalized}+H^{sampled,normalized}$',
-            r'$H_{Q}^{unnormalized}+H^{sampled,unnormalized}$',
-        ])
-        print('hello')
+            sampled[x] = 1
+            # I(x) = I(a) \cap I(b)
+            try:
+                lists = [self._tids[attribute][value] for attribute, value in instance.items()]
+            except:
+                del distributions[x]
+                continue
+
+            sets = map(set, lists)
+            intersection_indices = sorted(list(set.intersection(*sets)))
+            L = len(intersection_indices)
+
+            if L == 0:
+                nulls.append(x)
+            else:
+                frequencies[x] = intersection_indices
+
+            # update distributions. break if dist empty
+            del distributions[x]
+            if not distributions:
+                break
+
+            total_sampled += L
+
+        frequencies = dict(sorted(frequencies.items(), key=lambda item: item[0]))
+        rho = total_sampled / self.N  # effective coverage
+        res_data = {
+            'frequencies': frequencies,
+            'num_samples': num_samples,
+            'sigma': coverage,
+            'rho': rho,
+            'nulls': nulls
+        }
+        return res_data
+
+    def generate_distributions_pss(self):
+        alpha = self.dataset.alpha
+        beta = self.dataset.beta
+        weight = 1 / (alpha * beta)
+        dist = {k: weight for k in itertools.product(range(alpha), range(beta))}
+
+        return dist
+
+    def sample_instance_pss(self, distributions):
+        domain = list(distributions.keys())
+        weights = list(distributions.values())
+        x = choices(domain, weights=weights)[0]
+        return {'A': x[0], 'B': x[1]}
+
+    def update_distributions_pss(self, distributions, x, L):
+        del distributions[x]
+
+        # for attribute, value in instance.items():
+        #     distributions[attribute][value] -= L
+        #     if distributions[attribute][value] == 0:
+        #         del distributions[attribute][value]
+        #
+                # empty distributions
+                # if not distributions[attribute]:
+                #     return None
+
+        return distributions
 
     def get_bounds(self, res_data):
         mis_sampled = self.reduce_sampled(res_data['frequencies'])  # all pairs in product set not sampled
