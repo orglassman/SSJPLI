@@ -24,7 +24,7 @@ def parse_args():
                         default=1000),
     parser.add_argument('-mode', help='ssj/pss/is', default='ssj')
     parser.add_argument('-bins', help='Analyze specific bins. Separate with commas e.g.: 7,16,19,23', default=None)
-    parser.add_argument('-prepare', help='Bin datasets and exit', default=False)
+    parser.add_argument('-prepare', action='store_true', help='Bin datasets and exit', default=False)
     args = parser.parse_args()
     return args
 
