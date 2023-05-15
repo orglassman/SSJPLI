@@ -207,9 +207,6 @@ class DatasetContainer:
                         rho=rhos, records=records)
 
             data_df = pd.DataFrame(data)
-            # add absolute measurements (time ratio and goodness of approximation)
-            data_df['t_ratio'] = data_df['t'] / data_df['t_traverse']
-            data_df['h_ratio'] = data_df['H'] / data_df['H_true']
             if dump:
                 self.dump_df(data_df,
                              **{'alpha': self.alpha, 'beta': self.beta, 'varying_cardinality': '', 'bin_num': stratum,
