@@ -99,8 +99,11 @@ class DatasetContainer:
         for HAB, idx in zip(entropies, indices):
             self.strata[idx] += self.datasets[HAB]
 
-        for bin, stratum in self.strata.items():
-            print(f'-I- Bin {bin}: {len(stratum)} records')
+        for bin_num, stratum in self.strata.items():
+            if not len(stratum):
+                continue
+            avg_records = np.average([x.get_N() for x in stratum])
+            print(f'-I- Bin {bin_num}: {len(stratum)} dataset instances. Average number of records: {avg_records}')
 
     def sort(self):
         """sort by I(A;B) within each bin"""
@@ -147,7 +150,7 @@ class DatasetContainer:
                 sampler = SyntheticSampler(dataset)
 
                 H_aggregate = 0
-                H_pss_aggregate =  0
+                H_pss_aggregate = 0
                 HQ_aggregate = 0
                 HQUN_aggregate = 0
                 MISS_aggregate = 0
@@ -213,7 +216,8 @@ class DatasetContainer:
                 t_traverses.append(t_traverse_average)
                 t_psss.append(t_pss_average)
 
-            data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, t_traverse=t_traverses, t_pss=t_psss, HQ=HQs, HQUN=HQUNs,
+            data = dict(H=Hs, H_true=H_baselines, t_explicit=t_explicits, t_traverse=t_traverses, t_pss=t_psss, HQ=HQs,
+                        HQUN=HQUNs,
                         MISS=MISSs, EMPTY=EMPTYs,
                         I=Is, N=NSs, t=times,
                         rho=rhos, records=records)
@@ -260,6 +264,7 @@ def container_main():
         container.strata_varying_coverage()
 
     print('hello')
+
 
 if __name__ == '__main__':
     container_main()

@@ -4,9 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="added PSS method. added prepare only flag">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="store true flag">
+      <change afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/AUTHORS.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/INSTALLER" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/METADATA" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/RECORD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/REQUESTED" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/WHEEL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas-0.8.0.dist-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Lib/site-packages/copulas/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/copulas/multivariate/gaussian.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Lib/site-packages/copulas/multivariate/gaussian.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +54,7 @@
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/unpickle.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/real_data_analysis.py" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
@@ -50,7 +63,7 @@
       <recent name="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.container">
+  <component name="RunManager" selected="Python.real_data">
     <configuration name="baselines" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -65,27 +78,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/baselines.py" />
       <option name="PARAMETERS" value="-datasets &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\datasets.txt&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\baselines&quot;" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="container" type="PythonConfigurationType" factoryName="Python">
-      <module name="LeapfrogPYJoin" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/container.py" />
-      <option name="PARAMETERS" value="-R 100 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis\pss&quot; -mode pss -bins 16,17,18" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -177,6 +169,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="real_data" type="PythonConfigurationType" factoryName="Python">
+      <module name="LeapfrogPYJoin" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/real_data_analysis.py" />
+      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Adult\adult.csv&quot; -columns workclass,education -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Adult&quot; -R 10" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="relation" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -246,7 +259,7 @@
       <item itemvalue="Python.relation" />
       <item itemvalue="Python.pairwise" />
       <item itemvalue="Python.sampler" />
-      <item itemvalue="Python.container" />
+      <item itemvalue="Python.real_data" />
       <item itemvalue="Python.unPickle" />
       <item itemvalue="Python.dataset" />
       <item itemvalue="Python.mi_exp" />
@@ -516,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684181174177</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="store true flag">
+      <created>1684181510654</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1684181510654</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -535,7 +555,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="leapfrog init added" />
     <MESSAGE value="need to solve min-set cover for leapfrog init" />
     <MESSAGE value="push to dragon" />
     <MESSAGE value="remove old dir" />
@@ -560,7 +579,8 @@
     <MESSAGE value="coverage bug add +1" />
     <MESSAGE value="add absolute measurements t_ratio h_ratio" />
     <MESSAGE value="added PSS method. added prepare only flag" />
-    <option name="LAST_COMMIT_MESSAGE" value="added PSS method. added prepare only flag" />
+    <MESSAGE value="store true flag" />
+    <option name="LAST_COMMIT_MESSAGE" value="store true flag" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -684,8 +704,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dataset.py</url>
-          <line>39</line>
+          <line>33</line>
           <option name="timeStamp" value="724" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="726" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
+          <line>96</line>
+          <option name="timeStamp" value="735" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

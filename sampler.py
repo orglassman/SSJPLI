@@ -30,7 +30,6 @@ def H_dict(d, base=2):
 
     return res
 
-
 class SyntheticSampler:
     """sequential sampler taking synthetic two-column data"""
 

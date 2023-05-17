@@ -20,12 +20,6 @@ class DataSet:
     def get_N(self):
         return self.df.shape[0]
 
-    def effective_alpha(self):
-        return len(self.df['A'].value_counts())
-
-    def effective_beta(self):
-        return len(self.df['B'].value_counts())
-
     def drop(self, k):
         """randomly discard k entries"""
 
@@ -40,7 +34,7 @@ class DataSet:
             print('hello')
         new_df = self.df.drop(indices, axis=0).reset_index(drop=True)
         self.df = new_df
-        self.dropped = True     # can only drop once
+        self.dropped = True  # can only drop once
 
         # compute I(A;B)
         self.I = self.get_I()
@@ -53,7 +47,7 @@ class DataSet:
         mean = int(len(support) / 2)
         pdfs = [norm.pdf(x, loc=mean) for x in support]
         Z = sum(pdfs)
-        prob = [x/Z for x in pdfs]
+        prob = [x / Z for x in pdfs]
         return prob
 
     def HAB(self):
@@ -105,11 +99,32 @@ class DataSet:
     def __ge__(self, other):
         return self.I >= other.I
 
-def data_generator_main():
+
+class RealDataSet(DataSet):
+    def __init__(self, path, columns):
+        super().__init__()
+        self.df = pd.read_csv(path, usecols=columns)
+
+        # column mappping
+        self._orig_cols = {original: new for original, new in zip(columns, ['A', 'B'])}
+
+        self.manipulate_data()
+        self.print_init()
+
+    def manipulate_data(self):
+        self.df.columns = ['A', 'B']
+        self.alpha = self.df['A'].value_counts().shape[0]
+        self.beta = self.df['B'].value_counts().shape[0]
+
+    def print_init(self):
+        print('-I- New real data instance initialized')
+        print(f'-I- Total entries: {self.df.shape[0]}')
+        print(f'-I- Column mapping: {self._orig_cols}')
+        print(f'-I- Cardinalities: A:{self.alpha}, B:{self.beta}')
+
+
+if __name__ == '__main__':
     dataset = DataSet(alpha=5, beta=10)
     dataset.drop(k=15)
     dataset.get_I()
     print('hello')
-
-if __name__ == '__main__':
-    data_generator_main()
