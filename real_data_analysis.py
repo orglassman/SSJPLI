@@ -66,6 +66,7 @@ def real_data_main():
             t_traverse = sampler.traverse_entropy()
 
             Hs[i] = ssj_res_data['H']
+            H_baselines[i] = ds.HAB()
             HQs[i] = bounds['HQ']
             HQUNs[i] = bounds['HQUN']
             MISSs[i] = bounds['MISS']
@@ -79,6 +80,7 @@ def real_data_main():
             t_traverses[i] = t_traverse
 
         measurements = {'H': Hs,
+                        'H_true': H_baselines,
                         'HQ': HQs,
                         'HQUN': HQUNs,
                         'MISS': MISSs,

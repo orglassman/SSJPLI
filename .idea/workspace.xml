@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="real data analysis">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="added shebang">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
     </list>
@@ -530,7 +530,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684320985992</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="added shebang">
+      <created>1684321069156</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1684321069156</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -549,7 +556,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="push to dragon" />
     <MESSAGE value="remove old dir" />
     <MESSAGE value="os separator" />
     <MESSAGE value="baseline utilities update" />
@@ -574,7 +580,8 @@
     <MESSAGE value="added PSS method. added prepare only flag" />
     <MESSAGE value="store true flag" />
     <MESSAGE value="real data analysis" />
-    <option name="LAST_COMMIT_MESSAGE" value="real data analysis" />
+    <MESSAGE value="added shebang" />
+    <option name="LAST_COMMIT_MESSAGE" value="added shebang" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -708,7 +715,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>98</line>
+          <line>100</line>
           <option name="timeStamp" value="735" />
         </line-breakpoint>
       </breakpoints>
