@@ -46,18 +46,24 @@ def real_data_main():
     res_data = {c: {} for c in coverages}
     for coverage in coverages:
         Hs = np.zeros(R)
-        H_baselines = np.zeros(R)
+        H_trues = np.zeros(R)
         HQs = np.zeros(R)
         HQUNs = np.zeros(R)
         MISSs = np.zeros(R)
         EMPTYs = np.zeros(R)
         NSs = np.zeros(R)
         rhos = np.zeros(R)
-        times = np.zeros(R)
+        t_ssjs = np.zeros(R)
         Is = np.zeros(R)
         records = np.zeros(R)
         t_explicits = np.zeros(R)
         t_traverses = np.zeros(R)
+
+        # absolute measurements
+        t_ssj_ratios = np.zeros(R)
+        t_explicit_ratios = np.zeros(R)
+        h_ratios = np.zeros(R)
+
         # average over R repetitions
         for i in range(R):
             ssj_res_data = sampler.entropy(coverage=coverage, mode='ssj')
@@ -66,7 +72,7 @@ def real_data_main():
             t_traverse = sampler.traverse_entropy()
 
             Hs[i] = ssj_res_data['H']
-            H_baselines[i] = ds.HAB()
+            H_trues[i] = ds.HAB()
             HQs[i] = bounds['HQ']
             HQUNs[i] = bounds['HQUN']
             MISSs[i] = bounds['MISS']
@@ -74,23 +80,30 @@ def real_data_main():
             Is[i] = ds.get_I()
             records[i] = ds.get_N()
             NSs[i] = ssj_res_data['num_samples']
-            times[i] = ssj_res_data['time']
+            t_ssjs[i] = ssj_res_data['time']
             rhos[i] = ssj_res_data['rho']
             t_explicits[i] = t_explicit
             t_traverses[i] = t_traverse
 
+            t_ssj_ratios[i] = t_ssjs[i] / t_traverses[i]
+            t_explicit_ratios[i] = t_explicits[i] / t_traverses[i]
+            h_ratios[i] = Hs[i] / H_trues[i]
+
         measurements = {'H': Hs,
-                        'H_true': H_baselines,
+                        'H_true': H_trues,
                         'HQ': HQs,
                         'HQUN': HQUNs,
                         'MISS': MISSs,
                         'EMPTY': EMPTYs,
                         'I': Is,
                         'N': NSs,
-                        't': times,
+                        't_ssj': t_ssjs,
                         'rho': rhos,
                         't_explicit': t_explicits,
-                        't_traverse': t_traverses
+                        't_traverse': t_traverses,
+                        't_ssj_ratio': t_ssj_ratios,
+                        't_explicit_ratio': t_explicit_ratios,
+                        'h_ratio': h_ratios
                         }
 
         for k, measurement in measurements.items():
