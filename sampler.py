@@ -1,20 +1,11 @@
 import itertools
 import time
-from argparse import ArgumentParser
 from random import choices
 
 import numpy as np
 
-from common import sort_by_key
-
-
-def parse_args():
-    parser = ArgumentParser()
-    parser.add_argument('-in_file', help='path to input CSV')
-    parser.add_argument('-X', help='input query. example "A,B"')
-
-    args = parser.parse_args()
-    return args
+from common import sort_by_key, flatten
+from dataset import RealDataSet
 
 
 def H_dict(d, base=2):
@@ -30,18 +21,15 @@ def H_dict(d, base=2):
 
     return res
 
-class SyntheticSampler:
-    """sequential sampler taking synthetic two-column data"""
 
-    def __init__(self, dataset, coverage=0.9, growth_threshold=None, mode='ssj'):
+class Sampler:
+    def __init__(self, dataset, partition_factor=1):
         self.dataset = dataset
-        self.coverage = coverage
-        self.growth_threshold = growth_threshold
-        self.mode = mode
+        self.partition_factor = partition_factor
 
         self.N = dataset.get_N()
-        self.M = 2
-        self.omega = ['A', 'B']
+        self.M = dataset.get_M()
+        self.omega = dataset.get_omega()
 
         self.load_data()
 
@@ -59,162 +47,171 @@ class SyntheticSampler:
                 else:
                     tuple2tid[k][v] = [tid]
 
-        # remove singletons
-        # res_tids = {k: {} for k in self.omega}
-        # for attribute in tuple2tid.keys():
-        #     for instance, tid in tuple2tid[attribute].items():
-        #         if len(tid) >= 1:
-        #             res_tids[attribute][instance] = tid
-
-        # self._tids = res_tids
         self._tids = tuple2tid
 
-    def entropy(self, coverage=None, mode='ssj'):
+    # handle only partition_factor=1 for now
+    def fetch_tids(self, X):
+        res = {}
+        for A in X:
+            res[A] = self._tids[A]
+
+        return res
+
+    def entropy(self, X, coverage=0.9, mode='ssj'):
         if mode == 'ssj':
-            return self.entropy_ssj(coverage)
-        elif mode == 'pss':
-            return self.entropy_pss(coverage)
+            return self.entropy_ssj(X, coverage)
+        elif mode == 'is':
+            return self.entropy_is(X, coverage)
+        elif mode == 'explicit':
+            return self.entropy_explicit(X)
         else:
-            return self.entropy_is(coverage)
+            return self.entropy_pli(X)  # deterministic, coverage=1
 
-    def entropy_pss(self, coverage):
-        """approximate H(X) using PSS"""
-        start_time = time.perf_counter()
-        res_data = self.pss(coverage=coverage)
-        end_time = time.perf_counter()
-
-        # add time
-        res_data['time'] = end_time - start_time
-
-        # get output frequencies
-        TX = res_data['frequencies']
-
-        HUN = 0
-        for x in TX.values():
-            q2 = len(x) / self.N
-            HUN -= q2 * np.log2(q2)
-
-        TX_dist = self.get_X_dist(TX)
-        HN = H_dict(TX_dist)
-        res_data['H'] = HN  # entropy since defined over probability distribution
-        res_data['HUN'] = HUN  # technically not entropy
-
-        # add here: upper bounds for H
-
-        return res_data
-
-    def entropy_ssj(self, coverage=None):
+    # main entropy
+    def entropy_ssj(self, X, coverage):
         """approximate H(X) using SSJ"""
-        start_time = time.perf_counter()
-        res_data = self.ssj(coverage=coverage)
-        end_time = time.perf_counter()
+        tids = self.fetch_tids(X)
 
-        # add time
-        res_data['time'] = end_time - start_time
+        rho = 0
+        total_time = 0
+        total_samples = 0
+        current = tids.pop(X[0])
+        i = 1
+        while i < len(X):
+            next_tid = tids.pop(X[i])
+            start = time.perf_counter()
+            res_data = self.ssj(current, next_tid, coverage=coverage)
+            finish = time.perf_counter()
 
-        # get output frequencies
-        TX = res_data['frequencies']
+            rho = res_data['rho']
+            current = res_data['frequencies']
+            total_samples += res_data['num_samples']
+            total_time += finish - start
+            i += 1
 
-        HUN = 0
-        for x in TX.values():
-            q2 = len(x) / self.N
-            HUN -= q2 * np.log2(q2)
-
-        TX_dist = self.get_X_dist(TX)
-        HN = H_dict(TX_dist)
-        res_data['H'] = HN  # entropy since defined over probability distribution
-        res_data['HUN'] = HUN  # technically not entropy
-
-        # add here: upper bounds for H
-
-        return res_data
-
-    def entropy_is(self, coverage):
-        distributions = self.generate_distributions_ssj()
-        # IS - accumulate H with each sample
-        if not coverage:
-            coverage = self.coverage
-
-        H_baseline = self.entropy_baseline()
-        target_H = H_baseline * coverage
-
-        H_is = 0
-        sampled = {}
-        frequencies = {}
-        num_samples = 0
-
-        start_time = time.perf_counter()
-        while H_is < target_H:
-            num_samples += 1
-
-            instance = self.sample_instance_ssj(distributions)
-            x = tuple(instance.values())
-
-            if x in sampled.keys():
-                continue
-
-            sampled[x] = 1
-
-            lists = [self._tids[attribute][value] for attribute, value in instance.items()]
-            sets = map(set, lists)
-            intersection_indices = sorted(list(set.intersection(*sets)))
-            L = len(intersection_indices)
-            if L == 0:
-                continue
-
-            frequencies[x] = intersection_indices
-
-            # compute weight function and add to total
-            H_is += self.aggregate_IS(distributions, x, L)
-        finish_time = time.perf_counter()
-
-        frequencies = sort_by_key(frequencies)
-        rho = H_is / H_baseline
         res_data = {
-            'H': H_is,
-            'frequencies': frequencies,
-            'num_samples': num_samples,
-            'sigma': coverage,
+            't_ssj': total_time,
+            'frequencies': current,
+            'HUN': self.get_unnormalized_entropy(current),
+            'H_ssj': H_dict(self.get_dist_from_frequency_table(current)),
             'rho': rho,
-            'time': finish_time - start_time
+            'samples': total_samples
         }
 
         return res_data
 
-    def explicit_entropy(self):
+    def entropy_pli(self, X):
+        tids = self.fetch_tids(X)
+        current = tids.pop(X[0])
+        i = 1
+
         start = time.perf_counter()
-        df = self.dataset.df
+        while i < len(X):
+            next_tid = tids.pop(X[i])
+
+            frequencies = {}
+
+            for a, ta in current.items():
+                for b, tb in next_tid.items():
+                    I = list(set(ta).intersection(set(tb)))
+                    if bool(I):
+                        frequencies[flatten((a, b))] = I
+
+            current = frequencies
+            i += 1
+        finish = time.perf_counter()
+
+        res_data = {
+            't_pli': finish - start,
+            'frequencies': current,
+            'H_pli': H_dict(self.get_dist_from_frequency_table(current))
+        }
+
+        return res_data
+
+    def entropy_is(self, X, coverage):
+        return None
+
+    #     distributions = self.generate_distributions_ssj()
+    #     # IS - accumulate H with each sample
+    #     if not coverage:
+    #         coverage = self.coverage
+    #
+    #     H_baseline = self.entropy_baseline()
+    #     target_H = H_baseline * coverage
+    #
+    #     H_is = 0
+    #     sampled = {}
+    #     frequencies = {}
+    #     num_samples = 0
+    #
+    #     start_time = time.perf_counter()
+    #     while H_is < target_H:
+    #         num_samples += 1
+    #
+    #         instance = self.sample_instance_ssj(distributions)
+    #         x = tuple(instance.values())
+    #
+    #         if x in sampled.keys():
+    #             continue
+    #
+    #         sampled[x] = 1
+    #
+    #         lists = [self._tids[attribute][value] for attribute, value in instance.items()]
+    #         sets = map(set, lists)
+    #         intersection_indices = sorted(list(set.intersection(*sets)))
+    #         L = len(intersection_indices)
+    #         if L == 0:
+    #             continue
+    #
+    #         frequencies[x] = intersection_indices
+    #
+    #         # compute weight function and add to total
+    #         H_is += self.aggregate_IS(distributions, x, L)
+    #     finish_time = time.perf_counter()
+    #
+    #     frequencies = sort_by_key(frequencies)
+    #     rho = H_is / H_baseline
+    #     res_data = {
+    #         'H': H_is,
+    #         'frequencies': frequencies,
+    #         'num_samples': num_samples,
+    #         'sigma': coverage,
+    #         'rho': rho,
+    #         'time': finish_time - start_time
+    #     }
+    #
+    #     return res_data
+
+    def entropy_explicit(self, X):
+        df = self.dataset.df[X]
         dist = {}
-        n_counter = 0
+        row_counter = 0
+
+        start = time.perf_counter()
         for index, row in df.iterrows():
-            n_counter += 1
+            row_counter += 1
             symbol = tuple(row.values)
             if symbol in dist.keys():
                 dist[symbol] += 1
             else:
                 dist[symbol] = 1
-
-        H = 0
-        for freq in dist.values():
-            H += freq / n_counter
-
         finish = time.perf_counter()
-        return finish - start
 
-    def traverse_entropy(self):
-        """take cartesian product of A, B"""
-        res = 0
-        start = time.perf_counter()
-        for a, ta in self._tids['A'].items():
-            for b, tb in self._tids['B'].items():
-                I = list(set(ta).intersection(set(tb)))
-                Pab = len(I) / self.N
-                if bool(Pab):
-                    res -= Pab * np.log2(Pab)
-        finish = time.perf_counter()
-        return finish - start
+        res_data = {
+            't_explicit': finish - start,
+            'H_explicit': H_dict(dist)
+        }
+        return res_data
 
-    def get_X_dist(self, frequencies):
+    def get_unnormalized_entropy(self, TX):
+        HUN = 0
+        for x in TX.values():
+            q2 = len(x) / self.N
+            HUN -= q2 * np.log2(q2)
+        return HUN
+
+    def get_dist_from_frequency_table(self, frequencies):
         lens = []
         for v in frequencies.values():
             lens.append(len(v))
@@ -236,14 +233,15 @@ class SyntheticSampler:
         # return W * np.log2(1 / P)
         return P * np.log2(1 / P)
 
-    def entropy_baseline(self):
+    def entropy_pandas(self):
         """compute H(X) by accessing data directly"""
         occurrences = self.dataset.df.value_counts()
         dist = {k: v for k, v in zip(occurrences.index.to_list(), occurrences.values.tolist())}
 
         return H_dict(dist)
 
-    def ssj(self, coverage=None):
+    # ssj utilities
+    def ssj(self, TA, TB, coverage):
         """
         main workhorse.
         1. gen distribution per predicate
@@ -258,14 +256,13 @@ class SyntheticSampler:
         rho - effective coverage > sigma
         nulls - (a,b) with empty frequency
         """
-        distributions = self.generate_distributions_ssj()
-
-        if not coverage:
-            coverage = self.coverage
+        tids = {
+            'A': TA,
+            'B': TB
+        }
+        distributions = self.generate_distributions_ssj(tids)
         target_N = int(self.N * coverage) + 1
         total_sampled = 0
-
-        growth_counter = 0
 
         frequencies = {}  # result TX
         sampled = {}  # for resamples
@@ -274,25 +271,22 @@ class SyntheticSampler:
         while total_sampled < target_N:
             num_samples += 1
             instance = self.sample_instance_ssj(distributions)
-            x = tuple(instance.values())
+            x = flatten(tuple(instance.values()))
 
             if x in sampled.keys():
                 L = 0
-                growth_counter += 1  # track failed samples
             else:
                 sampled[x] = 1
                 # I(x) = I(a) \cap I(b)
-                lists = [self._tids[attribute][value] for attribute, value in instance.items()]
+                lists = [tids[attribute][value] for attribute, value in instance.items()]
                 sets = map(set, lists)
                 intersection_indices = sorted(list(set.intersection(*sets)))
                 L = len(intersection_indices)
 
                 if L == 0:
                     nulls.append(x)
-                    growth_counter += 1  # track failed samples
                 else:
                     frequencies[x] = intersection_indices
-                    growth_counter = 0  # reset for successful samples
 
             # update distributions. break if dist empty
             distributions = self.update_distributions_ssj(distributions, instance, L)
@@ -300,29 +294,23 @@ class SyntheticSampler:
                 break
             total_sampled += L
 
-            # track growth
-            if self.growth_threshold:
-                if growth_counter == self.growth_threshold:
-                    print(f'-W- Growth too slow. Sampling terminated')
-                    break
-
-        frequencies = dict(sorted(frequencies.items(), key=lambda item: item[0]))
-        rho = total_sampled / self.N  # effective coverage
         res_data = {
-            'frequencies': frequencies,
+            'frequencies': sort_by_key(frequencies),
             'num_samples': num_samples,
             'sigma': coverage,
-            'rho': rho,
+            'rho': total_sampled / self.N,
             'nulls': nulls
         }
         return res_data
 
-    def generate_distributions_ssj(self):
-        distributions = {}
-        for attribute, instances in self._tids.items():
-            d = {x: len(self._tids[attribute][x]) for x in self._tids[attribute].keys()}
-            d = dict(sorted(d.items(), key=lambda item: item[1]))
-            distributions[attribute] = d
+    def generate_distributions_ssj(self, tids):
+        distributions = {
+            'A': {},
+            'B': {}
+        }
+        for attribute, freq_table in tids.items():
+            for instance, tid in freq_table.items():
+                distributions[attribute][instance] = len(tid)
 
         return distributions
 
@@ -350,86 +338,7 @@ class SyntheticSampler:
 
         return distributions
 
-    def pss(self, coverage=None):
-        distributions = self.generate_distributions_pss()
-
-        if not coverage:
-            coverage = self.coverage
-        target_N = int(self.N * coverage) + 1
-        total_sampled = 0
-
-        frequencies = {}  # result TX
-        sampled = {}  # for resamples
-        nulls = []  # for x s.t. I(x)=\emptyset
-        num_samples = 0
-        while total_sampled < target_N:
-            num_samples += 1
-            instance = self.sample_instance_pss(distributions)
-            x = tuple(instance.values())
-
-            sampled[x] = 1
-            # I(x) = I(a) \cap I(b)
-            try:
-                lists = [self._tids[attribute][value] for attribute, value in instance.items()]
-            except:
-                del distributions[x]
-                continue
-
-            sets = map(set, lists)
-            intersection_indices = sorted(list(set.intersection(*sets)))
-            L = len(intersection_indices)
-
-            if L == 0:
-                nulls.append(x)
-            else:
-                frequencies[x] = intersection_indices
-
-            # update distributions. break if dist empty
-            del distributions[x]
-            if not distributions:
-                break
-
-            total_sampled += L
-
-        frequencies = dict(sorted(frequencies.items(), key=lambda item: item[0]))
-        rho = total_sampled / self.N  # effective coverage
-        res_data = {
-            'frequencies': frequencies,
-            'num_samples': num_samples,
-            'sigma': coverage,
-            'rho': rho,
-            'nulls': nulls
-        }
-        return res_data
-
-    def generate_distributions_pss(self):
-        alpha = self.dataset.alpha
-        beta = self.dataset.beta
-        weight = 1 / (alpha * beta)
-        dist = {k: weight for k in itertools.product(range(alpha), range(beta))}
-
-        return dist
-
-    def sample_instance_pss(self, distributions):
-        domain = list(distributions.keys())
-        weights = list(distributions.values())
-        x = choices(domain, weights=weights)[0]
-        return {'A': x[0], 'B': x[1]}
-
-    def update_distributions_pss(self, distributions, x, L):
-        del distributions[x]
-
-        # for attribute, value in instance.items():
-        #     distributions[attribute][value] -= L
-        #     if distributions[attribute][value] == 0:
-        #         del distributions[attribute][value]
-        #
-                # empty distributions
-                # if not distributions[attribute]:
-                #     return None
-
-        return distributions
-
+    # for stochastic join, analyze errors
     def get_bounds(self, res_data):
         mis_sampled = self.reduce_sampled(res_data['frequencies'])  # all pairs in product set not sampled
         occur_in_R, not_occur_in_R = self.split_mis_sampled(mis_sampled)
@@ -493,9 +402,12 @@ class SyntheticSampler:
         return res
 
 
-def edbt_main():
-    print('hello')
-
-
 if __name__ == '__main__':
-    edbt_main()
+    in_file = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Adult\\adult_categorical.csv"
+    ds = RealDataSet(in_file)
+    sampler = Sampler(ds)
+
+    X = list('ABC')
+    res1 = sampler.entropy(X, mode='pli')
+    res2 = sampler.entropy(X, mode='ssj')
+    print('hello')

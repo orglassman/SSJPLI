@@ -1,4 +1,5 @@
 import itertools
+import string
 
 import numpy as np
 import pandas as pd
@@ -19,6 +20,12 @@ class DataSet:
 
     def get_N(self):
         return self.df.shape[0]
+
+    def get_M(self):
+        return self.df.shape[1]
+
+    def get_omega(self):
+        return self.df.columns.tolist()
 
     def drop(self, k):
         """randomly discard k entries"""
@@ -50,10 +57,10 @@ class DataSet:
         prob = [x / Z for x in pdfs]
         return prob
 
-    def HAB(self):
-        PAB = self.df.value_counts(normalize=True).to_dict()
+    def H(self, X):
+        P = self.df[X].value_counts(normalize=True).to_dict()
         res = 0
-        for v in PAB.values():
+        for v in P.values():
             res -= v * np.log2(v)
 
         return res
@@ -101,27 +108,31 @@ class DataSet:
 
 
 class RealDataSet(DataSet):
-    def __init__(self, path, columns):
+    def __init__(self, path, columns=None):
         super().__init__()
-        self.df = pd.read_csv(path, usecols=columns)
+        if not bool(columns):
+            self.df = pd.read_csv(path)
+        else:
+            self.df = pd.read_csv(path, usecols=columns)
 
         # column mappping
-        self._orig_cols = {original: new for original, new in zip(columns, ['A', 'B'])}
-
-        self.manipulate_data()
+        self.rename_cols()
         self.print_init()
 
-    def manipulate_data(self):
-        self.df.columns = ['A', 'B']
-        self.alpha = self.df['A'].value_counts().shape[0]
-        self.beta = self.df['B'].value_counts().shape[0]
+    def rename_cols(self):
+        orig_cols = self.df.columns
+        num_cols = len(orig_cols)
+        new_cols = list(string.ascii_uppercase)[:num_cols]
+        self._orig_cols = {original: new for original, new in zip(orig_cols, new_cols)}
+        self.df.columns = new_cols
 
     def print_init(self):
         print('-I- New real data instance initialized')
         print(f'-I- Total entries: {self.df.shape[0]}')
         print(f'-I- Column mapping: {self._orig_cols}')
-        print(f'-I- Cardinalities: A:{self.alpha}, B:{self.beta}')
-
+        print('-I- Cardinalities:')
+        for col in self.df.columns:
+            print(f'-I- Column {col}: cardinality {self.df[col].value_counts().shape[0]}')
 
 if __name__ == '__main__':
     dataset = DataSet(alpha=5, beta=10)
