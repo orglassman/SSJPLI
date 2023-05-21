@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument('-columns', required=False, help='target columns, separated by commas, e.g., SCHOOL,YEAR')
     parser.add_argument('-R', default=100, help='Repetition factor for sampling analysis')
     parser.add_argument('-out_dir', help='directory to dump output')
+    parser.add_argument('-max_q_size', default=4, help='maximum query size')
     args = parser.parse_args()
     return args
 
@@ -31,67 +32,55 @@ def dump_df(out_dir, df, **kwargs):
         pickle.dump(df, handle, protocol=pickle.HIGHEST_PROTOCOL)
     print(f'-I- Check {out_file}')
 
-def single_query(X, ds, sampler, R, out_dir):
+
+def single_query(ds, sampler, R, max_q_size, out_dir):
     coverages = [0.25, 0.5, 0.75, 0.9, 0.99]
-    output_data = {c: {} for c in coverages}
-    for coverage in coverages:
-        H_true = np.zeros(R)
 
-        H_ssj = np.zeros(R)
-        t_ssj = np.zeros(R)
-        N_sample_ssj = np.zeros(R)
-        rho_ssj = np.zeros(R)
-
-        # HQs = np.zeros(R)
-        # HQUNs = np.zeros(R)
-        # MISSs = np.zeros(R)
-        # EMPTYs = np.zeros(R)
-
-        H_pli = np.zeros(R)
-        t_pli = np.zeros(R)
-
-        H_explicit = np.zeros(R)
-        t_explicit = np.zeros(R)
-
+    for qs in range(2, max_q_size + 1):
+        H_true = []
+        H_ssj = []
+        t_ssj = []
+        N_sample_ssj = []
+        rho_ssj = []
+        sigma_ssj = []
+        H_pli = []
+        t_pli = []
+        records = []
+        product_set_size = []
+        # H_explicit = np.zeros(R)
+        # t_explicit = np.zeros(R)
         # absolute measurements
-        H_ssj_ratio = np.zeros(R)
-        t_ssj_ratio = np.zeros(R)
-        t_explicit_ratio = np.zeros(R)
+        H_ssj_ratio = []
+        t_ssj_ratio = []
+        # t_explicit_ratio = np.zeros(R)
 
-        # average over R repetitions
+        # generate R random queries
         for i in range(R):
-            # generate results
-            ssj_res_data = sampler.entropy(list(X), coverage=coverage)
-            pli_res_data = sampler.entropy(list(X), mode='pli')
-            explicit_res_data = sampler.entropy(list(X), mode='explicit')
+            X = ds.random_query(qs)
+            HX = ds.H(X)
+            # vary coverage for each query
+            for coverage in coverages:
+                ssj_res_data = sampler.entropy(list(X), coverage=coverage)
+                pli_res_data = sampler.entropy(list(X), mode='pli')
+                # explicit_res_data = sampler.entropy(list(X), mode='explicit')
+                # bounds = sampler.get_bounds(ssj_res_data)
 
-            # bounds = sampler.get_bounds(ssj_res_data)
+                H_true.append(HX)
+                H_ssj.append(ssj_res_data['H_ssj'])
+                t_ssj.append(ssj_res_data['t_ssj'])
+                N_sample_ssj.append(ssj_res_data['samples'])
+                rho_ssj.append(ssj_res_data['rho'])
+                sigma_ssj.append(ssj_res_data['sigma'])
+                H_pli.append(pli_res_data['H_pli'])
+                t_pli.append(pli_res_data['t_pli'])
+                records.append(ssj_res_data['N'])
+                product_set_size.append(ssj_res_data['product_set_size'])
+                H_ssj_ratio.append(ssj_res_data['H_ssj'] / HX)
+                t_ssj_ratio.append(ssj_res_data['t_ssj'] / pli_res_data['t_pli'])
 
-            H_true[i] = ds.H(list(X))
-
-            H_ssj[i] = ssj_res_data['H_ssj']
-            t_ssj[i] = ssj_res_data['t_ssj']
-            N_sample_ssj[i] = ssj_res_data['samples']
-            rho_ssj[i] = ssj_res_data['rho']
-
-            #
-            # HQs[i] = bounds['HQ']
-            # HQUNs[i] = bounds['HQUN']
-            # MISSs[i] = bounds['MISS']
-            # EMPTYs[i] = bounds['EMPTY']
-            # Is[i] = ds.get_I()
-            # records[i] = ds.get_N()
-            #
-
-            H_pli[i] = pli_res_data['H_pli']
-            t_pli[i] = pli_res_data['t_pli']
-
-            H_explicit[i] = explicit_res_data['H_explicit']
-            t_explicit[i] = explicit_res_data['t_explicit']
-
-            H_ssj_ratio[i] = H_ssj[i] / H_true[i]
-            t_ssj_ratio[i] = t_ssj[i] / t_pli[i]
-            t_explicit_ratio[i] = t_explicit[i] / t_pli[i]
+                # H_explicit[i] = explicit_res_data['H_explicit']
+                # t_explicit[i] = explicit_res_data['t_explicit']
+                # t_explicit_ratio[i] = t_explicit[i] / t_pli[i]
         measurements = {
             'H_ssj': H_ssj,
             'H_true': H_true,
@@ -103,37 +92,35 @@ def single_query(X, ds, sampler, R, out_dir):
             'samples_ssj': N_sample_ssj,
             't_ssj': t_ssj,
             'rho': rho_ssj,
-            't_explicit': t_explicit,
+            'sigma': sigma_ssj,
+            'records': records,
+            'product_set': product_set_size,
+            # 't_explicit': t_explicit,
             't_pli': t_pli,
             't_ssj_ratio': t_ssj_ratio,
-            't_explicit_ratio': t_explicit_ratio,
+            # 't_explicit_ratio': t_explicit_ratio,
             'h_ratio': H_ssj_ratio
         }
 
-        for k, measurement in measurements.items():
-            avg = np.average(measurement)
-            std = np.std(measurement)
-            output_data[coverage][k] = [avg, std]
-
-    dfs = {c: pd.DataFrame(output_data[c]) for c in coverages}
-    for c, df in dfs.items():
-        dump_df(out_dir, df, **{'coverage': c, 'query_size':len(X)})
+        df = pd.DataFrame(measurements)
+        groups = df.groupby('sigma')
+        for name, group in groups:
+            dump_df(out_dir, df, **{'coverage': name, 'query_size': qs})
 
     print(f'-I- Check {out_dir}')
+
 
 def real_data_main():
     args = parse_args()
     in_file = args.in_file
     R = int(args.R)
+    max_q = int(args.max_q_size)
     out_dir = args.out_dir
 
     ds = RealDataSet(path=in_file)
     sampler = Sampler(ds)
 
-    X_strs = ['ABC', 'ABCD', 'ABCDE', 'ABCDEF', 'ABCDEFG', 'ABCDEFGH']
-
-    for x in X_strs:
-        single_query(x, ds, sampler, R, out_dir)
+    single_query(ds, sampler, R, max_q, out_dir)
 
 
 if __name__ == '__main__':

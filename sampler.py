@@ -71,6 +71,7 @@ class Sampler:
     def entropy_ssj(self, X, coverage):
         """approximate H(X) using SSJ"""
         tids = self.fetch_tids(X)
+        product_set_size = self.get_product_set_size(tids)
 
         rho = 0
         total_time = 0
@@ -95,6 +96,9 @@ class Sampler:
             'HUN': self.get_unnormalized_entropy(current),
             'H_ssj': H_dict(self.get_dist_from_frequency_table(current)),
             'rho': rho,
+            'sigma': coverage,
+            'N': self.dataset.get_N(),
+            'product_set_size': product_set_size,
             'samples': total_samples
         }
 
@@ -203,6 +207,13 @@ class Sampler:
             'H_explicit': H_dict(dist)
         }
         return res_data
+
+    def get_product_set_size(self, tids):
+        lens = [len(tids[t].keys()) for t in tids.keys()]
+        res = 1
+        for l in lens:
+            res *= l
+        return res
 
     def get_unnormalized_entropy(self, TX):
         HUN = 0

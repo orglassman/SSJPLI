@@ -57,32 +57,26 @@ class DataSet:
         prob = [x / Z for x in pdfs]
         return prob
 
-    def H(self, X):
-        P = self.df[X].value_counts(normalize=True).to_dict()
+    def random_query(self, size):
+        omega = self.get_omega()
+        return np.random.choice(omega, size=size, replace=False)
+
+
+    def H(self, X=None):
+        if X is None:
+            X = self.get_omega()
+        try:
+            P = self.df[X].value_counts(normalize=True).to_dict()
+        except:
+            print('hello')
         res = 0
         for v in P.values():
             res -= v * np.log2(v)
 
         return res
 
-    def HA(self):
-        PA = self.df['A'].value_counts(normalize=True).to_dict()
-        res = 0
-        for v in PA.values():
-            res -= v * np.log2(v)
-
-        return res
-
-    def HB(self):
-        PB = self.df['B'].value_counts(normalize=True).to_dict()
-        res = 0
-        for v in PB.values():
-            res -= v * np.log2(v)
-
-        return res
-
-    def get_I(self):
-        return self.HA() + self.HB() - self.HAB()
+    def get_I(self, A, B):
+        return self.H(A) + self.H(B) - self.H()
 
     def clone(self):
         new = DataSet(self.alpha, self.beta)

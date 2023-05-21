@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="add ratio + std measurements to real data analysis">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="convert to general queries not necessarily pairwise. add PLI cache baseline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
@@ -171,7 +171,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/real_data_analysis.py" />
-      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Adult\adult_categorical.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Adult&quot; -R 10" />
+      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Adult\adult_categorical.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Adult&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -553,7 +553,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684345023540</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="convert to general queries not necessarily pairwise. add PLI cache baseline">
+      <created>1684438206416</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1684438206416</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -572,7 +579,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="baseline utilities update" />
     <MESSAGE value="binning and preprocessing" />
     <MESSAGE value="sequential sampler, dataset and dataset container classes. new sampling framework for X=(A,B) only" />
     <MESSAGE value="pickling output stratum where |stratum|&gt;30. run samples vs. I(A;B) for varying coverage values" />
@@ -597,7 +603,8 @@
     <MESSAGE value="added shebang" />
     <MESSAGE value="add true entropy value to real data analysis output DF" />
     <MESSAGE value="add ratio + std measurements to real data analysis" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ratio + std measurements to real data analysis" />
+    <MESSAGE value="convert to general queries not necessarily pairwise. add PLI cache baseline" />
+    <option name="LAST_COMMIT_MESSAGE" value="convert to general queries not necessarily pairwise. add PLI cache baseline" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -720,19 +727,24 @@
           <option name="timeStamp" value="721" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/dataset.py</url>
-          <line>40</line>
-          <option name="timeStamp" value="724" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>124</line>
+          <line>113</line>
           <option name="timeStamp" value="726" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>405</line>
+          <line>416</line>
           <option name="timeStamp" value="738" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dataset.py</url>
+          <line>70</line>
+          <option name="timeStamp" value="754" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
+          <line>109</line>
+          <option name="timeStamp" value="756" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
