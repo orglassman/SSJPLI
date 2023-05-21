@@ -105,7 +105,7 @@ def single_query(ds, sampler, R, max_q_size, out_dir):
         df = pd.DataFrame(measurements)
         groups = df.groupby('sigma')
         for name, group in groups:
-            dump_df(out_dir, df, **{'coverage': name, 'query_size': qs})
+            dump_df(out_dir, group, **{'coverage': name, 'query_size': qs})
 
     print(f'-I- Check {out_dir}')
 
