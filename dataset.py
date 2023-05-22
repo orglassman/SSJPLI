@@ -35,6 +35,7 @@ class DataSet:
         if self.dropped:
             raise Exception(f'Current data set already reduced. Cannot drop entries')
         p = self.gen_random_weights()
+        indices = None
         try:
             indices = np.random.choice(self.df.index, k, replace=False, p=p)
         except:
@@ -116,7 +117,7 @@ class RealDataSet(DataSet):
     def rename_cols(self):
         orig_cols = self.df.columns
         num_cols = len(orig_cols)
-        new_cols = list(string.ascii_uppercase)[:num_cols]
+        new_cols = [f'A{i}' for i in range(num_cols)]
         self._orig_cols = {original: new for original, new in zip(orig_cols, new_cols)}
         self.df.columns = new_cols
 
