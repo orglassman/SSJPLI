@@ -59,7 +59,8 @@ class Sampler:
 
     def entropy(self, X, coverage=0.9, mode='ssj'):
         if len(X) == self.M:
-            return np.log2(self.N)
+            return {f'H_{mode}': np.log2(self.N)}
+
 
         if mode == 'ssj':
             return self.entropy_ssj(X, coverage)

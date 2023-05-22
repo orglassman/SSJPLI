@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="bug in coverage split">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="for H(Omega) return logN">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -573,7 +572,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684672579365</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="for H(Omega) return logN">
+      <created>1684748638625</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1684748638625</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -592,7 +598,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="pickling output stratum where |stratum|&gt;30. run samples vs. I(A;B) for varying coverage values" />
     <MESSAGE value="no growth management for sampling procedure" />
     <MESSAGE value="add number of records per dataset to dataframe" />
     <MESSAGE value="add bounds on entropy to dump. compute H_true to compare with H_evaluated" />
@@ -617,7 +622,8 @@
     <MESSAGE value="convert to general queries not necessarily pairwise. add PLI cache baseline" />
     <MESSAGE value="varying query size for real data" />
     <MESSAGE value="bug in coverage split" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug in coverage split" />
+    <MESSAGE value="for H(Omega) return logN" />
+    <option name="LAST_COMMIT_MESSAGE" value="for H(Omega) return logN" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -741,7 +747,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>419</line>
+          <line>420</line>
           <option name="timeStamp" value="738" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
