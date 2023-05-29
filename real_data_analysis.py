@@ -17,7 +17,7 @@ def parse_args():
     parser.add_argument('-columns', required=False, help='target columns, separated by commas, e.g., SCHOOL,YEAR')
     parser.add_argument('-R', default=100, help='Repetition factor for sampling analysis')
     parser.add_argument('-out_dir', help='directory to dump output')
-    parser.add_argument('-max_q_size', default=4, help='maximum query size')
+    parser.add_argument('-q_sizes', default="2,4,6", help='target query sizes, separated by commas, e.g., 2,3,4,5')
     args = parser.parse_args()
     return args
 
@@ -33,10 +33,11 @@ def dump_df(out_dir, df, **kwargs):
     print(f'-I- Check {out_file}')
 
 
-def single_query(ds, sampler, R, max_q_size, out_dir):
+def single_query(ds, sampler, R, q_sizes, out_dir):
     coverages = [0.25, 0.5, 0.75, 0.9, 1]
 
-    for qs in range(2, max_q_size + 1):
+    for qs in q_sizes:
+        print(f'-I- Query size {qs}')
         H_true = []
         H_ssj = []
         t_ssj = []
@@ -119,18 +120,20 @@ def single_query(ds, sampler, R, max_q_size, out_dir):
 
     print(f'-I- Check {out_dir}')
 
+def parse_q_sizes(q_sizes):
+    return [int(x) for x in q_sizes.split(',')]
 
 def real_data_main():
     args = parse_args()
     in_file = args.in_file
     R = int(args.R)
-    max_q = int(args.max_q_size)
+    q_sizes = parse_q_sizes(args.q_sizes)
     out_dir = args.out_dir
 
     ds = RealDataSet(path=in_file)
     sampler = Sampler(ds)
 
-    single_query(ds, sampler, R, max_q, out_dir)
+    single_query(ds, sampler, R, q_sizes, out_dir)
 
 
 if __name__ == '__main__':
