@@ -20,6 +20,30 @@ def parse_args():
     return args
 
 
+def plot_distribution_over_time(letters, distributions):
+    fig, axs = plt.subplots(2, 2, sharex=True, sharey=True)
+    for ax in axs.flatten():
+        ax.grid()
+    axs[0, 0].bar(letters, distributions[0])
+    axs[0, 1].bar(letters, distributions[1])
+    axs[1, 0].bar(letters, distributions[2])
+    axs[1, 1].bar(letters, distributions[3])
+
+    axs[1, 1].tick_params(axis='x', rotation=90, labelsize=24)
+    axs[1, 0].tick_params(axis='x', rotation=90, labelsize=24)
+
+    axs[0, 0].set_title(r'$\P^{(0)}$', fontsize=35)
+    axs[0, 1].set_title(r'$\P^{(1)}$', fontsize=35)
+    axs[1, 0].set_title(r'$\P^{(2)}$', fontsize=35)
+    axs[1, 1].set_title(r'$\P^{(3)}$', fontsize=35)
+
+
+def get_dist_from_ssj_distributions_dict(ssj_distributions_dict):
+    tot = sum(ssj_distributions_dict.values())
+    dist = [x / tot for x in ssj_distributions_dict.values()]
+    return dist
+
+
 def get_ax():
     plt.figure()
     ax = plt.axes()

@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="for H(Omega) return logN">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="rename columns A0,A1,...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/common.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/unpickle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -586,7 +590,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684748755266</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="rename columns A0,A1,...">
+      <created>1684752201384</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1684752201384</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -605,7 +616,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="no growth management for sampling procedure" />
     <MESSAGE value="add number of records per dataset to dataframe" />
     <MESSAGE value="add bounds on entropy to dump. compute H_true to compare with H_evaluated" />
     <MESSAGE value="target specific bins instead of running on entire strata" />
@@ -630,7 +640,8 @@
     <MESSAGE value="varying query size for real data" />
     <MESSAGE value="bug in coverage split" />
     <MESSAGE value="for H(Omega) return logN" />
-    <option name="LAST_COMMIT_MESSAGE" value="for H(Omega) return logN" />
+    <MESSAGE value="rename columns A0,A1,..." />
+    <option name="LAST_COMMIT_MESSAGE" value="rename columns A0,A1,..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -749,18 +760,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/unpickle.py</url>
-          <line>207</line>
+          <line>231</line>
           <option name="timeStamp" value="721" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>420</line>
+          <line>457</line>
           <option name="timeStamp" value="738" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dataset.py</url>
-          <line>71</line>
+          <line>65</line>
           <option name="timeStamp" value="754" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
+          <line>114</line>
+          <option name="timeStamp" value="762" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

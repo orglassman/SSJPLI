@@ -251,6 +251,17 @@ def binary_entropy(q):
     return 0
 
 
+def DKL(P, Q):
+    res = 0
+    for x in P.keys():
+        p = P[x]
+        q = Q[x]
+
+        res += p * np.log2(p / q)
+
+    return res
+
+
 def sort_by_key(x):
     return {k: v for k, v in sorted(x.items(), key=lambda item: item[0])}
 

@@ -34,7 +34,7 @@ def dump_df(out_dir, df, **kwargs):
 
 
 def single_query(ds, sampler, R, max_q_size, out_dir):
-    coverages = [0.25, 0.5, 0.75, 0.9, 0.99]
+    coverages = [0.25, 0.5, 0.75, 0.9, 1]
 
     for qs in range(2, max_q_size + 1):
         H_true = []
@@ -52,7 +52,13 @@ def single_query(ds, sampler, R, max_q_size, out_dir):
         # absolute measurements
         H_ssj_ratio = []
         t_ssj_ratio = []
+        MSEs = []
         # t_explicit_ratio = np.zeros(R)
+
+
+        dist_ssj = {}
+        dist_orig = {}
+
 
         # generate R random queries
         for i in range(R):
@@ -77,10 +83,13 @@ def single_query(ds, sampler, R, max_q_size, out_dir):
                 product_set_size.append(ssj_res_data['product_set_size'])
                 H_ssj_ratio.append(ssj_res_data['H_ssj'] / HX)
                 t_ssj_ratio.append(ssj_res_data['t_ssj'] / pli_res_data['t_pli'])
+                MSEs.append((HX-ssj_res_data['H_ssj'])**2)
 
                 # H_explicit[i] = explicit_res_data['H_explicit']
                 # t_explicit[i] = explicit_res_data['t_explicit']
                 # t_explicit_ratio[i] = t_explicit[i] / t_pli[i]
+
+
         measurements = {
             'H_ssj': H_ssj,
             'H_true': H_true,
@@ -99,7 +108,8 @@ def single_query(ds, sampler, R, max_q_size, out_dir):
             't_pli': t_pli,
             't_ssj_ratio': t_ssj_ratio,
             # 't_explicit_ratio': t_explicit_ratio,
-            'h_ratio': H_ssj_ratio
+            'h_ratio': H_ssj_ratio,
+            'MSE': MSEs
         }
 
         df = pd.DataFrame(measurements)

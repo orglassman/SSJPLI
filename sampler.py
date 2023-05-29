@@ -4,7 +4,7 @@ from random import choices
 
 import numpy as np
 
-from common import sort_by_key, flatten
+from common import sort_by_key, flatten, DKL
 from dataset import RealDataSet
 
 
@@ -275,7 +275,11 @@ class Sampler:
             'A': TA,
             'B': TB
         }
-        distributions = self.generate_distributions_ssj(tids)
+        sampling_weights = self.gen_ssj_sampling_weights(tids)
+
+
+
+
         target_N = int(self.N * coverage) + 1
         total_sampled = 0
 
@@ -283,9 +287,18 @@ class Sampler:
         sampled = {}  # for resamples
         nulls = []  # for x s.t. I(x)=\emptyset
         num_samples = 0
+        KLs = []
         while total_sampled < target_N:
+
+
+            # real_distributions = self.build_dist_real(X, frequencies) # real distribution of remaining entries
+            # sample_distributions = self.build_dist_ssj(total_sampled, sampling_weights) # ssj distribution of remaining entries
+
+            # KLs.append(DKL(real_distributions, sample_distributions))
+
+
             num_samples += 1
-            instance = self.sample_instance_ssj(distributions)
+            instance = self.sample_instance_ssj(sampling_weights)
             x = flatten(tuple(instance.values()))
 
             if x in sampled.keys():
@@ -304,8 +317,8 @@ class Sampler:
                     frequencies[x] = intersection_indices
 
             # update distributions. break if dist empty
-            distributions = self.update_distributions_ssj(distributions, instance, L)
-            if not distributions:
+            sampling_weights = self.update_ssj_sampling_weights(sampling_weights, instance, L)
+            if not sampling_weights:
                 break
             total_sampled += L
 
@@ -316,24 +329,25 @@ class Sampler:
             'rho': total_sampled / self.N,
             'nulls': nulls
         }
+
         return res_data
 
-    def generate_distributions_ssj(self, tids):
-        distributions = {
+    def gen_ssj_sampling_weights(self, tids):
+        weights = {
             'A': {},
             'B': {}
         }
         for attribute, freq_table in tids.items():
             for instance, tid in freq_table.items():
-                distributions[attribute][instance] = len(tid)
+                weights[attribute][instance] = len(tid)
 
-        return distributions
+        return weights
 
-    def sample_instance_ssj(self, distributions):
+    def sample_instance_ssj(self, sampling_weights):
         res = {}
-        for attribute in distributions.keys():
-            domain = list(distributions[attribute].keys())
-            weights = distributions[attribute].values()
+        for attribute in sampling_weights.keys():
+            domain = list(sampling_weights[attribute].keys())
+            weights = sampling_weights[attribute].values()
             try:
                 res[attribute] = choices(domain, weights=weights)[0]
             except:
@@ -341,7 +355,7 @@ class Sampler:
 
         return res
 
-    def update_distributions_ssj(self, distributions, instance, L):
+    def update_ssj_sampling_weights(self, distributions, instance, L):
         for attribute, value in instance.items():
             distributions[attribute][value] -= L
             if distributions[attribute][value] == 0:
@@ -353,7 +367,30 @@ class Sampler:
 
         return distributions
 
-    # for stochastic join, analyze errors
+    def build_dist_real(self, X, frequencies):
+        sampled_indices = []
+        if bool(frequencies):
+            for v in frequencies.values():
+                sampled_indices += v
+
+        remaining = self.dataset.df[X].drop(sampled_indices)
+        dist = remaining.value_counts(normalize=True).to_dict()
+        return dist
+
+    def build_dist_ssj(self, total_sampled, ssj_weights):
+        weights_A = ssj_weights['A']
+        weights_B = ssj_weights['B']
+
+        remaining_N = self.N - total_sampled
+        dist = {}
+        for a in weights_A.keys():
+            for b in weights_B.keys():
+                x = (a, b)
+                dist[x] = weights_A[a] * weights_B[b] / remaining_N**2
+
+        return dist
+
+    # for stochastic join, error analysis
     def get_bounds(self, res_data):
         mis_sampled = self.reduce_sampled(res_data['frequencies'])  # all pairs in product set not sampled
         occur_in_R, not_occur_in_R = self.split_mis_sampled(mis_sampled)
