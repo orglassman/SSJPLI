@@ -34,7 +34,7 @@ def dump_df(out_dir, df, **kwargs):
 
 
 def single_query(ds, sampler, R, q_sizes, out_dir):
-    coverages = [0.25, 0.5, 0.75, 0.9, 1]
+    coverages = [0.25, 0.5, 0.75, 0.9, 0.99]
 
     for qs in q_sizes:
         print(f'-I- Query size {qs}')
