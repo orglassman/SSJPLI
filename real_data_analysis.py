@@ -14,10 +14,11 @@ from sampler import Sampler
 def parse_args():
     parser = ArgumentParser()
     parser.add_argument('-in_file', help='path to input CSV')
-    parser.add_argument('-columns', required=False, help='target columns, separated by commas, e.g., SCHOOL,YEAR')
+    parser.add_argument('-columns', required=False, help='target columns separated by commas, e.g., SCHOOL,YEAR')
     parser.add_argument('-R', default=100, help='Repetition factor for sampling analysis')
     parser.add_argument('-out_dir', help='directory to dump output')
-    parser.add_argument('-q_sizes', default="2,4,6", help='target query sizes, separated by commas, e.g., 2,3,4,5')
+    parser.add_argument('-q_sizes', default="2,4,6", help='target query sizes separated by commas, e.g., 2,3,4,5')
+    parser.add_argument('-coverages', default="0.25,0.5,0.75,0.9,0.99", help='target coverages separated by commas, e.g., 0.25,0.75,0.9')
     args = parser.parse_args()
     return args
 
@@ -33,9 +34,9 @@ def dump_df(out_dir, df, **kwargs):
     print(f'-I- Check {out_file}')
 
 
-def single_query(ds, sampler, R, q_sizes, out_dir):
+def single_query(ds, sampler, R, q_sizes, coverages, out_dir):
     # coverages = [0.25, 0.5, 0.75, 0.9, 0.99]
-    coverages = [0.25, 0.5, 0.75, 0.9]
+    # coverages = [0.25, 0.5, 0.75, 0.9]
 
     for qs in q_sizes:
         print(f'-I- Query size {qs}')
@@ -125,17 +126,21 @@ def single_query(ds, sampler, R, q_sizes, out_dir):
 def parse_q_sizes(q_sizes):
     return [int(x) for x in q_sizes.split(',')]
 
+def parse_coverages(coverages):
+    return [float(x) for x in coverages.split(',')]
+
 def real_data_main():
     args = parse_args()
     in_file = args.in_file
     R = int(args.R)
     q_sizes = parse_q_sizes(args.q_sizes)
+    coverages = parse_coverages(args.coverages)
     out_dir = args.out_dir
 
     ds = RealDataSet(path=in_file)
     sampler = Sampler(ds)
 
-    single_query(ds, sampler, R, q_sizes, out_dir)
+    single_query(ds, sampler, R, q_sizes, coverages, out_dir)
 
 
 if __name__ == '__main__':
