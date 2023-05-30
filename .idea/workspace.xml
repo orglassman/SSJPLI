@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="fix coverage bug">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="remove .99 coverage">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +170,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/real_data_analysis.py" />
-      <option name="PARAMETERS" value="-R 10 -q_sizes 6,10,15 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Adult\adult_categorical.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Adult&quot;" />
+      <option name="PARAMETERS" value="-R 10 -q_sizes 10,15 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -262,13 +264,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00003" summary="initial commit">
-      <created>1656247058848</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1656247058848</updated>
     </task>
     <task id="LOCAL-00004" summary="leapfrog init added">
       <created>1656332236100</created>
@@ -606,7 +601,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685431048413</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="remove .99 coverage">
+      <created>1685431162483</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1685431162483</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -625,7 +627,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="minor bug fix" />
     <MESSAGE value="minor bug fix2" />
     <MESSAGE value="measure explicit time for calculation of entropy" />
     <MESSAGE value="measure explicit time for calculation of entropy (minor bug fix)" />
@@ -650,7 +651,8 @@
     <MESSAGE value="input query sizes for faster runtime" />
     <MESSAGE value="skip PLI cache evaluation for large query size" />
     <MESSAGE value="fix coverage bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix coverage bug" />
+    <MESSAGE value="remove .99 coverage" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove .99 coverage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -771,11 +773,6 @@
           <url>file://$PROJECT_DIR$/unpickle.py</url>
           <line>231</line>
           <option name="timeStamp" value="721" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>457</line>
-          <option name="timeStamp" value="738" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dataset.py</url>

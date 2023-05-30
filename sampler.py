@@ -311,7 +311,7 @@ class Sampler:
                 intersection_indices = sorted(list(set.intersection(*sets)))
                 L = len(intersection_indices)
 
-                if L == 0:
+                if L <= 1:
                     nulls.append(x)
                 else:
                     frequencies[x] = intersection_indices

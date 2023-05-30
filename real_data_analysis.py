@@ -68,7 +68,7 @@ def single_query(ds, sampler, R, q_sizes, out_dir):
             HX = ds.H(X)
             # vary coverage for each query
             for coverage in coverages:
-                ssj_res_data = sampler.entropy(list(X), coverage=coverage)
+                ssj_res_data = sampler.entropy(X, coverage=coverage)
                 # pli_res_data = sampler.entropy(list(X), mode='pli')
 
                 # explicit_res_data = sampler.entropy(list(X), mode='explicit')
