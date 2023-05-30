@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="remove .99 coverage">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="remove singletons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,13 +263,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00004" summary="leapfrog init added">
-      <created>1656332236100</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1656332236100</updated>
     </task>
     <task id="LOCAL-00005" summary="leapfrog init added">
       <created>1656332394605</created>
@@ -608,7 +600,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685431162483</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="remove singletons">
+      <created>1685432137507</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1685432137507</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -627,7 +626,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="minor bug fix2" />
     <MESSAGE value="measure explicit time for calculation of entropy" />
     <MESSAGE value="measure explicit time for calculation of entropy (minor bug fix)" />
     <MESSAGE value="add time for traversal of TA, TB (cartesian product)" />
@@ -652,7 +650,8 @@
     <MESSAGE value="skip PLI cache evaluation for large query size" />
     <MESSAGE value="fix coverage bug" />
     <MESSAGE value="remove .99 coverage" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove .99 coverage" />
+    <MESSAGE value="remove singletons" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove singletons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
