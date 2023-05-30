@@ -68,7 +68,8 @@ def single_query(ds, sampler, R, q_sizes, out_dir):
             # vary coverage for each query
             for coverage in coverages:
                 ssj_res_data = sampler.entropy(list(X), coverage=coverage)
-                pli_res_data = sampler.entropy(list(X), mode='pli')
+                # pli_res_data = sampler.entropy(list(X), mode='pli')
+
                 # explicit_res_data = sampler.entropy(list(X), mode='explicit')
                 # bounds = sampler.get_bounds(ssj_res_data)
 
@@ -78,12 +79,12 @@ def single_query(ds, sampler, R, q_sizes, out_dir):
                 N_sample_ssj.append(ssj_res_data['samples'])
                 rho_ssj.append(ssj_res_data['rho'])
                 sigma_ssj.append(ssj_res_data['sigma'])
-                H_pli.append(pli_res_data['H_pli'])
-                t_pli.append(pli_res_data['t_pli'])
+                # H_pli.append(pli_res_data['H_pli'])
+                # t_pli.append(pli_res_data['t_pli'])
                 records.append(ssj_res_data['N'])
                 product_set_size.append(ssj_res_data['product_set_size'])
                 H_ssj_ratio.append(ssj_res_data['H_ssj'] / HX)
-                t_ssj_ratio.append(ssj_res_data['t_ssj'] / pli_res_data['t_pli'])
+                # t_ssj_ratio.append(ssj_res_data['t_ssj'] / pli_res_data['t_pli'])
                 MSEs.append((HX-ssj_res_data['H_ssj'])**2)
 
                 # H_explicit[i] = explicit_res_data['H_explicit']
@@ -106,10 +107,10 @@ def single_query(ds, sampler, R, q_sizes, out_dir):
             'records': records,
             'product_set': product_set_size,
             # 't_explicit': t_explicit,
-            't_pli': t_pli,
-            't_ssj_ratio': t_ssj_ratio,
+            # 't_pli': t_pli,
+            # 't_ssj_ratio': t_ssj_ratio,
             # 't_explicit_ratio': t_explicit_ratio,
-            'h_ratio': H_ssj_ratio,
+            # 'h_ratio': H_ssj_ratio,
             'MSE': MSEs
         }
 
