@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="do PLI">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="input coverage instead default">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baseline_utilities.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/baselines.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/entropy_bounds.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pairwise.py" beforeDir="false" afterPath="$PROJECT_DIR$/thesis_pairwise.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parallel.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/thesis_plots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_pickles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,35 +49,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/real_data_analysis.py" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.real_data">
-    <configuration name="baselines" type="PythonConfigurationType" factoryName="Python">
-      <module name="LeapfrogPYJoin" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/baselines.py" />
-      <option name="PARAMETERS" value="-datasets &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\datasets.txt&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\baselines&quot;" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.unPickle">
     <configuration name="dataset" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -86,69 +71,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="entropy" type="PythonConfigurationType" factoryName="Python">
-      <module name="LeapfrogPYJoin" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\entropy_bounds.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="mi_exp" type="PythonConfigurationType" factoryName="Python">
-      <module name="LeapfrogPYJoin" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mi_experiment.py" />
-      <option name="PARAMETERS" value="-card 100" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pairwise" type="PythonConfigurationType" factoryName="Python">
-      <module name="LeapfrogPYJoin" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pairwise.py" />
-      <option name="PARAMETERS" value="-card_a 8 -card_b 50 -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\mutual_information_pairs&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -231,7 +153,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/unpickle.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\plot_pickles.py" />
       <option name="PARAMETERS" value="-in_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\strata analysis\varying_alpha_beta&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -241,15 +163,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.baselines" />
-      <item itemvalue="Python.entropy" />
       <item itemvalue="Python.relation" />
-      <item itemvalue="Python.pairwise" />
       <item itemvalue="Python.sampler" />
       <item itemvalue="Python.real_data" />
       <item itemvalue="Python.unPickle" />
       <item itemvalue="Python.dataset" />
-      <item itemvalue="Python.mi_exp" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -263,13 +181,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00006" summary="need to solve min-set cover for leapfrog init">
-      <created>1656344156948</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1656344156948</updated>
     </task>
     <task id="LOCAL-00007" summary="push to dragon">
       <created>1674029478115</created>
@@ -607,7 +518,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685432425735</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="input coverage instead default">
+      <created>1685441029959</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1685441029959</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -626,7 +544,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="measure explicit time for calculation of entropy (minor bug fix)" />
     <MESSAGE value="add time for traversal of TA, TB (cartesian product)" />
     <MESSAGE value="varying alpha beta cardinality analysis" />
     <MESSAGE value="minor bug fix varying cardinality" />
@@ -651,7 +568,8 @@
     <MESSAGE value="remove .99 coverage" />
     <MESSAGE value="remove singletons" />
     <MESSAGE value="do PLI" />
-    <option name="LAST_COMMIT_MESSAGE" value="do PLI" />
+    <MESSAGE value="input coverage instead default" />
+    <option name="LAST_COMMIT_MESSAGE" value="input coverage instead default" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -708,26 +626,6 @@
           <option name="timeStamp" value="292" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/entropy_bounds.py</url>
-          <line>109</line>
-          <option name="timeStamp" value="469" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/baseline_utilities.py</url>
-          <line>192</line>
-          <option name="timeStamp" value="472" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/baseline_utilities.py</url>
-          <line>184</line>
-          <option name="timeStamp" value="473" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/baseline_utilities.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="474" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/relation.py</url>
           <line>330</line>
           <option name="timeStamp" value="487" />
@@ -738,23 +636,23 @@
           <option name="timeStamp" value="537" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <url>file://$PROJECT_DIR$/thesis_pairwise.py</url>
           <line>335</line>
           <option name="timeStamp" value="562" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <url>file://$PROJECT_DIR$/thesis_pairwise.py</url>
           <line>290</line>
           <option name="timeStamp" value="567" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <condition expression="alpha==20" language="Python" />
-          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <url>file://$PROJECT_DIR$/thesis_pairwise.py</url>
           <line>315</line>
           <option name="timeStamp" value="568" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pairwise.py</url>
+          <url>file://$PROJECT_DIR$/thesis_pairwise.py</url>
           <line>317</line>
           <option name="timeStamp" value="569" />
         </line-breakpoint>
@@ -767,11 +665,6 @@
           <url>file://$PROJECT_DIR$/relation.py</url>
           <line>836</line>
           <option name="timeStamp" value="717" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/unpickle.py</url>
-          <line>231</line>
-          <option name="timeStamp" value="721" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dataset.py</url>
@@ -787,6 +680,16 @@
           <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
           <line>132</line>
           <option name="timeStamp" value="771" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sampler.py</url>
+          <line>457</line>
+          <option name="timeStamp" value="772" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/plot_pickles.py</url>
+          <line>109</line>
+          <option name="timeStamp" value="773" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
