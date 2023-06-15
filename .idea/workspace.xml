@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="input coverage instead default">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="maintenance">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseline_utilities.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/baselines.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/entropy_bounds.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pairwise.py" beforeDir="false" afterPath="$PROJECT_DIR$/thesis_pairwise.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parallel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/thesis_plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unpickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_pickles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,13 +175,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00007" summary="push to dragon">
-      <created>1674029478115</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1674029478115</updated>
     </task>
     <task id="LOCAL-00008" summary="push to dragon">
       <created>1674033601730</created>
@@ -525,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685441029959</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="maintenance">
+      <created>1686728740574</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1686728740574</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -544,7 +538,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="add time for traversal of TA, TB (cartesian product)" />
     <MESSAGE value="varying alpha beta cardinality analysis" />
     <MESSAGE value="minor bug fix varying cardinality" />
     <MESSAGE value="alpha step 10 beta step 5" />
@@ -569,7 +562,8 @@
     <MESSAGE value="remove singletons" />
     <MESSAGE value="do PLI" />
     <MESSAGE value="input coverage instead default" />
-    <option name="LAST_COMMIT_MESSAGE" value="input coverage instead default" />
+    <MESSAGE value="maintenance" />
+    <option name="LAST_COMMIT_MESSAGE" value="maintenance" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -673,12 +667,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>118</line>
+          <line>121</line>
           <option name="timeStamp" value="762" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>132</line>
+          <line>135</line>
           <option name="timeStamp" value="771" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

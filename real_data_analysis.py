@@ -63,14 +63,17 @@ def single_query(ds, sampler, R, q_sizes, coverages, out_dir):
         dist_orig = {}
 
 
+
         # generate R random queries
         for i in range(R):
             X = ds.random_query(qs)
             HX = ds.H(X)
+            pli_res_data = sampler.entropy(list(X), mode='pli')
+
             # vary coverage for each query
             for coverage in coverages:
                 ssj_res_data = sampler.entropy(X, coverage=coverage)
-                pli_res_data = sampler.entropy(list(X), mode='pli')
+
 
                 # explicit_res_data = sampler.entropy(list(X), mode='explicit')
                 # bounds = sampler.get_bounds(ssj_res_data)
