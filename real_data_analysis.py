@@ -15,7 +15,7 @@ def parse_args():
     parser = ArgumentParser()
     parser.add_argument('-in_file', help='path to input CSV')
     parser.add_argument('-columns', required=False, help='target columns separated by commas, e.g., SCHOOL,YEAR')
-    parser.add_argument('-R', default=100, help='Repetition factor for sampling analysis')
+    parser.add_argument('-R', default=100, help='sample size')
     parser.add_argument('-out_dir', help='directory to dump output')
     parser.add_argument('-q_sizes', default="2,4,6", help='target query sizes separated by commas, e.g., 2,3,4,5')
     parser.add_argument('-coverages', default="0.25,0.5,0.75,0.9,0.99", help='target coverages separated by commas, e.g., 0.25,0.75,0.9')

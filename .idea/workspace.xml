@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="maintenance">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="PLI once instead per each coverage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_pickles.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_pickles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -175,13 +176,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00008" summary="push to dragon">
-      <created>1674033601730</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1674033601730</updated>
     </task>
     <task id="LOCAL-00009" summary="push to dragon">
       <created>1674043281865</created>
@@ -519,7 +513,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686728740574</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="PLI once instead per each coverage">
+      <created>1686831282635</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1686831282635</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -538,7 +539,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="varying alpha beta cardinality analysis" />
     <MESSAGE value="minor bug fix varying cardinality" />
     <MESSAGE value="alpha step 10 beta step 5" />
     <MESSAGE value="coverage bug add +1" />
@@ -563,7 +563,8 @@
     <MESSAGE value="do PLI" />
     <MESSAGE value="input coverage instead default" />
     <MESSAGE value="maintenance" />
-    <option name="LAST_COMMIT_MESSAGE" value="maintenance" />
+    <MESSAGE value="PLI once instead per each coverage" />
+    <option name="LAST_COMMIT_MESSAGE" value="PLI once instead per each coverage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -682,7 +683,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/plot_pickles.py</url>
-          <line>109</line>
+          <line>200</line>
           <option name="timeStamp" value="773" />
         </line-breakpoint>
       </breakpoints>
