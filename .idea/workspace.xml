@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="PLI once instead per each coverage">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="maintenance">
+      <change afterPath="$PROJECT_DIR$/tid_entry.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plot_pickles.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_pickles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +53,7 @@
       <recent name="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.unPickle">
+  <component name="RunManager" selected="Python.real_data">
     <configuration name="dataset" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -86,7 +88,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/real_data_analysis.py" />
-      <option name="PARAMETERS" value="-R 10 -q_sizes 10,15 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4&quot; -coverages 0.9" />
+      <option name="PARAMETERS" value="-mode isj -R 10 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4\isj&quot; -K 100000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -176,13 +178,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00009" summary="push to dragon">
-      <created>1674043281865</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1674043281865</updated>
     </task>
     <task id="LOCAL-00010" summary="remove old dir">
       <created>1674044078755</created>
@@ -520,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686831282635</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="maintenance">
+      <created>1687163128398</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1687163128399</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -562,9 +564,9 @@
     <MESSAGE value="remove singletons" />
     <MESSAGE value="do PLI" />
     <MESSAGE value="input coverage instead default" />
-    <MESSAGE value="maintenance" />
     <MESSAGE value="PLI once instead per each coverage" />
-    <option name="LAST_COMMIT_MESSAGE" value="PLI once instead per each coverage" />
+    <MESSAGE value="maintenance" />
+    <option name="LAST_COMMIT_MESSAGE" value="maintenance" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -667,24 +669,24 @@
           <option name="timeStamp" value="754" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>121</line>
-          <option name="timeStamp" value="762" />
+          <url>file://$PROJECT_DIR$/plot_pickles.py</url>
+          <line>264</line>
+          <option name="timeStamp" value="773" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>135</line>
-          <option name="timeStamp" value="771" />
+          <line>287</line>
+          <option name="timeStamp" value="776" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>457</line>
-          <option name="timeStamp" value="772" />
+          <line>481</line>
+          <option name="timeStamp" value="781" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/plot_pickles.py</url>
-          <line>200</line>
-          <option name="timeStamp" value="773" />
+          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
+          <line>178</line>
+          <option name="timeStamp" value="789" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
