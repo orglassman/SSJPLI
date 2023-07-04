@@ -242,21 +242,32 @@ def plot_adult_q2():
     plt.tight_layout()
 
 
-def load_dfs(dir, coverages):
+def load_dfs(dir, coverages=[.25, .5, .75, .9, .99], mode='ssj'):
     files = os.listdir(dir)
 
-    pattern = r'coverage_(\d+\.\d+).+query_size_(\d+)'
-    dfs = {c: {} for c in coverages}
+    pattern = None
+    dfs = None
+    if mode == 'ssj':
+        pattern = r'coverage_(\d+\.\d+).+query_size_(\d+)'
+        dfs = {c: {} for c in coverages}
+    elif mode == 'isj':
+        pattern = r'query_size_(\d+)'
+        dfs = {}
+
     for file in files:
         res = re.search(pattern, file)
         if not res:
             print(f'-W- Check {file}')
             continue
 
-        coverage = float(res.groups(0)[0])
-        query_size = int(res.groups(0)[1])
+        if mode == 'ssj':
+            coverage = float(res.groups(0)[0])
+            query_size = int(res.groups(0)[1])
 
-        dfs[coverage][query_size] = load_pickle(dir + os.sep + file)
+            dfs[coverage][query_size] = load_pickle(dir + os.sep + file)
+        elif mode == 'isj':
+            query_size = int(res.groups(0)[0])
+            dfs[query_size] = load_pickle(dir + os.sep + file)
 
     return dfs
 

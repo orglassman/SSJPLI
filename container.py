@@ -11,7 +11,6 @@ from scipy.stats import iqr
 
 from common import sort_by_key
 from dataset import DataSet
-from sampler import SyntheticSampler
 
 
 def parse_args():

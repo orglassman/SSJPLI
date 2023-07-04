@@ -58,7 +58,7 @@ class Sampler:
 
         return res
 
-    def entropy(self, X, coverage=0.9, mode='ssj', K=1000):
+    def entropy(self, X, coverage=0.9, mode='ssj', isj_precision=1):
 
         if len(X) == self.M:
             return {f'H_{mode}': np.log2(self.N)}
@@ -66,7 +66,7 @@ class Sampler:
         if mode == 'ssj':
             return self.entropy_ssj(X, coverage)
         elif mode == 'isj':
-            return self.entropy_isj(X, K=K)
+            return self.entropy_isj(X, precision=isj_precision)
         elif mode == 'msj':
             return self.entropy_msj(X, coverage)
         elif mode == 'explicit':
@@ -140,25 +140,23 @@ class Sampler:
 
         return res_data
 
-    def entropy_isj(self, X, K=1000):
+    def entropy_isj(self, X, precision=1):
         tids = self.fetch_tids(X)
-        #if len(tids) > 2:
-        #    raise('Currently only |q| = 2 supported')
 
+        baseline_H = self.entropy_pli(X)['H_pli']
+        target_H = precision * baseline_H
         product_set_size = self.get_product_set_size(tids)
 
         total_time = 0
-        # A = tids[X[0]]
-        # B = tids[X[1]]
         start = time.perf_counter()
-        res_data = self.isj(tids, K=K)
+        res_data = self.isj(tids, target_H)
         finish = time.perf_counter()
         total_time += finish - start
 
         res_data['t_s'] = total_time
-        res_data['K'] = K
         res_data['N'] = self.dataset.get_N()
         res_data['product_set_size'] = product_set_size
+        res_data['precision'] = precision
 
         return res_data
 
@@ -372,7 +370,7 @@ class Sampler:
         return dist
 
     # isj utilities
-    def isj(self, tids, K=1000):
+    def isj(self, tids, target):
         """
         main workhorse. for k\in[K]:
             1. gen distribution per predicate
@@ -389,7 +387,7 @@ class Sampler:
         nulls = []
         H_hat = 0
         num_samples = 0
-        for _ in range(K):
+        while H_hat < target:
             num_samples += 1
             instance = self.sample_instance_isj(sampling_weights)
             x = flatten(tuple(instance.values()))
@@ -417,7 +415,8 @@ class Sampler:
         res_data = {
             'nulls': nulls,
             'H_s': H_hat,
-            'num_samples': num_samples
+            'num_samples': num_samples,
+            'precision_eff': H_hat / target
         }
 
         return res_data

@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="maintenance">
-      <change afterPath="$PROJECT_DIR$/tid_entry.py" afterDir="false" />
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="ISJ added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/container.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plot_pickles.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_pickles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampler.py" afterDir="false" />
@@ -88,7 +88,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/real_data_analysis.py" />
-      <option name="PARAMETERS" value="-mode isj -R 10 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4\isj&quot; -K 100000" />
+      <option name="PARAMETERS" value="-mode isj -R 10 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4\isj&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -178,13 +178,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00010" summary="remove old dir">
-      <created>1674044078755</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1674044078755</updated>
     </task>
     <task id="LOCAL-00011" summary="os separator">
       <created>1674044493087</created>
@@ -522,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687163128399</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="ISJ added">
+      <created>1687876432283</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1687876432283</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -541,7 +541,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="minor bug fix varying cardinality" />
     <MESSAGE value="alpha step 10 beta step 5" />
     <MESSAGE value="coverage bug add +1" />
     <MESSAGE value="add absolute measurements t_ratio h_ratio" />
@@ -566,7 +565,8 @@
     <MESSAGE value="input coverage instead default" />
     <MESSAGE value="PLI once instead per each coverage" />
     <MESSAGE value="maintenance" />
-    <option name="LAST_COMMIT_MESSAGE" value="maintenance" />
+    <MESSAGE value="ISJ added" />
+    <option name="LAST_COMMIT_MESSAGE" value="ISJ added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -670,23 +670,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/plot_pickles.py</url>
-          <line>264</line>
+          <line>275</line>
           <option name="timeStamp" value="773" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>287</line>
-          <option name="timeStamp" value="776" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sampler.py</url>
-          <line>481</line>
+          <line>480</line>
           <option name="timeStamp" value="781" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
-          <line>178</line>
-          <option name="timeStamp" value="789" />
+          <line>247</line>
+          <option name="timeStamp" value="790" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
