@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="ISJ precision (analogous to coverage)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_pickles.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_pickles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_analysis.py" afterDir="false" />
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="git ignore">
+      <change beforePath="$PROJECT_DIR$/cubic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mi_experiment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/relation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thesis_pairwise.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thesis_plots.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tid_entry.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,13 +179,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00012" summary="baseline utilities update">
-      <created>1674672970047</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1674672970047</updated>
     </task>
     <task id="LOCAL-00013" summary="binning and preprocessing">
       <created>1674741450405</created>
@@ -520,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688462087763</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="git ignore">
+      <created>1688627955368</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1688627955368</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -539,7 +542,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="coverage bug add +1" />
     <MESSAGE value="add absolute measurements t_ratio h_ratio" />
     <MESSAGE value="added PSS method. added prepare only flag" />
     <MESSAGE value="store true flag" />
@@ -564,7 +566,8 @@
     <MESSAGE value="maintenance" />
     <MESSAGE value="ISJ added" />
     <MESSAGE value="ISJ precision (analogous to coverage)" />
-    <option name="LAST_COMMIT_MESSAGE" value="ISJ precision (analogous to coverage)" />
+    <MESSAGE value="git ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="git ignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
