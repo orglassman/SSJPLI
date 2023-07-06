@@ -242,17 +242,17 @@ def plot_adult_q2():
     plt.tight_layout()
 
 
-def load_dfs(dir, coverages=[.25, .5, .75, .9, .99], mode='ssj'):
+def load_dfs(dir, coverages=None, mode='ssj'):
+    if coverages is None:
+        coverages = [.25, .5, .75, .9, .99]
     files = os.listdir(dir)
 
     pattern = None
-    dfs = None
+    dfs = {c: {} for c in coverages}
     if mode == 'ssj':
         pattern = r'coverage_(\d+\.\d+).+query_size_(\d+)'
-        dfs = {c: {} for c in coverages}
     elif mode == 'isj':
-        pattern = r'query_size_(\d+)'
-        dfs = {}
+        pattern = r'precision_(\d+\.\d+).+query_size_(\d+)'
 
     for file in files:
         res = re.search(pattern, file)
@@ -260,14 +260,9 @@ def load_dfs(dir, coverages=[.25, .5, .75, .9, .99], mode='ssj'):
             print(f'-W- Check {file}')
             continue
 
-        if mode == 'ssj':
-            coverage = float(res.groups(0)[0])
-            query_size = int(res.groups(0)[1])
-
-            dfs[coverage][query_size] = load_pickle(dir + os.sep + file)
-        elif mode == 'isj':
-            query_size = int(res.groups(0)[0])
-            dfs[query_size] = load_pickle(dir + os.sep + file)
+        coverage = float(res.groups(0)[0])
+        query_size = int(res.groups(0)[1])
+        dfs[coverage][query_size] = load_pickle(dir + os.sep + file)
 
     return dfs
 

@@ -1,10 +1,8 @@
 #!/usr/bin/env python
-import logging
 import os
 import pickle
 from argparse import ArgumentParser
 
-import numpy as np
 import pandas as pd
 
 from dataset import RealDataSet
