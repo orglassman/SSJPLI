@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="git ignore">
-      <change beforePath="$PROJECT_DIR$/cubic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mi_experiment.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/relation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/thesis_pairwise.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/thesis_plots.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tid_entry.py" beforeDir="false" />
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="remove previously tracked files, now obsolete">
+      <change afterPath="$PROJECT_DIR$/CITATION.cff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,13 +175,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00013" summary="binning and preprocessing">
-      <created>1674741450405</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1674741450405</updated>
     </task>
     <task id="LOCAL-00014" summary="sequential sampler, dataset and dataset container classes. new sampling framework for X=(A,B) only">
       <created>1681803079334</created>
@@ -523,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688627955368</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="remove previously tracked files, now obsolete">
+      <created>1688628098228</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1688628098228</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -542,7 +538,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="add absolute measurements t_ratio h_ratio" />
     <MESSAGE value="added PSS method. added prepare only flag" />
     <MESSAGE value="store true flag" />
     <MESSAGE value="real data analysis" />
@@ -567,7 +562,8 @@
     <MESSAGE value="ISJ added" />
     <MESSAGE value="ISJ precision (analogous to coverage)" />
     <MESSAGE value="git ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="git ignore" />
+    <MESSAGE value="remove previously tracked files, now obsolete" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove previously tracked files, now obsolete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
