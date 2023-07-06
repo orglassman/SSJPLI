@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 
-from common import load_pickle
+from common import load_pickle, binary_entropy
 
 
 def parse_args():
@@ -240,6 +240,13 @@ def plot_adult_q2():
     axs[1].set_title(r'$H_{s}\;/\;H$', fontsize=20)
     axs[2].set_title('MSE', fontsize=20)
     plt.tight_layout()
+
+
+def get_U_binary_entropy(df):
+    A = df['rho'] * df['H_ssj']
+    B = (1 - df['rho']) * np.log2(df['product_set'])
+    C = df['rho'].apply(binary_entropy)
+    return np.average(A + B + C)
 
 
 def load_dfs(dir, coverages=None, mode='ssj'):

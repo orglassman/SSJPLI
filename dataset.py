@@ -122,9 +122,3 @@ class RealDataSet(DataSet):
         print('-I- Cardinalities:')
         for col in self.df.columns:
             print(f'-I- Column {col}: cardinality {self.df[col].value_counts().shape[0]}')
-
-if __name__ == '__main__':
-    dataset = DataSet(alpha=5, beta=10)
-    dataset.drop(k=15)
-    dataset.get_I()
-    print('hello')
