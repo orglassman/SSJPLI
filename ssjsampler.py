@@ -58,7 +58,7 @@ class SSJSampler:
 
         return res
 
-    def entropy(self, X, coverage=0.9, mode='ssj', isj_precision=1):
+    def entropy(self, X, coverage=0.9, mode='ssj'):
 
         if len(X) == self.M:
             return {f'H_{mode}': np.log2(self.N)}
@@ -66,7 +66,7 @@ class SSJSampler:
         if mode == 'ssj':
             return self.entropy_ssj(X, coverage)
         elif mode == 'isj':
-            return self.entropy_isj(X, precision=isj_precision)
+            return self.entropy_isj(X, precision=coverage)
         elif mode == 'msj':
             return self.entropy_msj(X, coverage)
         elif mode == 'explicit':

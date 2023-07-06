@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="citation">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssjsampler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssjsampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssjsampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,13 +176,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00016" summary="no growth management for sampling procedure">
-      <created>1682265987250</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1682265987250</updated>
     </task>
     <task id="LOCAL-00017" summary="add number of records per dataset to dataframe">
       <created>1682329185350</created>
@@ -522,7 +513,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688629252838</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="refactor">
+      <created>1688629573390</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1688629573390</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -541,7 +539,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="store true flag" />
     <MESSAGE value="real data analysis" />
     <MESSAGE value="added shebang" />
     <MESSAGE value="add true entropy value to real data analysis output DF" />
@@ -566,7 +563,8 @@
     <MESSAGE value="git ignore" />
     <MESSAGE value="remove previously tracked files, now obsolete" />
     <MESSAGE value="citation" />
-    <option name="LAST_COMMIT_MESSAGE" value="citation" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

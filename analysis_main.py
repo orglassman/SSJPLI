@@ -157,7 +157,7 @@ def single_query_isj(args):
             pli_res_data = sampler.entropy(list(X), mode='pli')
             for precision in isj_args['precisions']:
                 # vary coverage for each query
-                target_res_data = sampler.entropy(X, mode='isj', isj_precision=precision)
+                target_res_data = sampler.entropy(X, mode='isj', coverage=precision)
 
                 H_true.append(HX)
                 H_target.append(target_res_data['H_s'])
