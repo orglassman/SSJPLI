@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 import pandas as pd
 
 from dataset import RealDataSet
-from sampler import Sampler
+from ssjsampler import SSJSampler
 
 
 def parse_args():
@@ -212,7 +212,7 @@ def parse_coverages(coverages):
 def get_ssj_args(args):
     in_file = args.in_file
     ds = RealDataSet(path=in_file)
-    sampler = Sampler(ds)
+    sampler = SSJSampler(ds)
 
     ssj_args = {
         'ds': ds,
@@ -229,7 +229,7 @@ def get_ssj_args(args):
 def get_isj_args(args):
     in_file = args.in_file
     ds = RealDataSet(path=in_file)
-    sampler = Sampler(ds)
+    sampler = SSJSampler(ds)
 
     isj_args = {
         'ds': ds,

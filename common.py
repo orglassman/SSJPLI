@@ -235,7 +235,8 @@ def load_pickle(path):
         return b
 
 
-def calculate_entropy(path, q):
+def entropy_csv(path, q):
+    """compute H(q) for input CSV"""
     p = sorted(q)
     df = preprocess(pd.read_csv(path, usecols=p))
     dist = df.value_counts(normalize=True).values
@@ -254,6 +255,9 @@ def binary_entropy(q):
 def DKL(P, Q):
     res = 0
     for x in P.keys():
+        if not Q[x]:
+            raise "support of Q smaller than P"
+
         p = P[x]
         q = Q[x]
 

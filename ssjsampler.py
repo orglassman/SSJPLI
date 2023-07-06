@@ -24,7 +24,7 @@ def H_dict(d, base=2):
     return res
 
 
-class Sampler:
+class SSJSampler:
     def __init__(self, dataset, partition_factor=1):
         self.dataset = dataset
         self.partition_factor = partition_factor
@@ -592,14 +592,3 @@ class Sampler:
             res -= q * np.log(q)
 
         return res
-
-
-if __name__ == '__main__':
-    in_file = ""
-    ds = RealDataSet(in_file)
-    sampler = Sampler(ds)
-
-    X = list('ABC')
-    res1 = sampler.entropy(X, mode='pli')
-    res2 = sampler.entropy(X, mode='ssj')
-    print('hello')

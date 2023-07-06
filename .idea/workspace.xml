@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="citation">
-      <change beforePath="$PROJECT_DIR$/CITATION.cff" beforeDir="false" afterPath="$PROJECT_DIR$/CITATION.cff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/container.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/real_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssjsampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +87,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/real_data_analysis.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\analysis_main.py" />
       <option name="PARAMETERS" value="-mode isj -R 10 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4\isj&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -125,7 +129,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sampler.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\ssjsampler.py" />
       <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Letter\letter.csv&quot; -X A,B" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -174,13 +178,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00015" summary="pickling output stratum where |stratum|&gt;30. run samples vs. I(A;B) for varying coverage values">
-      <created>1681999741741</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1681999741741</updated>
     </task>
     <task id="LOCAL-00016" summary="no growth management for sampling procedure">
       <created>1682265987250</created>
@@ -518,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688628922697</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="citation">
+      <created>1688629252838</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1688629252838</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -660,22 +664,17 @@
           <option name="timeStamp" value="717" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/dataset.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="754" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/plot_pickles.py</url>
           <line>270</line>
           <option name="timeStamp" value="773" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sampler.py</url>
+          <url>file://$PROJECT_DIR$/ssjsampler.py</url>
           <line>480</line>
           <option name="timeStamp" value="781" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/real_data_analysis.py</url>
+          <url>file://$PROJECT_DIR$/analysis_main.py</url>
           <line>245</line>
           <option name="timeStamp" value="790" />
         </line-breakpoint>
