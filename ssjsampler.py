@@ -5,9 +5,7 @@ from random import choices
 
 import numpy as np
 
-from common import sort_by_key, flatten, DKL
-from dataset import RealDataSet
-from tid_entry import TIDEntry
+from common import sort_by_key, flatten
 
 
 def H_dict(d, base=2):

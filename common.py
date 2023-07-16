@@ -206,22 +206,8 @@ def deflatten(t, levels):
     return tuple(reshaped)
 
 
-def randomize_queries(attributes, N=100):
-    uniq = {}
-    M = len(attributes)
-
-    while len(uniq) < N:
-        L = np.random.randint(low=1, high=M)
-        Q = np.random.choice(attributes, L, replace=False)
-
-        # take only unique queries
-        P = ','.join(sorted(Q))
-        if P in uniq.keys():
-            continue
-
-        uniq[P] = 1
-
-    return [x.split(',') for x in uniq.keys()]
+def randomize_query(omega, size):
+    return np.random.choice(omega, size=size, replace=False)
 
 
 def dump_pickle(path, data):
