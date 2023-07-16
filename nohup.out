@@ -1,0 +1,610 @@
+Traceback (most recent call last):
+  File "./real_data_analysis.py", line 150, in <module>
+    real_data_main()
+  File "./real_data_analysis.py", line 143, in real_data_main
+    ds = RealDataSet(path=in_file)
+  File "/data/home/orglassman/src/StochasticJoin/LeapfrogPYJoin/dataset.py", line 103, in __init__
+    self.df = pd.read_csv(path)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/util/_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/util/_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 950, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 605, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1442, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1735, in _make_engine
+    self.handles = get_handle(
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/common.py", line 856, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '/data/home/orglassman/datasets/Adult/adult.csv'
+-I- New real data instance initialized
+-I- Total entries: 8124
+-I- Column mapping: {'X1': 'A0', 'X2': 'A1', 'X3': 'A2', 'X4': 'A3', 'X5': 'A4', 'X6': 'A5', 'X7': 'A6', 'X8': 'A7', 'X9': 'A8', 'X10': 'A9', 'X11': 'A10', 'X12': 'A11', 'X13': 'A12', 'X14': 'A13', 'X15': 'A14', 'X16': 'A15', 'X17': 'A16', 'X19': 'A17', 'X20': 'A18', 'X21': 'A19', 'X22': 'A20', 'X23': 'A21', 'X24': 'A22'}
+-I- Cardinalities:
+-I- Column A0: cardinality 2
+-I- Column A1: cardinality 6
+-I- Column A2: cardinality 4
+-I- Column A3: cardinality 10
+-I- Column A4: cardinality 2
+-I- Column A5: cardinality 9
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 2
+-I- Column A8: cardinality 2
+-I- Column A9: cardinality 12
+-I- Column A10: cardinality 2
+-I- Column A11: cardinality 5
+-I- Column A12: cardinality 4
+-I- Column A13: cardinality 4
+-I- Column A14: cardinality 9
+-I- Column A15: cardinality 9
+-I- Column A16: cardinality 1
+-I- Column A17: cardinality 4
+-I- Column A18: cardinality 3
+-I- Column A19: cardinality 5
+-I- Column A20: cardinality 9
+-I- Column A21: cardinality 6
+-I- Column A22: cardinality 7
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.25_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.5_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.75_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.9_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.99_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.25_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.5_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.75_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.9_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.99_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.25_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.5_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.75_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.9_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.99_query_size_6.pkl
+-I- Query size 10
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.25_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.5_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.75_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.9_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.99_query_size_10.pkl
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.25_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.5_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.75_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.9_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/coverage_0.99_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom
+-I- New real data instance initialized
+-I- Total entries: 32561
+-I- Column mapping: {'workclass': 'A0', 'education': 'A1', 'marital-status': 'A2', 'occupation': 'A3', 'relationship': 'A4', 'race': 'A5', 'sex': 'A6', 'native-country': 'A7'}
+-I- Cardinalities:
+-I- Column A0: cardinality 9
+-I- Column A1: cardinality 16
+-I- Column A2: cardinality 7
+-I- Column A3: cardinality 15
+-I- Column A4: cardinality 6
+-I- Column A5: cardinality 5
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 42
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.25_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.5_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.75_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.9_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.99_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.25_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.5_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.75_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.9_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.99_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.25_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.5_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.75_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.9_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/coverage_0.99_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult
+Traceback (most recent call last):
+  File "./real_data_analysis.py", line 150, in <module>
+    real_data_main()
+  File "./real_data_analysis.py", line 143, in real_data_main
+    ds = RealDataSet(path=in_file)
+  File "/data/home/orglassman/src/StochasticJoin/LeapfrogPYJoin/dataset.py", line 103, in __init__
+    self.df = pd.read_csv(path)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/util/_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/util/_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 950, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 605, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1442, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1735, in _make_engine
+    self.handles = get_handle(
+  File "/data/home/orglassman/src/venv/lib/python3.8/site-packages/pandas/io/common.py", line 856, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '/data/home/orglassman/datasets/Covertype/covertype.csv'
+-I- New real data instance initialized
+-I- Total entries: 581012
+-I- Column mapping: {'A10': 'A0', 'A11': 'A1', 'A12': 'A2', 'A13': 'A3', 'A14': 'A4', 'A15': 'A5', 'A16': 'A6', 'A17': 'A7', 'A18': 'A8', 'A19': 'A9', 'A20': 'A10', 'A21': 'A11', 'A22': 'A12', 'A23': 'A13', 'A24': 'A14', 'A25': 'A15', 'A26': 'A16', 'A27': 'A17', 'A28': 'A18', 'A29': 'A19', 'A30': 'A20', 'A31': 'A21', 'A32': 'A22', 'A33': 'A23', 'A34': 'A24', 'A35': 'A25', 'A36': 'A26', 'A37': 'A27', 'A38': 'A28', 'A39': 'A29', 'A40': 'A30', 'A41': 'A31', 'A42': 'A32', 'A43': 'A33', 'A44': 'A34', 'A45': 'A35', 'A46': 'A36', 'A47': 'A37', 'A48': 'A38', 'A49': 'A39', 'A50': 'A40', 'A51': 'A41', 'A52': 'A42', 'A53': 'A43'}
+-I- Cardinalities:
+-I- Column A0: cardinality 2
+-I- Column A1: cardinality 2
+-I- Column A2: cardinality 2
+-I- Column A3: cardinality 2
+-I- Column A4: cardinality 2
+-I- Column A5: cardinality 2
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 2
+-I- Column A8: cardinality 2
+-I- Column A9: cardinality 2
+-I- Column A10: cardinality 2
+-I- Column A11: cardinality 2
+-I- Column A12: cardinality 2
+-I- Column A13: cardinality 2
+-I- Column A14: cardinality 2
+-I- Column A15: cardinality 2
+-I- Column A16: cardinality 2
+-I- Column A17: cardinality 2
+-I- Column A18: cardinality 2
+-I- Column A19: cardinality 2
+-I- Column A20: cardinality 2
+-I- Column A21: cardinality 2
+-I- Column A22: cardinality 2
+-I- Column A23: cardinality 2
+-I- Column A24: cardinality 2
+-I- Column A25: cardinality 2
+-I- Column A26: cardinality 2
+-I- Column A27: cardinality 2
+-I- Column A28: cardinality 2
+-I- Column A29: cardinality 2
+-I- Column A30: cardinality 2
+-I- Column A31: cardinality 2
+-I- Column A32: cardinality 2
+-I- Column A33: cardinality 2
+-I- Column A34: cardinality 2
+-I- Column A35: cardinality 2
+-I- Column A36: cardinality 2
+-I- Column A37: cardinality 2
+-I- Column A38: cardinality 2
+-I- Column A39: cardinality 2
+-I- Column A40: cardinality 2
+-I- Column A41: cardinality 2
+-I- Column A42: cardinality 2
+-I- Column A43: cardinality 2
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_6.pkl
+-I- Query size 10
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_10.pkl
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_15.pkl
+-I- Query size 20
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_20.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_20.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_20.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_20.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_20.pkl
+-I- Query size 25
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_25.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_25.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_25.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_25.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_25.pkl
+-I- Query size 30
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_30.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_30.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_30.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_30.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_30.pkl
+-I- Query size 35
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_35.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_35.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_35.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_35.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_35.pkl
+-I- Query size 40
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.25_query_size_40.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.5_query_size_40.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.75_query_size_40.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.9_query_size_40.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q/coverage_0.99_query_size_40.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/large_q
+-I- New real data instance initialized
+-I- Total entries: 67557
+-I- Column mapping: {'a1': 'A0', 'a2': 'A1', 'a3': 'A2', 'a4': 'A3', 'a5': 'A4', 'a6': 'A5', 'b1': 'A6', 'b2': 'A7', 'b3': 'A8', 'b4': 'A9', 'b5': 'A10', 'b6': 'A11', 'c1': 'A12', 'c2': 'A13', 'c3': 'A14', 'c4': 'A15', 'c5': 'A16', 'c6': 'A17', 'd1': 'A18', 'd2': 'A19', 'd3': 'A20', 'd4': 'A21', 'd5': 'A22', 'd6': 'A23', 'e1': 'A24', 'e2': 'A25', 'e3': 'A26', 'e4': 'A27', 'e5': 'A28', 'e6': 'A29', 'f1': 'A30', 'f2': 'A31', 'f3': 'A32', 'f4': 'A33', 'f5': 'A34', 'f6': 'A35', 'g1': 'A36', 'g2': 'A37', 'g3': 'A38', 'g4': 'A39', 'g5': 'A40', 'g6': 'A41'}
+-I- Cardinalities:
+-I- Column A0: cardinality 3
+-I- Column A1: cardinality 3
+-I- Column A2: cardinality 3
+-I- Column A3: cardinality 3
+-I- Column A4: cardinality 3
+-I- Column A5: cardinality 3
+-I- Column A6: cardinality 3
+-I- Column A7: cardinality 3
+-I- Column A8: cardinality 3
+-I- Column A9: cardinality 3
+-I- Column A10: cardinality 3
+-I- Column A11: cardinality 3
+-I- Column A12: cardinality 3
+-I- Column A13: cardinality 3
+-I- Column A14: cardinality 3
+-I- Column A15: cardinality 3
+-I- Column A16: cardinality 3
+-I- Column A17: cardinality 3
+-I- Column A18: cardinality 3
+-I- Column A19: cardinality 3
+-I- Column A20: cardinality 3
+-I- Column A21: cardinality 3
+-I- Column A22: cardinality 3
+-I- Column A23: cardinality 3
+-I- Column A24: cardinality 3
+-I- Column A25: cardinality 3
+-I- Column A26: cardinality 3
+-I- Column A27: cardinality 3
+-I- Column A28: cardinality 3
+-I- Column A29: cardinality 3
+-I- Column A30: cardinality 3
+-I- Column A31: cardinality 3
+-I- Column A32: cardinality 3
+-I- Column A33: cardinality 3
+-I- Column A34: cardinality 3
+-I- Column A35: cardinality 3
+-I- Column A36: cardinality 3
+-I- Column A37: cardinality 3
+-I- Column A38: cardinality 3
+-I- Column A39: cardinality 3
+-I- Column A40: cardinality 3
+-I- Column A41: cardinality 3
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_query_size_6.pkl
+-I- Query size 10
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_query_size_10.pkl
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4
+-I- Query size 2
+-I- Query size 4
+-I- Query size 6
+-I- Query size 10
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4
+-I- New real data instance initialized
+-I- Total entries: 581012
+-I- Column mapping: {'A10': 'A0', 'A11': 'A1', 'A12': 'A2', 'A13': 'A3', 'A14': 'A4', 'A15': 'A5', 'A16': 'A6', 'A17': 'A7', 'A18': 'A8', 'A19': 'A9', 'A20': 'A10', 'A21': 'A11', 'A22': 'A12', 'A23': 'A13', 'A24': 'A14', 'A25': 'A15', 'A26': 'A16', 'A27': 'A17', 'A28': 'A18', 'A29': 'A19', 'A30': 'A20', 'A31': 'A21', 'A32': 'A22', 'A33': 'A23', 'A34': 'A24', 'A35': 'A25', 'A36': 'A26', 'A37': 'A27', 'A38': 'A28', 'A39': 'A29', 'A40': 'A30', 'A41': 'A31', 'A42': 'A32', 'A43': 'A33', 'A44': 'A34', 'A45': 'A35', 'A46': 'A36', 'A47': 'A37', 'A48': 'A38', 'A49': 'A39', 'A50': 'A40', 'A51': 'A41', 'A52': 'A42', 'A53': 'A43'}
+-I- Cardinalities:
+-I- Column A0: cardinality 2
+-I- Column A1: cardinality 2
+-I- Column A2: cardinality 2
+-I- Column A3: cardinality 2
+-I- Column A4: cardinality 2
+-I- Column A5: cardinality 2
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 2
+-I- Column A8: cardinality 2
+-I- Column A9: cardinality 2
+-I- Column A10: cardinality 2
+-I- Column A11: cardinality 2
+-I- Column A12: cardinality 2
+-I- Column A13: cardinality 2
+-I- Column A14: cardinality 2
+-I- Column A15: cardinality 2
+-I- Column A16: cardinality 2
+-I- Column A17: cardinality 2
+-I- Column A18: cardinality 2
+-I- Column A19: cardinality 2
+-I- Column A20: cardinality 2
+-I- Column A21: cardinality 2
+-I- Column A22: cardinality 2
+-I- Column A23: cardinality 2
+-I- Column A24: cardinality 2
+-I- Column A25: cardinality 2
+-I- Column A26: cardinality 2
+-I- Column A27: cardinality 2
+-I- Column A28: cardinality 2
+-I- Column A29: cardinality 2
+-I- Column A30: cardinality 2
+-I- Column A31: cardinality 2
+-I- Column A32: cardinality 2
+-I- Column A33: cardinality 2
+-I- Column A34: cardinality 2
+-I- Column A35: cardinality 2
+-I- Column A36: cardinality 2
+-I- Column A37: cardinality 2
+-I- Column A38: cardinality 2
+-I- Column A39: cardinality 2
+-I- Column A40: cardinality 2
+-I- Column A41: cardinality 2
+-I- Column A42: cardinality 2
+-I- Column A43: cardinality 2
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_6.pkl
+-I- Query size 10
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_10.pkl
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype
+-I- Query size 2
+-I- Query size 4
+-I- Query size 6
+-I- Query size 10
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype
+-I- New real data instance initialized
+-I- Total entries: 32561
+-I- Column mapping: {'workclass': 'A0', 'education': 'A1', 'marital-status': 'A2', 'occupation': 'A3', 'relationship': 'A4', 'race': 'A5', 'sex': 'A6', 'native-country': 'A7'}
+-I- Cardinalities:
+-I- Column A0: cardinality 9
+-I- Column A1: cardinality 16
+-I- Column A2: cardinality 7
+-I- Column A3: cardinality 15
+-I- Column A4: cardinality 6
+-I- Column A5: cardinality 5
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 42
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult
+-I- Query size 2
+-I- Query size 4
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult
+-I- New real data instance initialized
+-I- Total entries: 8124
+-I- Column mapping: {'X1': 'A0', 'X2': 'A1', 'X3': 'A2', 'X4': 'A3', 'X5': 'A4', 'X6': 'A5', 'X7': 'A6', 'X8': 'A7', 'X9': 'A8', 'X10': 'A9', 'X11': 'A10', 'X12': 'A11', 'X13': 'A12', 'X14': 'A13', 'X15': 'A14', 'X16': 'A15', 'X17': 'A16', 'X19': 'A17', 'X20': 'A18', 'X21': 'A19', 'X22': 'A20', 'X23': 'A21', 'X24': 'A22'}
+-I- Cardinalities:
+-I- Column A0: cardinality 2
+-I- Column A1: cardinality 6
+-I- Column A2: cardinality 4
+-I- Column A3: cardinality 10
+-I- Column A4: cardinality 2
+-I- Column A5: cardinality 9
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 2
+-I- Column A8: cardinality 2
+-I- Column A9: cardinality 12
+-I- Column A10: cardinality 2
+-I- Column A11: cardinality 5
+-I- Column A12: cardinality 4
+-I- Column A13: cardinality 4
+-I- Column A14: cardinality 9
+-I- Column A15: cardinality 9
+-I- Column A16: cardinality 1
+-I- Column A17: cardinality 4
+-I- Column A18: cardinality 3
+-I- Column A19: cardinality 5
+-I- Column A20: cardinality 9
+-I- Column A21: cardinality 6
+-I- Column A22: cardinality 7
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/mode_isj_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/mode_isj_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/mode_isj_query_size_6.pkl
+-I- Query size 10
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/mode_isj_query_size_10.pkl
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom/mode_isj_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom
+-I- Query size 2
+-I- Query size 4
+-I- Query size 6
+-I- Query size 10
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Mushroom
+-I- New real data instance initialized
+-I- Total entries: 67557
+-I- Column mapping: {'a1': 'A0', 'a2': 'A1', 'a3': 'A2', 'a4': 'A3', 'a5': 'A4', 'a6': 'A5', 'b1': 'A6', 'b2': 'A7', 'b3': 'A8', 'b4': 'A9', 'b5': 'A10', 'b6': 'A11', 'c1': 'A12', 'c2': 'A13', 'c3': 'A14', 'c4': 'A15', 'c5': 'A16', 'c6': 'A17', 'd1': 'A18', 'd2': 'A19', 'd3': 'A20', 'd4': 'A21', 'd5': 'A22', 'd6': 'A23', 'e1': 'A24', 'e2': 'A25', 'e3': 'A26', 'e4': 'A27', 'e5': 'A28', 'e6': 'A29', 'f1': 'A30', 'f2': 'A31', 'f3': 'A32', 'f4': 'A33', 'f5': 'A34', 'f6': 'A35', 'g1': 'A36', 'g2': 'A37', 'g3': 'A38', 'g4': 'A39', 'g5': 'A40', 'g6': 'A41'}
+-I- Cardinalities:
+-I- Column A0: cardinality 3
+-I- Column A1: cardinality 3
+-I- Column A2: cardinality 3
+-I- Column A3: cardinality 3
+-I- Column A4: cardinality 3
+-I- Column A5: cardinality 3
+-I- Column A6: cardinality 3
+-I- Column A7: cardinality 3
+-I- Column A8: cardinality 3
+-I- Column A9: cardinality 3
+-I- Column A10: cardinality 3
+-I- Column A11: cardinality 3
+-I- Column A12: cardinality 3
+-I- Column A13: cardinality 3
+-I- Column A14: cardinality 3
+-I- Column A15: cardinality 3
+-I- Column A16: cardinality 3
+-I- Column A17: cardinality 3
+-I- Column A18: cardinality 3
+-I- Column A19: cardinality 3
+-I- Column A20: cardinality 3
+-I- Column A21: cardinality 3
+-I- Column A22: cardinality 3
+-I- Column A23: cardinality 3
+-I- Column A24: cardinality 3
+-I- Column A25: cardinality 3
+-I- Column A26: cardinality 3
+-I- Column A27: cardinality 3
+-I- Column A28: cardinality 3
+-I- Column A29: cardinality 3
+-I- Column A30: cardinality 3
+-I- Column A31: cardinality 3
+-I- Column A32: cardinality 3
+-I- Column A33: cardinality 3
+-I- Column A34: cardinality 3
+-I- Column A35: cardinality 3
+-I- Column A36: cardinality 3
+-I- Column A37: cardinality 3
+-I- Column A38: cardinality 3
+-I- Column A39: cardinality 3
+-I- Column A40: cardinality 3
+-I- Column A41: cardinality 3
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.25_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.5_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.75_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.9_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.99_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.25_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.5_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.75_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.9_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.99_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.25_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.5_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.75_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.9_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.99_query_size_6.pkl
+-I- Query size 10
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.25_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.5_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.75_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.9_query_size_10.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.99_query_size_10.pkl
+-I- Query size 15
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.25_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.5_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.75_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.9_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4/mode_isj_precision_0.99_query_size_15.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Connect4
+-I- New real data instance initialized
+-I- Total entries: 32561
+-I- Column mapping: {'workclass': 'A0', 'education': 'A1', 'marital-status': 'A2', 'occupation': 'A3', 'relationship': 'A4', 'race': 'A5', 'sex': 'A6', 'native-country': 'A7'}
+-I- Cardinalities:
+-I- Column A0: cardinality 9
+-I- Column A1: cardinality 16
+-I- Column A2: cardinality 7
+-I- Column A3: cardinality 15
+-I- Column A4: cardinality 6
+-I- Column A5: cardinality 5
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 42
+-I- Query size 2
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.25_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.5_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.75_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.9_query_size_2.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.99_query_size_2.pkl
+-I- Query size 4
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.25_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.5_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.75_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.9_query_size_4.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.99_query_size_4.pkl
+-I- Query size 6
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.25_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.5_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.75_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.9_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult/mode_isj_precision_0.99_query_size_6.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Adult
+-I- New real data instance initialized
+-I- Total entries: 581012
+-I- Column mapping: {'A10': 'A0', 'A11': 'A1', 'A12': 'A2', 'A13': 'A3', 'A14': 'A4', 'A15': 'A5', 'A16': 'A6', 'A17': 'A7', 'A18': 'A8', 'A19': 'A9', 'A20': 'A10', 'A21': 'A11', 'A22': 'A12', 'A23': 'A13', 'A24': 'A14', 'A25': 'A15', 'A26': 'A16', 'A27': 'A17', 'A28': 'A18', 'A29': 'A19', 'A30': 'A20', 'A31': 'A21', 'A32': 'A22', 'A33': 'A23', 'A34': 'A24', 'A35': 'A25', 'A36': 'A26', 'A37': 'A27', 'A38': 'A28', 'A39': 'A29', 'A40': 'A30', 'A41': 'A31', 'A42': 'A32', 'A43': 'A33', 'A44': 'A34', 'A45': 'A35', 'A46': 'A36', 'A47': 'A37', 'A48': 'A38', 'A49': 'A39', 'A50': 'A40', 'A51': 'A41', 'A52': 'A42', 'A53': 'A43'}
+-I- Cardinalities:
+-I- Column A0: cardinality 2
+-I- Column A1: cardinality 2
+-I- Column A2: cardinality 2
+-I- Column A3: cardinality 2
+-I- Column A4: cardinality 2
+-I- Column A5: cardinality 2
+-I- Column A6: cardinality 2
+-I- Column A7: cardinality 2
+-I- Column A8: cardinality 2
+-I- Column A9: cardinality 2
+-I- Column A10: cardinality 2
+-I- Column A11: cardinality 2
+-I- Column A12: cardinality 2
+-I- Column A13: cardinality 2
+-I- Column A14: cardinality 2
+-I- Column A15: cardinality 2
+-I- Column A16: cardinality 2
+-I- Column A17: cardinality 2
+-I- Column A18: cardinality 2
+-I- Column A19: cardinality 2
+-I- Column A20: cardinality 2
+-I- Column A21: cardinality 2
+-I- Column A22: cardinality 2
+-I- Column A23: cardinality 2
+-I- Column A24: cardinality 2
+-I- Column A25: cardinality 2
+-I- Column A26: cardinality 2
+-I- Column A27: cardinality 2
+-I- Column A28: cardinality 2
+-I- Column A29: cardinality 2
+-I- Column A30: cardinality 2
+-I- Column A31: cardinality 2
+-I- Column A32: cardinality 2
+-I- Column A33: cardinality 2
+-I- Column A34: cardinality 2
+-I- Column A35: cardinality 2
+-I- Column A36: cardinality 2
+-I- Column A37: cardinality 2
+-I- Column A38: cardinality 2
+-I- Column A39: cardinality 2
+-I- Column A40: cardinality 2
+-I- Column A41: cardinality 2
+-I- Column A42: cardinality 2
+-I- Column A43: cardinality 2
+-I- Query size 20
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_20.pkl
+-I- Query size 25
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_25.pkl
+-I- Query size 30
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_30.pkl
+-I- Query size 35
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_35.pkl
+-I- Query size 40
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype/mode_isj_query_size_40.pkl
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype
+-I- Query size 20
+-I- Query size 25
+-I- Query size 30
+-I- Query size 35
+-I- Query size 40
+-I- Check /data/home/orglassman/outputs/real_data_analysis/Covertype
