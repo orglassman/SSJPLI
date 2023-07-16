@@ -5,4 +5,6 @@
 /mi_experiment.py
 /cubic.py
 /__pycache__/*
-*.sh
+*.sh!/run_real_data_isj.sh
+
+!/run_real_data.sh
