@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="remove __pycache__, update mpl">
-      <change afterPath="$PROJECT_DIR$/experiment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sql_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ssj_sqlite.py" afterDir="false" />
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="in-memory sql utility">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssjsampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssjsampler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,13 +220,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00020" summary="get HQ HQUN and number of misses and empty symbols rather than compute bounds explicitly. all bounds can be obtained later">
-      <created>1682620225447</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1682620225447</updated>
     </task>
     <task id="LOCAL-00021" summary="minor bug fix">
       <created>1682620953921</created>
@@ -567,7 +557,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688927418367</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="in-memory sql utility">
+      <created>1689508782871</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1689508782871</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -586,7 +583,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="add ratio + std measurements to real data analysis" />
     <MESSAGE value="convert to general queries not necessarily pairwise. add PLI cache baseline" />
     <MESSAGE value="varying query size for real data" />
     <MESSAGE value="bug in coverage split" />
@@ -611,7 +607,8 @@
     <MESSAGE value="remove isj precision argument" />
     <MESSAGE value="routine" />
     <MESSAGE value="remove __pycache__, update mpl" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove __pycache__, update mpl" />
+    <MESSAGE value="in-memory sql utility" />
+    <option name="LAST_COMMIT_MESSAGE" value="in-memory sql utility" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

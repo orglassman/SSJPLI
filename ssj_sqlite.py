@@ -91,7 +91,7 @@ class SSJSQL:
         return res
 
 if __name__ == '__main__':
-    path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
+    path = ""
 
     ssj_sampler = SSJSQL(path=path, name='NURSERY')
 

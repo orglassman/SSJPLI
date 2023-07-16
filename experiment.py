@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-
-
-
 import time
 from argparse import ArgumentParser
 
