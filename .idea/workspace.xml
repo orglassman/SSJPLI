@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="ignore">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssj_sqlite.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssj_sqlite.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +87,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/experiment.py" />
-      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Nursery\nursery.csv&quot; -name &quot;Nursery&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Nursery\sql&quot; -mode sql" />
+      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -name &quot;Connect4&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4&quot; -machine local -qs 6 -coverages 0.99" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -219,13 +221,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00023" summary="measure explicit time for calculation of entropy">
-      <created>1682843697266</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1682843697266</updated>
     </task>
     <task id="LOCAL-00024" summary="measure explicit time for calculation of entropy">
       <created>1682850149275</created>
@@ -563,7 +558,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689515765826</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="ignore">
+      <created>1689585163565</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1689585163565</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -680,7 +682,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ssj_sqlite.py</url>
-          <line>93</line>
+          <line>187</line>
           <option name="timeStamp" value="808" />
         </line-breakpoint>
       </breakpoints>
