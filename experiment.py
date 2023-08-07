@@ -2,6 +2,7 @@
 import time
 from argparse import ArgumentParser
 
+import numpy as np
 import pandas as pd
 import sql_utils as squ
 

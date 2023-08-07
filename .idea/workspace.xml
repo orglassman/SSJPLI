@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="ignore">
+    <list default="true" id="7dcceed6-89d3-4b91-bd63-d2f493f19127" name="Changes" comment="three baselines now implemented sqlite3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssj_sqlite.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssj_sqlite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssjsampler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssjsampler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +54,7 @@
       <recent name="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\old" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.experiment sql">
+  <component name="RunManager" selected="Python.real_data">
     <configuration name="dataset" type="PythonConfigurationType" factoryName="Python">
       <module name="LeapfrogPYJoin" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -87,7 +89,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/experiment.py" />
-      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -name &quot;Connect4&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4&quot; -machine local -qs 6 -coverages 0.99" />
+      <option name="PARAMETERS" value="-in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -name &quot;biast&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4&quot; -machine local -qs 6 -coverages 0.9" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -107,8 +109,8 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\LeapfrogPYJoin\analysis_main.py" />
-      <option name="PARAMETERS" value="-mode isj -R 10 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4\isj&quot;" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analysis_main.py" />
+      <option name="PARAMETERS" value="-R 100 -in_file &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Datasets\Connect4\connect4.csv&quot; -out_dir &quot;C:\Users\orgla\Desktop\Study\J_Divergence_ST_formulation\Outputs\real data analysis\Connect4\bssj&quot; -q_sizes 6" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -221,13 +223,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650180604833</updated>
-    </task>
-    <task id="LOCAL-00024" summary="measure explicit time for calculation of entropy">
-      <created>1682850149275</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1682850149275</updated>
     </task>
     <task id="LOCAL-00025" summary="measure explicit time for calculation of entropy (minor bug fix)">
       <created>1682850174760</created>
@@ -565,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689585163565</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="three baselines now implemented sqlite3">
+      <created>1690313643754</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1690313643754</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -584,7 +586,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/pypmc" />
     </ignored-roots>
-    <MESSAGE value="varying query size for real data" />
     <MESSAGE value="bug in coverage split" />
     <MESSAGE value="for H(Omega) return logN" />
     <MESSAGE value="rename columns A0,A1,..." />
@@ -609,7 +610,8 @@
     <MESSAGE value="in-memory sql utility" />
     <MESSAGE value="maintenance" />
     <MESSAGE value="ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="ignore" />
+    <MESSAGE value="three baselines now implemented sqlite3" />
+    <option name="LAST_COMMIT_MESSAGE" value="three baselines now implemented sqlite3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -672,18 +674,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ssjsampler.py</url>
-          <line>478</line>
+          <line>491</line>
           <option name="timeStamp" value="781" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/analysis_main.py</url>
-          <line>245</line>
+          <line>244</line>
           <option name="timeStamp" value="790" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ssj_sqlite.py</url>
-          <line>187</line>
-          <option name="timeStamp" value="808" />
+          <url>file://$PROJECT_DIR$/experiment.py</url>
+          <line>85</line>
+          <option name="timeStamp" value="817" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/experiment.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="825" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/analysis_main.py</url>
+          <line>115</line>
+          <option name="timeStamp" value="841" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

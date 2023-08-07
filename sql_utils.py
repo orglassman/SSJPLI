@@ -2,7 +2,10 @@ import random
 import sqlite3
 import traceback
 
+import numpy as np
+
 squ_params = {}
+
 
 def set_params(**kwargs):
     """this has to be done prior to SSJing"""
@@ -41,7 +44,8 @@ def equijoin(cursor, table_names, column_names, on):
     select_statement = ', '.join([f'{table}.{column}' for table, column in zip(table_names, column_names)])
     select_statement += f', {table_names[0]}.{on}'
 
-    join_condition = ' AND '.join([f'{table_names[i]}.{on} = {table_names[i + 1]}.{on}' for i in range(len(table_names) - 1)])
+    join_condition = ' AND '.join(
+        [f'{table_names[i]}.{on} = {table_names[i + 1]}.{on}' for i in range(len(table_names) - 1)])
 
     query = f'''SELECT {select_statement} \
                 FROM {table_names[0]} \
@@ -59,19 +63,15 @@ def PLI_join_cnts(cursor, table_names, X):
     concat_args = [f'"{alias}"."{alias.lower()}"' for alias in X]
     concat_statement = ' || "," || '.join(concat_args)
 
-
     aliased_tables = ', '.join([f'"{table}" "{alias}"' for table, alias in zip(table_names, X)])
 
-
     join_condition = ' AND '.join([f'"{X[i]}".tid = "{X[i + 1]}".tid' for i in range(len(X) - 1)])
-
 
     query = f'''CREATE TABLE "{output_name}" AS \
                        SELECT {concat_statement} as "{new_colname}", count(*) as cnt \
                        FROM {aliased_tables} \
                        WHERE {join_condition} \
                        GROUP BY "{new_colname}" HAVING count(*) > 1'''
-
 
     cursor.execute(query)
     cursor.execute(f'SELECT "{new_colname}", cnt FROM "{output_name}"')
@@ -106,7 +106,6 @@ def PLI_join_tids(cursor, table_names, X):
 
 
 def SSJ_build_pairwise_tables(cursor, lhs_weights, rhs_weights, lhs_tid_name, rhs_tid_name):
-
     # init new TID and CNT in-memory
     new_tid_name, new_cnt_name = SSJ_init_new_tables(cursor, lhs_tid_name, rhs_tid_name)
     tid_data_to_insert = []
@@ -116,50 +115,69 @@ def SSJ_build_pairwise_tables(cursor, lhs_weights, rhs_weights, lhs_tid_name, rh
     colname_A = lhs_tid_name.split('_')[-1].lower()
     colname_B = rhs_tid_name.split('_')[-1].lower()
 
-
     # flow control
-    seen = {}
     num_sampled_entries = 0
     res = {}
 
     # main loop
     target_N = int(squ_params['coverage'] * squ_params['N'])
     while num_sampled_entries < target_N:
-        # sample, discard if seen
-        a = random.choices(list(lhs_weights.keys()), weights=lhs_weights.values())[0]
-        b = random.choices(list(rhs_weights.keys()), weights=rhs_weights.values())[0]
-        x = f'{a},{b}'
-        if x in seen.keys():
-            continue
-        seen[x] = 1
+        # determine batch size
+        sampled_batch = {}
+        domain_A = list(lhs_weights.keys())
+        domain_B = list(rhs_weights.keys())
+        ps = len(domain_A) * len(domain_B)
+        batch_size = int(ps * np.log2(ps)) + 1
+        i = 0
+        while (i < batch_size) and (len(sampled_batch) < ps):
+            # cursor.execute(f'SELECT A.tid,-log((abs(random())%1000000+0.5)/1000000.0)/B.cnt AS priority FROM {lhs_tid_name} A {} \
+            #             WHERE WEIGHT > 0 ORDER BY priority LIMIT 1')
+            #         SELECT value, -log((abs(random()) % 1000000 + 0.5) / 1000000.0) / weight
+            #         AS
+            #         priority
+            #         FROM test
+            #         WHERE weight > 0
+            #         ORDER BY priority LIMIT 1
 
-        # query tables
-        cursor.execute(
-                        f'SELECT A.tid \
-                        FROM "{lhs_tid_name}" A, "{rhs_tid_name}" B \
-                        WHERE A.tid = B.tid AND A."{colname_A}" = "{a}" AND B."{colname_B}" = "{b}"'
-        )
-        tids = [r[0] for r in cursor.fetchall()]
-        Nab = len(tids)
-        if not tids:
-            continue
+            a = random.choices(domain_A, weights=lhs_weights.values())[0]
+            b = random.choices(domain_B, weights=rhs_weights.values())[0]
+            x = (a, b)
+            sampled_batch[x] = f'{a},{b}'
+            i += 1
 
-        # update tables
-        tid_data_to_insert += [(x, t) for t in tids]
-        cnt_data_to_insert.append((x, Nab))
+        for x in sampled_batch.keys():
+            cursor.execute(f'SELECT A.tid FROM "{lhs_tid_name}" A, "{rhs_tid_name}" B \
+                WHERE A.tid = B.tid AND A."{colname_A}" = "{x[0]}" \
+                AND B."{colname_B}" = "{x[1]}"'
+                           )
 
-        # flow control
-        num_sampled_entries += Nab
-        res[x] = Nab
+            tids = [r[0] for r in cursor.fetchall()]
+            Nab = len(tids)
+            if Nab == 0:
+                continue
 
-        # update sampling distributions
-        lhs_weights[a] -= Nab
-        if lhs_weights[a] <= 0:
-            del lhs_weights[a]
+            # update tables
+            tid_data_to_insert += [[sampled_batch[x], t] for t in tids]
+            cnt_data_to_insert.append([sampled_batch[x], Nab])
 
-        rhs_weights[b] -= Nab
-        if rhs_weights[b] <= 0:
-            del rhs_weights[b]
+            # flow control
+            num_sampled_entries += Nab
+            res[sampled_batch[x]] = Nab
+            try:
+                # update sampling distributions
+                lhs_weights[x[0]] -= Nab
+                if lhs_weights[x[0]] <= 0:
+                    del lhs_weights[x[0]]
+            except:
+                # print(f'-W- Key {x[0]} not in LHS weights')
+                pass
+            try:
+                rhs_weights[x[1]] -= Nab
+                if rhs_weights[x[1]] <= 0:
+                    del rhs_weights[x[1]]
+            except:
+                # print(f'-W- Key {x[1]} not in RHS weights')
+                pass
 
         if (not lhs_weights.keys()) or (not rhs_weights.keys()):
             break

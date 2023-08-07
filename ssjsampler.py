@@ -1,4 +1,5 @@
 import itertools
+import random
 import time
 import heapq
 from random import choices
@@ -102,7 +103,7 @@ class SSJSampler:
             'H_ssj': H_dict(self.get_dist_from_frequency_table(current)),
             'rho': rho,
             'sigma': coverage,
-            'N': self.dataset.get_N(),
+            'N': self.N,
             'product_set_size': product_set_size,
             'samples': total_samples
         }
@@ -253,51 +254,64 @@ class SSJSampler:
         rho - effective coverage > sigma
         nulls - (a,b) with empty frequency
         """
-        tids = {
-            'A': TA,
-            'B': TB
-        }
-        sampling_weights = self.gen_ssj_sampling_weights(tids)
+        sampling_weights = self.gen_ssj_sampling_weights({'A': TA, 'B': TB})
 
         target_N = int(self.N * coverage) + 1
         total_sampled = 0
 
         frequencies = {}  # result TX
-        sampled = {}  # for resamples
         nulls = []  # for x s.t. I(x)=\emptyset
         num_samples = 0
-        KLs = []
         while total_sampled < target_N:
 
-            # real_distributions = self.build_dist_real(X, frequencies) # real distribution of remaining entries
-            # sample_distributions = self.build_dist_ssj(total_sampled, sampling_weights) # ssj distribution of remaining entries
+            sampled_batch = {}
+            domain_A = list(sampling_weights['A'].keys())
+            domain_B = list(sampling_weights['B'].keys())
+            ps = len(domain_A) * len(domain_B)
+            batch_size = int(ps * np.log2(ps)) + 1
+            i = 0
+            while (i < batch_size) and (len(sampled_batch) < ps):
+                a = random.choices(domain_A, weights=sampling_weights['A'].values())[0]
+                b = random.choices(domain_B, weights=sampling_weights['B'].values())[0]
+                x = (a, b)
+                sampled_batch[x] = f'{a},{b}'
+                i += 1
 
-            # KLs.append(DKL(real_distributions, sample_distributions))
-
-            num_samples += 1
-            instance = self.sample_instance_ssj(sampling_weights)
-            x = flatten(tuple(instance.values()))
-
-            if x in sampled.keys():
-                L = 0
-            else:
-                sampled[x] = 1
-                # I(x) = I(a) \cap I(b)
-                lists = [tids[attribute][value] for attribute, value in instance.items()]
+            num_samples += i
+            for x in sampled_batch.keys():
+                lists = [TA[x[0]], TB[x[1]]]
                 sets = map(set, lists)
                 intersection_indices = sorted(list(set.intersection(*sets)))
-                L = len(intersection_indices)
+                Nab = len(intersection_indices)
 
-                if L <= 1:
+                if Nab <= 1:
                     nulls.append(x)
                 else:
-                    frequencies[x] = intersection_indices
+                    frequencies[sampled_batch[x]] = intersection_indices
 
-            # update distributions. break if dist empty
-            sampling_weights = self.update_ssj_sampling_weights(sampling_weights, instance, L)
-            if not sampling_weights:
+                if Nab == 0:
+                    continue
+
+                # flow control
+                total_sampled += Nab
+                try:
+                    # update sampling distributions
+                    sampling_weights['A'][x[0]] -= Nab
+                    if sampling_weights['A'][x[0]] <= 0:
+                        del sampling_weights['A'][x[0]]
+                except:
+                    # print(f'-W- Key {x[0]} not in LHS weights')
+                    pass
+                try:
+                    sampling_weights['B'][x[1]] -= Nab
+                    if sampling_weights['B'][x[1]] <= 0:
+                        del sampling_weights['B'][x[1]]
+                except:
+                    # print(f'-W- Key {x[1]} not in RHS weights')
+                    pass
+
+            if (not sampling_weights['A'].keys()) or (not sampling_weights['B'].keys()):
                 break
-            total_sampled += L
 
         res_data = {
             'frequencies': sort_by_key(frequencies),
@@ -306,7 +320,6 @@ class SSJSampler:
             'rho': total_sampled / self.N,
             'nulls': nulls
         }
-
         return res_data
 
     def gen_ssj_sampling_weights(self, tids):
@@ -509,16 +522,6 @@ class SSJSampler:
         }
 
         return res_data
-
-    def gen_msj_sampling_weights(self, tids):
-        entries_A = [TIDEntry(a, Ia) for a, Ia in tids['A'].items()]
-        entries_B = [TIDEntry(b, Ib) for b, Ib in tids['B'].items()]
-
-        heapq.heapify(entries_A)
-        heapq.heapify(entries_B)
-
-        weights = {'A': entries_A, 'B': entries_B}
-        return weights
 
     def sample_instance_msj(self, weights):
         a = heapq.heappop(weights['A'])

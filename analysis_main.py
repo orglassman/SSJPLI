@@ -18,8 +18,7 @@ def parse_args():
     parser.add_argument('-q_sizes', default="2,4,6", help='target query sizes separated by commas, e.g., 2,3,4,5')
     parser.add_argument('-coverages', default="0.25,0.5,0.75,0.9,0.99",
                         help='target coverages separated by commas, e.g., 0.25,0.75,0.9')
-    parser.add_argument('-mode', default='ssj', help='pli/ssj/isj/msj/explicit')
-    parser.add_argument('-K', default=1000, help='number of samples for ISJ')
+    parser.add_argument('-mode', default='ssj', help='pli/ssj/isj/bssj/explicit')
     args = parser.parse_args()
     return args
 
@@ -72,12 +71,12 @@ def single_query_ssj(args):
 
             # vary coverage for each query
             for coverage in ssj_args['coverages']:
-                target_res_data = sampler.entropy(X, coverage=coverage)
+                target_res_data = sampler.entropy(X, coverage=coverage, mode=args.mode)
 
                 H_true.append(HX)
-                H_target.append(target_res_data['H_s'])
-                t_target.append(target_res_data['t_s'])
-                N_sample.append(target_res_data['num_samples'])
+                H_target.append(target_res_data['H_ssj'])
+                t_target.append(target_res_data['t_ssj'])
+                N_sample.append(target_res_data['samples'])
 
                 rho_ssj.append(target_res_data['rho'])
                 sigma_ssj.append(target_res_data['sigma'])
@@ -91,9 +90,9 @@ def single_query_ssj(args):
                 product_set_size.append(target_res_data['product_set_size'])
 
                 # absolute measurements
-                H_s_ratio.append(target_res_data['H_s'] / HX)
-                t_s_ratio.append(target_res_data['t_s'] / pli_res_data['t_pli'])
-                MSEs.append((HX - target_res_data['H_s']) ** 2)
+                H_s_ratio.append(target_res_data['H_ssj'] / HX)
+                t_s_ratio.append(target_res_data['t_ssj'] / pli_res_data['t_pli'])
+                MSEs.append((HX - target_res_data['H_ssj']) ** 2)
 
         measurements = {
             'H_s': H_target,

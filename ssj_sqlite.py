@@ -1,4 +1,5 @@
 import csv
+import math
 import sqlite3
 import sys
 import traceback
@@ -51,10 +52,10 @@ class SSJSQL:
                     PLIs[header[att_num]][token] = [idx + 1]
 
         # remove singletons
-        for attribute in PLIs.keys():
-            for letter in PLIs[attribute].keys():
-                if len(PLIs[attribute][letter]) == 1:
-                    del PLIs[attribute][letter]
+        # for attribute in PLIs.keys():
+        #     for letter in PLIs[attribute].keys():
+        #         if len(PLIs[attribute][letter]) == 1:
+        #             del PLIs[attribute][letter]
 
         self.weights = {k: {j: len(j) for j in PLIs[k].keys()} for k in PLIs.keys()}
         self.cardinalities = {k: len(v) for k, v in PLIs.items()}
@@ -87,6 +88,9 @@ class SSJSQL:
 
         # commit changes
         self.connection.commit()
+
+        # create sampling routine
+        self.connection.create_function("log", 1, math.log)
 
         # free memory
         del self.PLIs
@@ -136,20 +140,6 @@ class SSJSQL:
 
         return {k: v / rho_N for k, v in lhs_weights.items()}
 
-    def get_distribution_from_SSJ2(self, X):
-        tid_table_names = [f'TID_{x}' for x in X]
-        cnt_table_names = [f'CNT_{x}' for x in X]
-
-        rho_N = 0
-        lhs_weights = squ.SSJ_get_weights2(self.cursor, cnt_table_names[0])
-        lhs_tid_name = tid_table_names[0]
-        for idx, next_att in enumerate(X[1:]):
-            rhs_weights = squ.SSJ_get_weights2(self.cursor, cnt_table_names[idx+1])
-            lhs_weights, lhs_tid_name, rho_N = squ.SSJ_build_pairwise_tables2(self.cursor, lhs_weights, rhs_weights, lhs_tid_name, tid_table_names[idx+1])
-            squ.set_params(N=rho_N)
-
-        return {k: v / rho_N for k, v in lhs_weights.items()}
-
     def entropy(self, X, mode='PLI'):
         P = None
         if mode == 'EXP':
@@ -167,6 +157,7 @@ class SSJSQL:
 
     def get_ps_size(self, X):
         attributes = list(X)
+
         res = 1
         for a in attributes:
             res *= self.cardinalities[a]
@@ -176,13 +167,14 @@ class SSJSQL:
     def clean(self, X, mode='SSJ'):
         singles = list(X)
         if mode == 'SSJ':
-            for i in range(2, len(singles)+1):
+            for i in range(2, len(singles) + 1):
                 target = ",".join(singles[:i])
                 self.cursor.execute(f'DROP TABLE "CNT_{target}"')
                 self.cursor.execute(f'DROP TABLE "TID_{target}"')
-        else:
-            target = ','.join(X)
-            self.cursor.execute(f'DROP TABLE "CNT_{target}"')
+            else:
+                target = ','.join(X)
+        self.cursor.execute(f'DROP TABLE "CNT_{target}"')
+
 
 if __name__ == '__main__':
     path = "C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Datasets\\Nursery\\nursery.csv"
