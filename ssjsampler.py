@@ -159,7 +159,6 @@ class SSJSampler:
 
         return res_data
 
-
     def entropy_explicit(self, X):
         df = self.dataset.df[X]
         dist = {}

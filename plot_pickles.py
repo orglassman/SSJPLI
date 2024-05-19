@@ -274,5 +274,74 @@ def load_dfs(dir, coverages=None, mode='ssj'):
     return dfs
 
 
+def make_net_vs_q_plot():
+    mpl.rcParams['axes.spines.top'] = False
+    mpl.rcParams['axes.spines.right'] = False
+    mpl.rcParams['figure.autolayout'] = True
+    mpl.rcParams['axes.titlesize'] = 20
+    mpl.rcParams['axes.labelsize'] = 15
+    mpl.rcParams['font.size'] = 15
+    mpl.rcParams['xtick.labelsize'] = 15
+    mpl.rcParams['ytick.labelsize'] = 15
+    # plt.figure(figsize=(12, 5), dpi=300, facecolor='w')
+
+    from common import load_dir
+    adult_dir = 'C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\real data analysis\\Adult'
+    connect4_dir = 'C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\real data analysis\\Connect4'
+    covertype_dir = 'C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\real data analysis\\Covertype'
+    letter_dir = 'C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\real data analysis\\Letter'
+    mushroom_dir = 'C:\\Users\\orgla\\Desktop\\Study\\J_Divergence_ST_formulation\\Outputs\\real data analysis\\Mushroom'
+
+    adult_dfs = load_dir(adult_dir)
+    connect4_dfs = load_dir(connect4_dir)
+    covertype_dfs = load_dir(covertype_dir)
+    letter_dfs = load_dir(letter_dir)
+    mushroom_dfs = load_dir(mushroom_dir)
+
+    adult_qs = sorted(list(adult_dfs[.99].keys()))
+    connect4_qs = sorted(list(connect4_dfs[.99].keys()))
+    covertype_qs = sorted(list(covertype_dfs[.99].keys()))
+    letter_qs = sorted(list(letter_dfs[.99].keys()))
+    mushroom_qs = sorted(list(mushroom_dfs[.99].keys()))
+
+    adult_avgs = [np.average(adult_dfs[.99][q]['t_ssj_ratio']) for q in adult_qs]
+    connect4_avgs = [np.average(connect4_dfs[.99][q]['t_ssj_ratio']) for q in connect4_qs]
+    covertype_avgs = [np.average(covertype_dfs[.99][q]['t_ssj_ratio']) for q in covertype_qs]
+    letter_avgs = [np.average(letter_dfs[.99][q]['t_ssj_ratio']) for q in letter_qs]
+    mushroom_avgs = [np.average(mushroom_dfs[.99][q]['t_ssj_ratio']) for q in mushroom_qs]
+
+    # plot
+    ax1 = plt.subplot2grid(shape=(2, 6), loc=(0, 0), colspan=2)
+    ax2 = plt.subplot2grid((2, 6), (0, 2), colspan=2)
+    ax3 = plt.subplot2grid((2, 6), (0, 4), colspan=2)
+    ax4 = plt.subplot2grid((2, 6), (1, 1), colspan=2)
+    ax5 = plt.subplot2grid((2, 6), (1, 3), colspan=2)
+
+    axs = [ax1, ax2, ax3, ax4, ax5]
+
+    for ax in axs:
+        ax.tick_params(labelsize=15)
+
+    for ax in axs:
+        ax.grid(axis='y')
+
+    ax1.plot(adult_qs, adult_avgs, marker='o', linewidth=4, markersize=10, color='tab:blue')
+    ax2.plot(connect4_qs, connect4_avgs, marker='o', linewidth=4, markersize=10, color='tab:orange')
+    ax3.plot(covertype_qs, covertype_avgs, marker='o', linewidth=4, markersize=10, color='tab:green')
+    ax4.plot(letter_qs, letter_avgs, marker='o', linewidth=4, markersize=10, color='tab:red')
+    ax5.plot(mushroom_qs, mushroom_avgs, marker='o', linewidth=4, markersize=10, color='tab:purple')
+
+    # labels and titles
+    ax1.set_title('Adult', fontsize=15)
+    ax2.set_title('Connect-4', fontsize=15)
+    ax3.set_title('Covertype', fontsize=15)
+    ax4.set_title('Letter', fontsize=15)
+    ax5.set_title('Mushroom', fontsize=15)
+
+    ax1.set_ylabel(r'$t/t_{PLI}$', fontsize=15)
+    ax4.set_ylabel(r'$t/t_{PLI}$', fontsize=15)
+    ax2.set_xlabel('query size', fontsize=15)
+    plt.text(-0.1, -0.1, 'query size', ha='center', va='center', fontsize=15, transform=plt.gca().transAxes)
+
 if __name__ == '__main__':
     print('hello')

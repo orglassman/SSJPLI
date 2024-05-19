@@ -1,7 +1,12 @@
+import os
 import pickle
+import re
+
 from scipy.stats import entropy
 import numpy as np
 import pandas as pd
+
+COVERAGES = [.25, .5, .75, .9, .99]
 
 
 def colToExcel(col):
@@ -219,6 +224,24 @@ def load_pickle(path):
     with open(path, 'rb') as handle:
         b = pickle.load(handle)
         return b
+
+
+def load_dir(path):
+    dfs = {c: {} for c in COVERAGES}
+    pattern = "coverage_(\d+\.\d+)_query_size_(\d+)"
+    for file in os.listdir(path):
+        fullpath = path + '\\' + file
+        if os.path.isdir(fullpath):
+            continue
+        match = re.search(pattern, file)
+        if match:
+            coverage = float(match.group(1))
+            query_size = int(match.group(2))
+            dfs[coverage][query_size] = load_pickle(fullpath)
+        else:
+            print(f"-W- File {fullpath}")
+
+    return dfs
 
 
 def entropy_csv(path, q):
